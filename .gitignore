@@ -69,6 +69,3 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 /public/uploads
-
-.rubocop.yml
-.rubocop_todo.yml
