@@ -13,9 +13,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'unicorn'
 gem 'faker'
-gem 'bcrypt'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails'
