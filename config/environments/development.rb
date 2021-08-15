@@ -21,4 +21,5 @@ Rails.application.configure do
   config.assets.debug = true
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::FileUpdateChecker
+  config.action_mailer.default_url_options = { host: 'localhost', port: 80 }
 end
