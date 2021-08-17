@@ -18,7 +18,8 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = Photo.new(contest_params)
+    @contest = find_by(id: params[:id])
+    @photo = Photo.new(photo_params)
     user = current_user
     @photo.user_id = user ? user.id : 1
     if @contest.save
@@ -33,4 +34,10 @@ class PhotosController < ApplicationController
     @photo = Photo.find_by(id: params[:id])
     redirect_to photos_path unless @photo
   end
+
+
+  private
+    def photo_params
+      params.require(:photo).permit(:name, :image)
+    end
 end
