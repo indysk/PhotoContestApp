@@ -20,8 +20,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     if current_user == resource && current_user.guest?
-      flash[:error] == "ゲストユーザはプロフィールを更新できません"
-      redirect_to user_path(resource)
+      flash[:error] = "ゲストユーザはプロフィールを更新できません"
+      redirect_to root_path
     else
       super
     end
@@ -30,8 +30,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # DELETE /resource
   def destroy
     if current_user == resource && current_user.guest?
-      flash[:error] == "ゲストユーザは削除できません"
-      redirect_to user_path(resource)
+      flash[:error] = "ゲストユーザは削除できません"
+      redirect_to root_path
     else
       super
     end

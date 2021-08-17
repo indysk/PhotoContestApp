@@ -1,3 +1,4 @@
 <h1>コンテスト詳細ページ</h1>
 <h3><%= @contest.name %></h3>
 <p>作成者：<%= @contest.user.name %></p>
+<%= link_to  "写真を投稿", new_photo_path %>

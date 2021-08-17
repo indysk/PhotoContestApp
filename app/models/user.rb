@@ -7,5 +7,6 @@ class User < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   has_many :contests, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
 end
