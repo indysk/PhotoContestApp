@@ -1,2 +1,4 @@
-<h1>Photos#show</h1>
-<p>Find me in app/views/photos/show.html.erb</p>
+<h3>タイトル：<%= link_to @photo.name, path_for_photo_show(@photo) %></h3>
+<h3>投稿者：<%= link_to @photo.user.name, @photo.user %></h3>
+<h3>コンテスト名：<%= link_to @photo.contest.name, @photo.contest %></h3>
+<%= image_tag @photo.image %>

@@ -38,8 +38,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-    redirect_to root_path unless @user
+    if (@user = User.find_by(id: params[:id]))
+      @photos = @user.photos.paginate(page: params[:page])
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /resource/cancel

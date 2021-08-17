@@ -10,18 +10,27 @@ Contest.create!(name:  "ゲストが作成したコンテスト",
 
 
 #ダミーデータ++++++++++++++++++++++++++++++++++++++++
-29.times do |n|
+10.times do |n|
+  #ユーザ
   name  = Faker::Name.name
   email = "example-#{n+1}@example.com"
   password = "password#{n+1}"
-  user = User.create!(name:  name,
-                      email: email,
+  user = User.create!(name:                  name,
+                      email:                 email,
                       password:              password,
                       password_confirmation: password)
+  #コンテスト
   rand(5).times do |n|
     name  = Faker::Movie.title
-    Contest.create!(name:  name,
-                    user_id: user.id)
+    contest = Contest.create!(name:    name,
+                              user_id: user.id)
+    #写真
+    if rand(5) == 0 || 1 || 2
+      name = name = Faker::File.file_name
+      Photo.create!(name:       name,
+                    user_id:    user.id,
+                    contest_id: contest.id)
+    end
   end
 end
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

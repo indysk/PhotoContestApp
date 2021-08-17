@@ -6,8 +6,11 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @contest = Contest.find_by(id: params[:id])
-    redirect_to root_path unless @contest
+    if (@contest = Contest.find_by(id: params[:id]))
+      @photos = @contest.photos.includes(:user).paginate(page: params[:page])
+    else
+      redirect_to root_path
+    end
   end
 
   def new
@@ -16,8 +19,7 @@ class ContestsController < ApplicationController
 
   def create
     @contest = Contest.new(contest_params)
-    user = current_user
-    @contest.user_id = user ? user.id : Rails.application.credentials.guest[:id]
+    @contest.user_id = current_user_or_guest.id
     if @contest.save
       redirect_to root_path
     else

@@ -1,2 +1,5 @@
-<h1>Photos#new</h1>
-<p>Find me in app/views/photos/new.html.erb</p>
+<%= form_with model: @photo, url: contest_photos_path(params[:contest_id]), local: true  do |f| %>
+<%= f.text_field :name %><br><br>
+<%= f.file_field :image, multiple: true %><br>
+<%= f.submit %>
+<% end %>

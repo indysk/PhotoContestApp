@@ -16,6 +16,8 @@ services:
       - app-network
     depends_on:
       - db
+    stdin_open: true
+    tty: true
 
   db:
     image: mysql:5.7

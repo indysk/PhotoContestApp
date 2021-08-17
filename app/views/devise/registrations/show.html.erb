@@ -3,3 +3,8 @@
 <p>メールアドレス : <%= @user.email %></p>
 <%= link_to  "プロフィールを変更", edit_user_registration_path %>
 <%= link_to  "前のページに戻る", :back %>
+<%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<div class="img_list">
+  <%= render partial: 'photos/photo', collection: @photos %>
+</div>
+<%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

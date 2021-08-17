@@ -1,16 +1,7 @@
 class PhotosController < ApplicationController
-  def index
-    if (@user = current_user)
-      @photos = Photo.find_by(user: @user).paginate(page: params[:page])
-    else
-      flash[:error] = "ゲストユーザの写真一覧は利用できません"
-      redirect_to root_path
-    end
-  end
-
   def show
     @photo = Photo.find_by(id: params[:id])
-    redirect_to photos_path unless @photo
+    redirect_to :back unless @photo
   end
 
   def new
@@ -18,12 +9,26 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @contest = find_by(id: params[:id])
+    # @contest = Contest.find_by(id: params[:contest_id])
+    # render :new unless @contest
+
+    # @photo = @contest.photos.build(photo_params)
+    # render :new unless @photo
+
+    # @photo.user_id = current_user_or_guest.id
+    # if @photo.save
+    #   redirect_to @contest
+    # else
+    #   render :new
+    # end
+
     @photo = Photo.new(photo_params)
-    user = current_user
-    @photo.user_id = user ? user.id : 1
-    if @contest.save
-      redirect_to root_path
+    @photo.user_id = current_user_or_guest.id
+    @contest = Contest.find_by(id: params[:contest_id])
+    @photo.contest_id = @contest.id
+
+    if @photo.save
+      redirect_to @contest
     else
       render :new
     end
