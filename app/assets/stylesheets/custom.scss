@@ -1,0 +1,23 @@
+ul {
+  list-style: none;
+}
+
+header {
+  nav>ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 2px;
+    }
+  }
+}
+
+ul.pagination {
+  display: flex;
+
+  li {
+    padding: 0 2px;
+  }
+}

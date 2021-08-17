@@ -1,0 +1,7 @@
+<h1>コンテスト一覧</h1>
+<%= link_to  "新しいコンテストを作る", new_contest_path %>
+<%= will_paginate %>
+<ul>
+  <%= render @contests unless @contests.nil? %>
+</ul>
+<%= will_paginate %>

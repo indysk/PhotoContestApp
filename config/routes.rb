@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
-  root 'pages#home'
-  devise_for :users
-  resources :users, only: [:show]
+  root 'contests#index'
+  resources :contests, except: [:index]
 
+  devise_for(
+    :users,
+    path: '',
+    module: 'users',
+    path_names: { registration: 'users' }
+  )
+  devise_scope :user do
+    get 'users/:id', to: 'users/registrations#show', as: 'user'
+  end
 
 end
