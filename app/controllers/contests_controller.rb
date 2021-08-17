@@ -17,7 +17,7 @@ class ContestsController < ApplicationController
   def create
     @contest = Contest.new(contest_params)
     user = current_user
-    @contest.user_id = user ? user.id : 1
+    @contest.user_id = user ? user.id : Rails.application.credentials.guest[:id]
     if @contest.save
       redirect_to root_path
     else

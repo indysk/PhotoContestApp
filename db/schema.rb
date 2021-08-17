@@ -12,25 +12,25 @@
 
 ActiveRecord::Schema.define(version: 2021_08_17_043108) do
 
-  create_table "contests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "contests", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.bigint "user_id"
+    t.string "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_contests_on_user_id"
+    t.index ["user_id"], name: "fk_rails_95cc4b10b0"
   end
 
-  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "photos", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.bigint "contest_id"
-    t.bigint "user_id"
+    t.string "user_id"
+    t.string "contest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contest_id"], name: "index_photos_on_contest_id"
-    t.index ["user_id"], name: "index_photos_on_user_id"
+    t.index ["contest_id"], name: "fk_rails_f9368fe956"
+    t.index ["user_id"], name: "fk_rails_c79d76afc0"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_08_17_043108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "guest", default: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,11 +1,13 @@
 class CreatePhotos < ActiveRecord::Migration[5.2]
   def change
-    create_table :photos do |t|
+    create_table :photos, id: :string do |t|
       t.string :name
-      t.references :contest, foreign_key: true
-      t.references :user, foreign_key: true
+      t.string :user_id
+      t.string :contest_id
 
       t.timestamps
     end
+    add_foreign_key :photos, :users
+    add_foreign_key :photos, :contests
   end
 end

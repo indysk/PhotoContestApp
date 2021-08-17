@@ -1,10 +1,11 @@
 class CreateContests < ActiveRecord::Migration[5.2]
   def change
-    create_table :contests do |t|
+    create_table :contests, id: :string do |t|
       t.string :name
-      t.references :user, foreign_key: true
+      t.string :user_id
 
       t.timestamps
     end
+    add_foreign_key :contests, :users
   end
 end
