@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :contests, dependent: :destroy
   has_many :photos, dependent: :destroy
+  has_many :votes
 end

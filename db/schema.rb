@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_17_074929) do
+ActiveRecord::Schema.define(version: 2021_08_18_141729) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -75,8 +75,22 @@ ActiveRecord::Schema.define(version: 2021_08_17_074929) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "votes", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "contest_id", null: false
+    t.string "photo_id", null: false
+    t.string "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "fk_rails_2e961e225e"
+    t.index ["photo_id"], name: "fk_rails_e0710e95e4"
+    t.index ["user_id"], name: "fk_rails_c9b3bef597"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contests", "users"
   add_foreign_key "photos", "contests"
   add_foreign_key "photos", "users"
+  add_foreign_key "votes", "contests"
+  add_foreign_key "votes", "photos"
+  add_foreign_key "votes", "users"
 end

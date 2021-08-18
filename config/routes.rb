@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'votes/index'
+  get 'votes/show'
+  get 'votes/new'
   #ルート++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   root 'contests#index'
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
