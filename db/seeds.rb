@@ -5,12 +5,15 @@ guest = User.create!( id: Rails.application.credentials.guest[:id],
                       password:              "811278566289988038",
                       password_confirmation: "811278566289988038",
                       guest: true)
-Contest.create!(name:  "ゲストが作成したコンテスト",
-                user_id: Rails.application.credentials.guest[:id])
+contest = Contest.create!(name:  "ゲストが作成したコンテスト",
+                          user_id: Rails.application.credentials.guest[:id])
+photo = Photo.create!(name:       'ゲストの写真',
+                      user_id:    guest.id,
+                      contest_id: contest.id)
 
 
 #ダミーデータ++++++++++++++++++++++++++++++++++++++++
-10.times do |n|
+40.times do |n|
   #ユーザ
   name  = Faker::Name.name
   email = "example-#{n+1}@example.com"
@@ -27,9 +30,9 @@ Contest.create!(name:  "ゲストが作成したコンテスト",
     #写真
     if rand(5) == 0 || 1 || 2
       name = name = Faker::File.file_name
-      Photo.create!(name:       name,
-                    user_id:    user.id,
-                    contest_id: contest.id)
+      photo = Photo.create!(name:       name,
+                            user_id:    user.id,
+                            contest_id: contest.id)
     end
   end
 end

@@ -1,5 +1,5 @@
 <%= form_with model: @photo, url: contest_photos_path(params[:contest_id]), local: true  do |f| %>
 <%= f.text_field :name %><br><br>
-<%= f.file_field :image, multiple: true %><br>
+<%= f.file_field :image %><br>
 <%= f.submit %>
 <% end %>
