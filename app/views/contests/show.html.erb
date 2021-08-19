@@ -1,10 +1,17 @@
+<%= render  "shared/error_messages", model: @vote %>
 <h1>コンテスト詳細ページ</h1>
 <h3><%= @contest.name %></h3>
 <p>作成者：<%= link_to @contest.user.name, @contest.user %></p>
 <%= link_to  "写真を投稿", new_contest_photo_path(@contest) %>
 <%= link_to  "前のページに戻る", :back %>
+<%= link_to  "投票結果", contest_vote_path(@contest) %>
 <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 <div class="img_list">
-  <%= render partial: 'photos/photo', collection: @photos %>
+
+  <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
+  <%= render partial: 'photos/photo', collection: @photos, locals: { f: f } %>
+  <%= f.submit %>
+  <% end %>
+
 </div>
 <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

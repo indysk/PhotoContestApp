@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'votes/index'
-  get 'votes/show'
-  get 'votes/new'
   #ルート++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   root 'contests#index'
   #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -10,6 +7,8 @@ Rails.application.routes.draw do
   resources :contests, except: [:index] do
     #コンテストに紐付けられた写真
     resources :photos, except: [:index, :edit, :update]
+    #コンテストに紐付けられた投票
+    resources :votes, only: [:show, :new, :create, :destroy]
   end
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -30,9 +29,5 @@ Rails.application.routes.draw do
     resources :photos, only: [:show]
   end
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
 
 end

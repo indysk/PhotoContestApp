@@ -11,18 +11,11 @@ class PhotosController < ApplicationController
   def create
     @contest = Contest.find_by(id: params[:contest_id])
     render :new unless @contest
-    @debug1 = params[:photo]
     @photo = @contest.photos.build(photo_params)
     render :new unless @photo
-    @debug2 = photo_params
-    @photo.user_id = current_user_or_guest.id
+
     if @photo.save
-      @debug3 = @photo
-      @debug4 = @photo.image
-      @photo2 = Photo.find_by(user: current_user_or_guest, contest: @contest, name: params[:photo][:name], created_at: @photo.created_at)
-      @debug5 = @photo2
-      @debug6 = @photo2.image
-      # redirect_to @contest
+      redirect_to @contest
     else
       render :new
     end
@@ -36,6 +29,6 @@ class PhotosController < ApplicationController
 
   private
     def photo_params
-      params.require(:photo).permit(:name, :image)
+      params.require(:photo).permit(:name, :image).merge(user_id: current_user_or_guest.id)
     end
 end

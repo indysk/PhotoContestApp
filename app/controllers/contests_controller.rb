@@ -11,6 +11,7 @@ class ContestsController < ApplicationController
     else
       redirect_to root_path
     end
+    @vote = Vote.new
   end
 
   def new

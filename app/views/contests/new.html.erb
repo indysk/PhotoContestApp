@@ -2,7 +2,7 @@
 <%= render 'shared/error_messages', model: @contest %>
 
 <%= f.label :name %>
-<%= f.text_field :name, class: 'form-control', autocomplete: 'off' %>
+<%= f.text_field :name, autocomplete: 'off' %>
 
-<%= f.submit 'コンテスト作成', class: "btn btn-primary" %>
+<%= f.submit 'コンテスト作成' %>
 <% end %>

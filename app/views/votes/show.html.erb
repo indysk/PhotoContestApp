@@ -1,2 +1,3 @@
-<h1>Votes#show</h1>
-<p>Find me in app/views/votes/show.html.erb</p>
+<% @votes.each do |vote| %>
+<div><%= "contest_id : #{vote.contest_id} | photo_id : #{vote.photo_id} | user_id : #{vote.user_id}" %></div>
+<% end %>
