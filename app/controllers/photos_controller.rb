@@ -17,11 +17,11 @@ class PhotosController < ApplicationController
     @debug2 = photo_params
     @photo.user_id = current_user_or_guest.id
     if @photo.save
-      @debug3 = @photo.image
-      @debug5 = @photo
+      @debug3 = @photo
+      @debug4 = @photo.image
       @photo2 = Photo.find_by(user: current_user_or_guest, contest: @contest, name: params[:photo][:name], created_at: @photo.created_at)
-      @debug4 = @photo2.image
-      @debug6 = @photo2
+      @debug5 = @photo2
+      @debug6 = @photo2.image
       # redirect_to @contest
     else
       render :new
