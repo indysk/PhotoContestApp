@@ -3,4 +3,6 @@
   <%= image_tag photo.image %>
   <% end %>
 </div>
+<% if defined? f %>
 <div><%= f.check_box :photo_id, { multiple: true, checked: false }, photo.id, nil %></div>
+<% end %>
