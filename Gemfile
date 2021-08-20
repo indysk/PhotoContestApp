@@ -16,6 +16,7 @@ gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'devise'
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   gem 'rspec-rails'
