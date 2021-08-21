@@ -4,10 +4,9 @@ default: &default
   charset: utf8mb4
   collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: <%= Rails.application.credentials.RDS[:database] %>
-  host: <%= Rails.application.credentials.RDS[:host] %>
-  username: <%= Rails.application.credentials.RDS[:username] %>
-  password: <%= Rails.application.credentials.RDS[:password] %>
+  username: root
+  password: password
+  host: db
 
 development:
   <<: *default
@@ -19,6 +18,8 @@ test:
 
 production:
   <<: *default
-  database: app_production
-  username: app
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= Rails.application.credentials.RDS[:database] %>
+  host: <%= Rails.application.credentials.RDS[:host] %>
+  username: <%= Rails.application.credentials.RDS[:username] %>
+  password: <%= Rails.application.credentials.RDS[:password] %>
