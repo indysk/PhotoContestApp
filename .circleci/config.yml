@@ -8,8 +8,8 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx
-      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/アプリ名/deploy-me.sh"
+            - 90:51:90:e8:73:10:79:2d:dc:41:b0:2b:aa:5c:54:ab
+      - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/PhotoContestApp/deploy-me.sh"
 workflows:
   version: 2
   deploy:
