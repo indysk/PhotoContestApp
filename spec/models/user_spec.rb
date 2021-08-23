@@ -27,16 +27,16 @@ RSpec.describe User, type: :model do
     end
 
     it '名前が日本語でも有効' do
-      expect(@japanese_user.valid?).to eq false
+      expect(@japanese_user.valid?).to eq true
     end
   end
 
   describe 'emailカラムに関して' do
     it 'emailが空欄のとき無効' do
-      expect(build(:user, mail: nil).valid?).to eq false
-      expect(build(:user, mail: '').valid?).to eq false
-      expect(build(:user, mail: '  ').valid?).to eq false
-      expect(build(:user, mail: '　　').valid?).to eq false
+      expect(build(:user, email: nil).valid?).to eq false
+      expect(build(:user, email: '').valid?).to eq false
+      expect(build(:user, email: '  ').valid?).to eq false
+      expect(build(:user, email: '　　').valid?).to eq false
     end
 
     it 'emailが256文字以上のとき無効' do
@@ -54,6 +54,13 @@ RSpec.describe User, type: :model do
       expect(build(:user, email: 'foo@bar+baz.com').valid?).to eq false
       expect(build(:user, email: ' @bar+baz.com').valid?).to eq false
       expect(build(:user, email: 'ユーザ@example.com').valid?).to eq false
+    end
+
+    it 'emailが小文字に変換されて保存される' do
+      @user.email = "UsRr@eXamPLE.com"
+      expect(!!@user.save).to eq true
+      @user = User.find(@user)
+      expect(@user.email).to eq "user@example.com"
     end
   end
 

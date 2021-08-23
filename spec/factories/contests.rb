@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :contest do
+  factory :contest, class: Contest do
     name { "MyString" }
     user { nil }
   end

@@ -17,5 +17,4 @@ FactoryBot.define do
     password { 'foobar' }
     password_confirmation { 'foobar' }
   end
-
 end
