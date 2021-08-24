@@ -17,4 +17,13 @@ FactoryBot.define do
     password { 'foobar' }
     password_confirmation { 'foobar' }
   end
+
+  # 10.times do |n|
+  #   factory :"user#{n}", class: User do
+  #     name { "username#{n}" }
+  #     email { "user#{n}@example.com" }
+  #     password { "foobar" }
+  #     password_confirmation { "foobar" }
+  #   end
+  # end
 end

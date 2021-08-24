@@ -6,6 +6,9 @@ class Photo < ApplicationRecord
   has_one_attached :image
   before_create :attach_default_image
 
+
+
+
   def attach_default_image
     if !self.image.attached?
       self.image.attach(io: File.open('app/assets/images/cat_S.jpg'), filename: 'cat_S.jpg', content_type: 'image/jpeg')

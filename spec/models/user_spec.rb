@@ -28,6 +28,31 @@ RSpec.describe User, type: :model do
 
     it '名前が日本語でも有効' do
       expect(@japanese_user.valid?).to eq true
+
+      japanese_name = @japanese_user.name
+      @japanese_user.save!
+      @japanese_user = User.find(@japanese_user.id)
+      expect(@japanese_user.name).to eq japanese_name
+    end
+
+    it '先頭の空白は取り除かれて保存される' do
+      @user.name = '  username'
+      @user.save!
+      expect(@user.name).to eq 'username'
+
+      @user.name = '　　username'
+      @user.save!
+      expect(@user.name).to eq 'username'
+    end
+
+    it '文字中の空白は取り除かれずに保存される' do
+      @user.name = 'user name'
+      @user.save!
+      expect(@user.name).to eq 'user name'
+
+      @user.name = 'user　name'
+      @user.save!
+      expect(@user.name).to eq 'user　name'
     end
   end
 
@@ -57,9 +82,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'emailが小文字に変換されて保存される' do
-      @user.email = "UsRr@eXamPLE.com"
-      expect(!!@user.save).to eq true
-      @user = User.find(@user)
+      @user.email = "UsEr@eXamPLE.com"
+      expect(!!@user.save!).to eq true
+      @user = User.find(@user.id)
       expect(@user.email).to eq "user@example.com"
     end
   end
@@ -110,20 +135,6 @@ RSpec.describe User, type: :model do
   context '既にuserがDBに登録されている場合' do
     before do
       @user.save
-
-    end
-
-    describe 'ユーザ認証について' do
-      it 'パスワードを間違えたパスワード認証は無効' do
-        user = User.find_by(email: @user.email)
-        expect(!!user.authenticate(@user.password)).to eq true
-        expect(!!user.authenticate('a' * 6)).to eq false
-      end
-
-      it 'メールアドレスを大文字にしても認証は有効' do
-        user = User.find_by(email: 'UsER@eXaMple.com')
-        expect(!!user.authenticate(@user.password)).to eq true
-      end
     end
 
     describe 'other_userの新規登録について' do
@@ -133,7 +144,7 @@ RSpec.describe User, type: :model do
 
       it 'nameが同じでも有効' do
         @other_user.name = @user.name
-        expect(@other_user.valid?).to eq false
+        expect(@other_user.valid?).to eq true
       end
 
       it 'emailが同じであれば無効' do
