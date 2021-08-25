@@ -6,8 +6,11 @@ class Photo < ApplicationRecord
   has_one_attached :image
   before_create :attach_default_image
 
-
-
+  # #===nameカラム============================================================
+  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
+  validates :name,  presence: true,
+                    length: { maximum: 255, allow_blank: true }
+  # #========================================================================
 
   def attach_default_image
     if !self.image.attached?

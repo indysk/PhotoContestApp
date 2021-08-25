@@ -2,26 +2,24 @@ FactoryBot.define do
   factory :photo, class: Photo do
     name { "Photo_Name" }
     association :contest, factory: :contest
-    association :user, factory: :user
+    user { contest.user }
   end
 
   factory :other_photo, class: Photo do
     name { "OtherPhoto_Name" }
     association :contest, factory: :other_contest
-    association :user, factory: :other_user
+    user { contest.user }
   end
 
   factory :japanese_photo, class: Photo do
     name { "写真" }
     association :contest, factory: :japanese_contest
-    association :user, factory: :japanese_user
+    user { contest.user }
   end
 
-  # 10.times do |n|
-  #   factory :"photo#{n}", class: Photo do
-  #     name { Faker::Movie.title }
-  #     association :contest, factory: :contest
-  #     association :user, factory: :"user#{n}"
-  #   end
-  # end
+  factory :duplication_photo, class: Photo do
+    name { "DuplicationPhoto_Name" }
+    association :contest, factory: :contest
+    user { contest.user }
+  end
 end

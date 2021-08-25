@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
   end
 
   it '全ての欄が正しいとき有効' do
+    @user = build(:user)
     expect(@user.valid?).to eq true
   end
 

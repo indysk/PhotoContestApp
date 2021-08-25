@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  devise  :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable, :trackable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :trackable
 
   default_scope -> { order(created_at: :desc) }
 
@@ -8,15 +8,17 @@ class User < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :votes
 
+  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "")
+                self.email = email.downcase
+  }
+
   #===nameカラム============================================================
-  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
   validates :name,  presence: true,
                     length: { maximum: 50, allow_blank: true }
   #========================================================================
 
 
   #===emailカラム===========================================================
-  before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
                     length: { maximum: 255, allow_blank: true },
