@@ -5,7 +5,6 @@
 <%= link_to  "前のページに戻る", :back %>
 
 <% if @photos %>
-
   <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
 
     <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
@@ -20,11 +19,11 @@
   <%= link_to  "投票結果", contest_vote_path(@contest) %>
 
 <% else %>
-
   <div>写真が投稿されていません</div>
-
 <% end %>
 
-<div>
-  <%= link_to  "このコンテストを削除", contest_path(@contest), method: :delete, data: { confirm: '削除しますか？' } %>
-</div>
+<% if correct_user?(@contest.user) %>
+  <div>
+    <%= link_to  "このコンテストを削除", contest_path(@contest), method: :delete, data: { confirm: '削除しますか？' } %>
+  </div>
+<% end %>

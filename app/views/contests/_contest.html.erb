@@ -1,4 +1,13 @@
-<li>
-  <%= link_to  contest.name, contest_path(contest) %>
+<li class='contestlist__item'>
+  <div class="contestlist__img-container">
+    <%= image_tag photo_overview_about(contest), class: 'contestlist__img-image' %>
+  </div>
+  <%= link_to contest_path(contest), class: 'contestlist__detail-link' do %>
+
+    <%= link_to  contest.name, contest_path(contest) %>
+
+
+
+  <% end %>
   <%= ' | 作成者：' %><%= print_contest_creator(contest) %>
 </li>

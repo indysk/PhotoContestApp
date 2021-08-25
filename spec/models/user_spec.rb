@@ -98,13 +98,6 @@ RSpec.describe User, type: :model do
       expect(build(:user, password: '　　').valid?).to eq false
     end
 
-    it 'password_confirmationが空欄のとき無効' do
-      expect(build(:user, password_confirmation: nil).valid?).to eq false
-      expect(build(:user, password_confirmation: '').valid?).to eq false
-      expect(build(:user, password_confirmation: '  ').valid?).to eq false
-      expect(build(:user, password_confirmation: '　　').valid?).to eq false
-    end
-
     it 'passwordとpassword_confirmationが両方空欄のとき無効' do
       expect(build(:user, password: nil, password_confirmation: nil).valid?).to eq false
       expect(build(:user, password: '', password_confirmation: '').valid?).to eq false

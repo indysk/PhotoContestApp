@@ -26,12 +26,4 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   #========================================================================
 
-
-  #===password_digestカラム=================================================
-  validates :password,              length: { minimum: 6 },
-                                    presence: true
-  validates :password_confirmation, length: { minimum: 6 },
-                                    presence: true
-  #========================================================================
-
 end

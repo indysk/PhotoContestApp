@@ -9,6 +9,11 @@ module ApplicationHelper
     return user
   end
 
+  def print_current_user
+    user = current_user
+    user_signed_in? ? link_to(user.name, user_path(user)) : 'ゲストモード'
+  end
+
   def print_contest_creator(contest)
     user = contest.user
     return link_to(user.name, user_path(user)) unless user.guest?
@@ -19,5 +24,13 @@ module ApplicationHelper
     user = photo.user
     return link_to(user.name, user_path(user)) unless user.guest?
     return user.name
+  end
+
+  def correct_user?(user)
+    user == current_user
+  end
+
+  def print_default_img
+    'cat_S.jpg'
   end
 end
