@@ -1,8 +1,11 @@
-ul {
-  list-style: none;
+a {
+  text-decoration: underline;
+  color: rgb(61, 115, 214);
 }
 
 header {
+  padding: 0 0 16px 0;
+
   nav>ul {
     display: flex;
     margin: 0;
@@ -42,5 +45,11 @@ div.img_list {
       height: inherit;
       object-fit: contain;
     }
+  }
+}
+
+div.photo_show_img_container {
+  img {
+    height: 80vh;
   }
 }

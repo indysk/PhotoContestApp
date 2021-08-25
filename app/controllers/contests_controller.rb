@@ -32,7 +32,7 @@ class ContestsController < ApplicationController
   end
 
   def destroy
-    @contest = find_by(id: params[:id])
+    @contest = Contest.find_by(id: params[:id])
     if @contest && @contest.destroy
       flash[:success] = 'コンテストの削除に成功しました'
       redirect_to root_path

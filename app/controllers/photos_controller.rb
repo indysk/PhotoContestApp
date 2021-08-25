@@ -26,6 +26,16 @@ class PhotosController < ApplicationController
     redirect_to photos_path unless @photo
   end
 
+  def destroy
+    @photo = Photo.find_by(id: params[:id])
+    if @photo && @photo.destroy
+      flash[:success] = '写真の削除に成功しました'
+      redirect_to path_for_redirect_from_photo_delete
+    else
+      flash[:danger] = 'コンテストが削除できませんでした'
+      redirect_to path_for_photo(@photo)
+    end
+  end
 
   private
     def photo_params
