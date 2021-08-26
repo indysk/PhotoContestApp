@@ -24,6 +24,9 @@
 
 <% if correct_user?(@contest.user) %>
   <div>
-    <%= link_to  "このコンテストを削除", contest_path(@contest), method: :delete, data: { confirm: '削除しますか？' } %>
+    <a href="javascript:OnLinkClick('event_details_',<?php echo $event->getId(); ?>);"><?php echo $event->getName(); ?></a>
+    <div style="display: none;" class="event_detail_container" id="event_details_<?php echo $event->getId(); ?>">
+      <%= link_to  "このコンテストを削除", contest_path(@contest), method: :delete, data: { confirm: '削除しますか？' } %>
+    </div>
   </div>
 <% end %>

@@ -1,9 +1,140 @@
-.contestlist{
-  &__img{
-    &-image{
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
+$space_size_nomal: 8px;
+$border_line_size: 1px;
+$main_color: #f2f3f3;
+$sub_color: #6b6e74;
+$accent_color: #9ee3ec;
+$font_color: #303030;
+$border_nomal: $border_line_size $sub_color solid;
+
+:root {
+  background-color: $main_color;
+  color: $font_color;
+}
+
+@mixin contestlist_item($grid-column-start: 1, $grid-column-end: -1, $grid-row-start: 1, $grid-row-end: -1, ) {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    grid-column-start: $grid-column-start;
+    grid-column-end: $grid-column-end;
+    grid-row-start: $grid-row-start;
+    grid-row-end: $grid-row-end;
+  }
+
+  &-title {
+    font-size: 0.8rem;
+    padding: 8px 0 4px 2px;
+  }
+
+  &-contents {
+    padding: 8px;
+    border: $border_nomal;
+    display: block;
+    height: 100%;
+  }
+}
+
+@mixin contestlist_infomation_item($container_width: auto) {
+  &-container {
+    width: $container_width;
+    padding: 0 8px;
+    border-left: $border_nomal;
+
+    &:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+  }
+
+  &-title {
+    padding-bottom: 4px;
+    display: block;
+    font-size: 0.8rem;
+  }
+
+  &-wrapper {
+    height: calc(100% - 0.8rem - 12px);
+    display: block;
+  }
+}
+
+@mixin button_nomal {
+  padding: $space_size_nomal;
+  border: $border_nomal;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: $font_color;
+  text-decoration: none;
+
+  &:hover {
+    color: $main_color;
+    background-color: $sub_color;
+  }
+}
+
+.contestlist {
+
+  &__item {
+    height: auto;
+    width: 100%;
+    padding: 0 16px;
+
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: $space_size_nomal;
+
+
+    &__links {
+      @include contestlist_item(2, 3, 1, 2);
+
+      &-contents {
+        padding: 0;
+        border: none;
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-link {
+        @include button_nomal;
+        height: calc(100% / 3);
+        margin-bottom: $space_size_nomal;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &__infomation {
+      @include contestlist_item(1, 2, 1, 2);
+
+      &-contents {
+        display: flex;
+        flex-flow: row;
+      }
+
+      &-contents {
+        @include contestlist_infomation_item(60%);
+
+        &-wrapper {
+          line-height: 1.4;
+          letter-spacing: .8px;
+        }
+      }
+
+      &-description {
+        @include contestlist_infomation_item;
+
+        &-wrapper {
+          line-height: 1.4;
+          letter-spacing: .4px;
+        }
+      }
     }
   }
 }

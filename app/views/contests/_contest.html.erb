@@ -1,13 +1,35 @@
 <li class='contestlist__item'>
-  <div class="contestlist__img-container">
-    <%= image_tag photo_overview_about(contest), class: 'contestlist__img-image' %>
+
+  <div class="contestlist__item__infomation-container">
+    <span class="contestlist__item__infomation-title">Infomation</span>
+    <div class="contestlist__item__infomation-contents">
+
+      <div class="contestlist__item__infomation-contents-container">
+        <span class="contestlist__item__infomation-contents-title">Contents</span>
+        <%= link_to contest_path(contest), class: 'contestlist__item__infomation-contents-wrapper' do %>
+          <p class="contestlist__item__infomation-contents-name">コンテスト名：<%= contest.name %></p>
+          <p class="contestlist__item__infomation-contents-name">コンテスト名：<%= contest.name %></p>
+          <p class="contestlist__item__infomation-contents-name">コンテスト名：<%= contest.name %></p>
+        <% end %>
+      </div>
+
+      <div class="contestlist__item__infomation-description-container">
+        <span class="contestlist__item__infomation-description-title">Description</span>
+        <div class="contestlist__item__infomation-description-wrapper">
+          <p class='contestlist__item__infomation-description-host'>主催：<%= print_contest_creator(contest) %></p>
+          <p class='contestlist__item__infomation-description-host'>主催：<%= print_contest_creator(contest) %></p>
+          <p class='contestlist__item__infomation-description-host'>主催：<%= print_contest_creator(contest) %></p>
+        </div>
+      </div>
+    </div>
   </div>
-  <%= link_to contest_path(contest), class: 'contestlist__detail-link' do %>
 
-    <%= link_to  contest.name, contest_path(contest) %>
-
-
-
-  <% end %>
-  <%= ' | 作成者：' %><%= print_contest_creator(contest) %>
+  <div class="contestlist__item__links-container">
+    <span class="contestlist__item__links-title">Links</span>
+    <div class="contestlist__item__links-contents">
+      <%= link_to  "Submit", new_contest_photo_path(contest), class: 'contestlist__item__links-link' %>
+      <%= link_to  "Vote", contest_path(contest), class: 'contestlist__item__links-link' %>
+      <%= link_to  "View", contest_path(contest), class: 'contestlist__item__links-link' %>
+    </div>
+  </div>
 </li>
