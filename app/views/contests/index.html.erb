@@ -1,5 +1,12 @@
-<h1>コンテスト一覧</h1>
-<%= link_to  "新しいコンテストを作る", new_contest_path %>
+<div class="contestlist__header-container">
+  <h2 class="contestlist__header-title">最新のコンテスト</h2>
+  <%= link_to new_contest_path, class: 'contestlist__header-newlink' do %>
+    <i class="contestlist__header-newlink-icon fas fa-plus-circle"></i>
+    <p class="contestlist__header-newlink-value">新しいコンテストを作る</p>
+  <% end %>
+</div>
+
+
 <%= will_paginate %>
 <ul>
   <%= render @contests unless @contests.nil? %>

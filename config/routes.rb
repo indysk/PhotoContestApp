@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   #ユーザに紐付けられた写真++++++++++++++++++++++++++++++++++++++++
   resources :users, only: [] do
-    resources :photos, only: [:show]
+    resources :photos, only: [:show, :destroy]
   end
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

@@ -1,4 +1,9 @@
-<h3>タイトル：<%= link_to @photo.name, path_for_photo_show(@photo) %></h3>
+<h3>タイトル：<%= link_to @photo.name, path_for_photo(@photo) %></h3>
 <h3>投稿者：<%= print_photo_creator(@photo) %></h3>
 <h3>コンテスト名：<%= link_to @photo.contest.name, @photo.contest %></h3>
-<%= image_tag @photo.image %>
+<div class="photo_show_img_container"><%= image_tag @photo.image %></div>
+<% if correct_user?(@photo.user) %>
+  <div>
+    <%= link_to  "この写真を削除", path_for_photo(@photo), method: :delete, data: { confirm: '削除しますか？' } %>
+  </div>
+<% end %>

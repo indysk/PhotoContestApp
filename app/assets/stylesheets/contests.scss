@@ -1,3 +1,189 @@
-// Place all the styles related to the Contests controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$space_size_nomal: 8px;
+$border_line_size: 2px;
+$color_main: #f2f3f3;
+$color_sub: #6b6e74;
+$color_accent: #9ee3ec;
+$font_color: #303030;
+$border_nomal: $border_line_size $color_sub solid;
+
+:root {
+  background-color: $color_main;
+  color: $font_color;
+}
+
+@mixin contestlist_item($grid-column-start: 1, $grid-column-end: -1, $grid-row-start: 1, $grid-row-end: -1, ) {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    grid-column-start: $grid-column-start;
+    grid-column-end: $grid-column-end;
+    grid-row-start: $grid-row-start;
+    grid-row-end: $grid-row-end;
+  }
+
+  &-title {
+    font-size: 0.8rem;
+    padding: 8px 0 4px 2px;
+  }
+
+  &-contents {
+    padding: 8px;
+    border: $border_nomal;
+    display: block;
+    height: 100%;
+  }
+}
+
+@mixin contestlist_infomation_item($container_width: auto) {
+  &-container {
+    width: $container_width;
+    padding: 0 8px;
+    border-left: $border_nomal;
+
+    &:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+  }
+
+  &-title {
+    padding-bottom: 4px;
+    display: block;
+    font-size: 0.8rem;
+  }
+
+  &-wrapper {
+    height: calc(100% - 0.8rem - 12px);
+    display: block;
+  }
+}
+
+@mixin button_nomal {
+  padding: $space_size_nomal;
+  border: $border_nomal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $font_color;
+  text-decoration: none;
+
+  &:hover {
+    color: $color_main;
+    background-color: $color_sub;
+  }
+}
+
+@mixin button_with_icon {
+  @include button_nomal();
+  justify-content: left;
+
+  &-value {
+    padding-left: 16px;
+  }
+
+  &-icon {
+    color: $color_sub;
+  }
+
+  &:hover &-icon {
+    color: $color_main;
+  }
+}
+
+.contestlist {
+
+  &__header {
+    &-container {
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      width: 44%;
+      border-bottom: $border_nomal;
+    }
+
+    &-newlink {
+      @include button_with_icon;
+      width: fit-content;
+      border-radius: 2rem;
+      padding: 8px 16px 8px 8px;
+      transition: ease .1s;
+
+      &-value {
+        padding-left: 8px;
+      }
+    }
+  }
+
+  &__item {
+    height: auto;
+    width: 100%;
+    padding: 8px 16px;
+
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: $space_size_nomal;
+
+
+    &__links {
+      @include contestlist_item(2, 3, 1, 2);
+
+      &-contents {
+        padding: 0;
+        border: none;
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-link {
+        @include button_with_icon();
+        height: calc(100% / 3);
+        margin-bottom: $space_size_nomal;
+        transition: ease .1s;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+
+    }
+
+    &__infomation {
+      @include contestlist_item(1, 2, 1, 2);
+
+      &-contents {
+        display: flex;
+        flex-flow: row;
+      }
+
+      &-contents {
+        @include contestlist_infomation_item(60%);
+
+        &-wrapper {
+          line-height: 1.4;
+          letter-spacing: .8px;
+        }
+      }
+
+      &-description {
+        @include contestlist_infomation_item;
+
+        &-wrapper {
+          line-height: 1.4;
+          letter-spacing: .4px;
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,12 @@ class Contest < ApplicationRecord
   has_many :votes, dependent: :destroy
   default_scope -> { order(created_at: :desc) }
 
+  # #===nameカラム============================================================
+  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
+  validates :name,  presence: true,
+                    length: { maximum: 255, allow_blank: true }
+  # #========================================================================
+
   def vote_result
     votes = self.votes.includes(:photo, :user)
     result = []

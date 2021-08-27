@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>App</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-</head>
-
+<%= render  "layouts/meta" %>
 <%= render  "layouts/header" %>
-
 <body>
-  <% flash.each do |key, value| %>
-  <%= tag.div value, class: key %>
-  <% end %>
-
+  <%= render  "layouts/flash_messages" %>
   <%= yield %>
-
 </body>
-
 </html>
