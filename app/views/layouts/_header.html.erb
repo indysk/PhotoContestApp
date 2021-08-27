@@ -1,14 +1,28 @@
-<header>
-  <nav>
-    <ul>
-      <li><%= link_to  "PhotoContest", root_path %></li>
-      <li><strong><%= print_current_user %></strong></li>
-      <% if user_signed_in? %>
-      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-      <% else %>
-      <li><%= link_to '新規登録', new_user_registration_path %></li>
-      <li><%= link_to 'ログイン', new_user_session_path %></li>
-      <% end %>
+<header class="header__container">
+  <nav class="header__nav-container">
+    <ul class="header__nav-ul">
+      <li class="header__nav-li"><%= link_to  "PhotoContest", root_path, class: 'header__nav-title' %></li>
+      <li class="header__nav-li">
+        <div class="header__nav-accordionmenu-container">
+          <div class="header__nav-accordionmenu-label js-AccordionMenu">
+            <p class="header__nav-accordionmenu-value"><%= print_current_user %></p>
+            <i class="header__nav-accordionmenu-icon fas fa-chevron-down"></i>
+          </div>
+          <div class="header__nav-accordionmenu-window" style="display: none;">
+            <div class="header__nav-accordionmenu-contents">
+              <% if user_signed_in? %>
+                <%= link_to  "プロフィールを見る", user_path(current_user), class: 'header__nav-accordionmenu-item' %>
+                <%= link_to  "プロフィールを編集", edit_user_registration_path(current_user), class: 'header__nav-accordionmenu-item' %>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'header__nav-accordionmenu-item' %>
+              <% else %>
+                <%= link_to '新規登録', new_user_registration_path, class: 'header__nav-accordionmenu-item' %>
+                <%= link_to 'ログイン', new_user_session_path, class: 'header__nav-accordionmenu-item' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </li>
     </ul>
   </nav>
 </header>

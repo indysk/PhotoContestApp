@@ -16,6 +16,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem "aws-sdk-s3", require: false
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'rspec-rails'

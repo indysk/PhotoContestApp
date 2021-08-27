@@ -9,10 +9,16 @@ module ApplicationHelper
     return user
   end
 
-  def print_current_user
+  def print_current_user_with_link
     user = current_user
     user_signed_in? ? link_to(user.name, user_path(user)) : 'ゲストモード'
   end
+
+  def print_current_user
+    user = current_user
+    user_signed_in? ? user.name : 'ゲストモード'
+  end
+
 
   def print_contest_creator(contest)
     user = contest.user

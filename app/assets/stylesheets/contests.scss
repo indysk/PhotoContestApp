@@ -1,13 +1,13 @@
 $space_size_nomal: 8px;
-$border_line_size: 1px;
-$main_color: #f2f3f3;
-$sub_color: #6b6e74;
-$accent_color: #9ee3ec;
+$border_line_size: 2px;
+$color_main: #f2f3f3;
+$color_sub: #6b6e74;
+$color_accent: #9ee3ec;
 $font_color: #303030;
-$border_nomal: $border_line_size $sub_color solid;
+$border_nomal: $border_line_size $color_sub solid;
 
 :root {
-  background-color: $main_color;
+  background-color: $color_main;
   color: $font_color;
 }
 
@@ -63,24 +63,70 @@ $border_nomal: $border_line_size $sub_color solid;
   border: $border_nomal;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   color: $font_color;
   text-decoration: none;
 
   &:hover {
-    color: $main_color;
-    background-color: $sub_color;
+    color: $color_main;
+    background-color: $color_sub;
+  }
+}
+
+@mixin button_with_icon {
+  @include button_nomal();
+  justify-content: left;
+
+  &-value {
+    padding-left: 16px;
+  }
+
+  &-icon {
+    color: $color_sub;
+  }
+
+  &:hover &-icon {
+    color: $color_main;
   }
 }
 
 .contestlist {
 
+  &__header {
+    &-container {
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      width: 44%;
+      border-bottom: $border_nomal;
+    }
+
+    &-newlink {
+      @include button_with_icon;
+      width: fit-content;
+      border-radius: 2rem;
+      padding: 8px 16px 8px 8px;
+      transition: ease .1s;
+
+      &-value {
+        padding-left: 8px;
+      }
+    }
+  }
+
   &__item {
     height: auto;
     width: 100%;
-    padding: 0 16px;
+    padding: 8px 16px;
 
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -100,14 +146,17 @@ $border_nomal: $border_line_size $sub_color solid;
       }
 
       &-link {
-        @include button_nomal;
+        @include button_with_icon();
         height: calc(100% / 3);
         margin-bottom: $space_size_nomal;
+        transition: ease .1s;
 
         &:last-child {
           margin-bottom: 0;
         }
       }
+
+
     }
 
     &__infomation {

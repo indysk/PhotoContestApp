@@ -24,9 +24,27 @@
 
 <% if correct_user?(@contest.user) %>
   <div>
-    <a href="javascript:OnLinkClick('event_details_',<?php echo $event->getId(); ?>);"><?php echo $event->getName(); ?></a>
-    <div style="display: none;" class="event_detail_container" id="event_details_<?php echo $event->getId(); ?>">
-      <%= link_to  "このコンテストを削除", contest_path(@contest), method: :delete, data: { confirm: '削除しますか？' } %>
+    <a class="js-modal-open" href="" data-target="modal__window">このコンテストを削除</a>
+    <div id="modal__window" class="modal__window js-modal">
+      <div class="modal__bg js-modal-close"></div>
+      <div class="modal__content">
+
+        <h3 class="modal__content-title">Alert</h3>
+        <p class="modal__content-body">コンテスト名：<%= @contest.name %>を削除しますか？</p>
+        <ul class="modal__icon-list">
+          <li class="modal__icon-container">
+            <%= link_to contest_path(@contest), method: :delete, class: 'modal__icon-yes-link' do %>
+              <span class="modal__icon-yes-content"></span>
+            <% end %>
+          </li>
+          <li class="modal__icon-container">
+            <a class="js-modal-close modal__icon-no-link" href="">
+              <span class="modal__icon-no-content"></span>
+            </a>
+          </li>
+        </ul>
+
+      </div>
     </div>
   </div>
 <% end %>
