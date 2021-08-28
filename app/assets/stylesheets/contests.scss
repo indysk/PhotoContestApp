@@ -92,7 +92,9 @@ $border_nomal: $border_line_size $color_font solid;
 
 
 @mixin contest_list_button_with_icon {
-  padding: $space_size_nomal;
+  padding: $space_size_nomal 40px $space_size_nomal $space_size_nomal;
+  margin-left: 8px;
+  border: $border_nomal;
 
   display: flex;
   justify-content: center;
@@ -149,6 +151,8 @@ $border_nomal: $border_line_size $color_font solid;
 
 }
 
+
+
 .contestlist {
 
   &__header {
@@ -192,7 +196,7 @@ $border_nomal: $border_line_size $color_font solid;
       padding: 8px 8px;
 
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 0.8fr auto;
       grid-template-rows: auto 1fr;
       grid-gap: $space_size_nomal;
     }
@@ -207,11 +211,6 @@ $border_nomal: $border_line_size $color_font solid;
         //   flex-direction: row;
         // }
 
-        &-wrapper {
-          line-height: 1.4;
-          letter-spacing: .8px;
-        }
-
         &-name {
           font-size: 1.4rem;
         }
@@ -220,9 +219,9 @@ $border_nomal: $border_line_size $color_font solid;
       &_sub {
         @include contenst_list_grid(2, 3);
 
-        &-wrapper {
-          line-height: 1.4;
-          letter-spacing: .4px;
+        &-contents {
+          padding-top: calc(1.2rem * 1.4);
+          font-size: 0.8rem;
         }
       }
     }
@@ -252,6 +251,116 @@ $border_nomal: $border_line_size $color_font solid;
     }
   }
 }
+
+
+
+
+
+
+
+// .contestlist {
+
+//   &__header {
+//     &-container {
+//       padding: 0 16px;
+//       display: flex;
+//       justify-content: space-between;
+//     }
+
+//     &-title {
+//       display: flex;
+//       align-items: center;
+//       font-size: 1.2rem;
+//       letter-spacing: 1px;
+//       width: 44%;
+//       border-bottom: $border_nomal;
+//     }
+
+//     &-newlink {
+//       @include button_with_icon;
+//       width: fit-content;
+//       border-radius: 2rem;
+//       padding: 8px 16px 8px 8px;
+//       transition: ease .1s;
+
+//       &-value {
+//         padding-left: 8px;
+//       }
+//     }
+//   }
+
+//   &__item {
+//     border: $border_nomal;
+//     margin: 8px 16px 0 16px;
+//     line-height: 1.4;
+//     letter-spacing: .4px;
+
+//     &__contents {
+//       height: auto;
+//       width: 100%;
+//       padding: 8px 8px;
+
+//       display: grid;
+//       grid-template-columns: 1fr 1fr 1fr;
+//       grid-template-rows: auto 1fr;
+//       grid-gap: $space_size_nomal;
+//     }
+
+//     &__infomation {
+//       &_main {
+//         @include contenst_list_grid(1, 2);
+//         // &-contents {
+//         //   background-color: inherit;
+//         //   color: inherit;
+//         //   display: flex;
+//         //   flex-direction: row;
+//         // }
+
+//         &-wrapper {
+//           line-height: 1.4;
+//           letter-spacing: .8px;
+//         }
+
+//         &-name {
+//           font-size: 1.4rem;
+//         }
+//       }
+
+//       &_sub {
+//         @include contenst_list_grid(2, 3);
+
+//         &-wrapper {
+//           line-height: 1.4;
+//           letter-spacing: .4px;
+//         }
+//       }
+//     }
+
+//     &__links {
+//       @include contenst_list_grid(3, 4);
+
+//       &-contents {
+//         padding: 0;
+
+//         display: flex;
+//         flex-direction: column;
+//         line-height: 1;
+
+//       }
+
+//       &-link {
+//         @include contest_list_button_with_icon();
+//         height: calc(100% / 3);
+//         margin-bottom: $space_size_nomal;
+//         transition: ease .1s;
+
+//         &:last-child {
+//           margin-bottom: 0;
+//         }
+//       }
+//     }
+//   }
+// }
 
 
 
