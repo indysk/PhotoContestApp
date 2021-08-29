@@ -1,19 +1,13 @@
-$color_base: #6593A6;
-$color_main: #F2F2F2;
-$color_accent: #F2CF63;
-$color_font: #58595B;
+@import 'modules';
 
 :root {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: $color_font;
 }
 
 body {
-  background-color: $color_main;
+  background-color: $color_base;
+  color: $color_font;
 }
-
-
-
 
 .header {
   &__nav {
@@ -23,6 +17,9 @@ body {
 
     &-container {
       padding: 16px;
+      background-color: $color_main;
+      color: $color_base;
+      margin-bottom: 16px;
     }
 
     &-ul {
@@ -75,7 +72,8 @@ body {
       &-contents {
         display: flex;
         flex-flow: column;
-        background-color: #f2f3f3;
+        background-color: $color_base;
+        color: $color_font;
       }
 
       &-item {
@@ -88,8 +86,8 @@ body {
         }
 
         &:hover {
-          background-color: $color_main;
-          color: $color_base;
+          background-color: $color_base;
+          color: $color_main;
         }
       }
     }
@@ -128,7 +126,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: $color_base;
+    background-color: $color_main;
 
     &-title {
       width: 100%;
@@ -138,7 +136,7 @@ body {
       justify-content: center;
       align-items: center;
 
-      background-color: $color_main;
+      background-color: $color_base;
       font-size: 1.2rem;
     }
 
@@ -152,7 +150,7 @@ body {
       justify-content: center;
       align-items: center;
 
-      color: $color_main;
+      color: $color_base;
       word-break: break-all;
     }
   }
@@ -163,7 +161,7 @@ body {
       padding: 3vw 0;
       display: flex;
       justify-content: space-around;
-      background-color: $color_main;
+      background-color: $color_base;
     }
 
     &-container {
@@ -194,7 +192,7 @@ body {
           left: $size_icon * (9/14);
           height: $size_icon * (5/7);
           width: $size_icon * (5/7);
-          background-color: $color_base;
+          background-color: $color_main;
         }
 
         &::after {
@@ -202,7 +200,7 @@ body {
           left: $size_icon * (1/2);
           height: $size_icon;
           width: $size_icon;
-          border: 3px solid $color_base;
+          border: 3px solid $color_main;
         }
       }
     }
@@ -210,11 +208,11 @@ body {
     &-yes {
       &-link {
         &::before {
-          background-color: $color_base;
+          background-color: $color_main;
         }
 
         &::after {
-          border: 3px solid $color_base;
+          border: 3px solid $color_main;
         }
       }
 
@@ -226,7 +224,7 @@ body {
         left: $size_icon - $size_icon_yes_width / 2;
         height: $size_icon_yes_height;
         width: $size_icon_yes_width;
-        border: $size_icon_yes_border solid $color_main;
+        border: $size_icon_yes_border solid $color_base;
       }
     }
 
@@ -243,7 +241,7 @@ body {
           position: absolute;
           height: $size_icon * (5/14);
           width: $size_icon / 14;
-          background-color: $color_main;
+          background-color: $color_base;
           transform: rotate(-45deg);
         }
 

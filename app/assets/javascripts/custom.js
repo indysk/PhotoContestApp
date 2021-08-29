@@ -25,3 +25,11 @@ $(function(){
     $(this).toggleClass("accordionmenu_open");
   });
 });
+
+
+$(document).on('click touchstart', function(event) {
+  if (!($(event.target).closest('.header__nav-accordionmenu-window').length || $(event.target).closest('.header__nav-accordionmenu-container').length) && $('.header__nav-accordionmenu-window').css('display') == 'block'){
+    $('.js-AccordionMenu').next('.header__nav-accordionmenu-window').slideToggle(200);
+    $('.js-AccordionMenu').toggleClass("accordionmenu_open");
+  }
+});

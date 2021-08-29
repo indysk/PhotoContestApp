@@ -1,0 +1,74 @@
+$color_base: #F2F2F2;
+$color_main: #6593A6;
+$color_accent: #F2CF63;
+$color_font: #58595B;
+$color_font_hard: #3d3d3f;
+
+$space_size_nomal: 8px;
+$border_line_size: 1px;
+$border_nomal: $border_line_size $color_main solid;
+
+
+
+@mixin button_nomal {
+  padding: $space_size_nomal;
+  border: $border_nomal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+
+  &:hover {
+    color: $color_base;
+    background-color: $color_accent;
+  }
+}
+
+@mixin button_with_icon {
+  @include button_nomal();
+  justify-content: left;
+
+  &-value {
+    padding-left: 16px;
+  }
+
+  &-icon {
+    color: $color_main;
+  }
+
+  &:hover &-icon {
+    color: $color_base;
+  }
+}
+
+@mixin contenst_list_grid($grid-column-start: 1, $grid-column-end: -1) {
+  &-title {
+    padding: 8px 0 4px 2px;
+    font-size: 0.8rem;
+
+    grid-column-start: $grid-column-start;
+    grid-column-end: $grid-column-end;
+    grid-row: 1/2;
+    display: block;
+  }
+
+  &-contents {
+    height: auto;
+    padding: 0 8px;
+    border-left: $border_nomal;
+
+    grid-column-start: $grid-column-start;
+    grid-column-end: $grid-column-end;
+    grid-row: 2/3;
+    display: block;
+
+    &:nth-child(2) {
+      padding-left: 0;
+      border-left: none;
+    }
+  }
+}
