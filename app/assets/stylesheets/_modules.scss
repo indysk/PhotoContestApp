@@ -33,7 +33,7 @@ $border_nomal: $border_line_size $color_main solid;
   justify-content: left;
 
   &-value {
-    padding-left: 16px;
+    padding-left: $space_size_nomal * 2;
   }
 
   &-icon {
@@ -47,7 +47,7 @@ $border_nomal: $border_line_size $color_main solid;
 
 @mixin contenst_list_grid($grid-column-start: 1, $grid-column-end: -1) {
   &-title {
-    padding: 8px 0 4px 2px;
+    padding: $space_size_nomal 0 $space_size_nomal/2 $space_size_nomal/4;
     font-size: 0.8rem;
 
     grid-column-start: $grid-column-start;

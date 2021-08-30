@@ -3,15 +3,11 @@
     <span class="contestlist__item__infomation_main-title">Infomation</span>
     <%= link_to contest_path(contest), class: 'contestlist__item__infomation_main-contents' do %>
       <p class="contestlist__item__infomation_main-name"><%= contest.name %></p>
-      <p class="contestlist__item__infomation_main-body">説明：コンテストの説明。○コンテストの説明。○コンテストの説明。○コンテストの説明。○コンテストの説明。○</p>
     <% end %>
 
     <span class="contestlist__item__infomation_sub-title"></span>
     <div class="contestlist__item__infomation_sub-contents">
-      <p class='contestlist__item__infomation_sub-public'>公開設定　URLで限定公開</p>
-      <p class='contestlist__item__infomation_sub-host'>主催　　　<%= print_contest_creator(contest) %></p>
-      <p class='contestlist__item__infomation_sub-entry_period'>応募　　　2021/11/10 ▷ 2021/11/31</p>
-      <p class='contestlist__item__infomation_sub-vote_period'>投票　　　2021/11/31 ▷ 2021/12/10</p>
+      <p class='contestlist__item__infomation_sub-host'>主催：<%= print_contest_creator(contest) %></p>
     </div>
 
     <span class="contestlist__item__links-title">Links</span>
