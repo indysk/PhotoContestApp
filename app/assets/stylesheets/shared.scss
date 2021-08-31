@@ -303,6 +303,15 @@ textarea {
   font-size: small;
 }
 
+select {
+  width: auto;
+  padding: 4px;
+  border: 1px solid #999;
+  background: #eee;
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+
 input[type='submit'] {
   border: none;
   background-color: #0d6efd;

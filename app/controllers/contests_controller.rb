@@ -16,6 +16,7 @@ class ContestsController < ApplicationController
 
   def new
     @contest = Contest.new
+    @select_options = Contest.form_select_options
   end
 
   def create
@@ -24,6 +25,7 @@ class ContestsController < ApplicationController
     if @contest.save
       redirect_to root_path
     else
+      @select_options = Contest.form_select_options
       render :new
     end
   end
@@ -44,6 +46,18 @@ class ContestsController < ApplicationController
 
   private
     def contest_params
-      params.require(:contest).permit(:name)
+      params.require(:contest).permit(:name,
+                                      :description,
+                                      :entry_start_at,
+                                      :entry_end_at,
+                                      :vote_start_at,
+                                      :vote_end_at,
+                                      :visible_range_entry,
+                                      :visible_range_vote,
+                                      :visible_range_show,
+                                      :visible_range_result,
+                                      :voting_points,
+                                      :num_of_views_in_result,
+                                      :visible_setting_for_user_name)
     end
 end
