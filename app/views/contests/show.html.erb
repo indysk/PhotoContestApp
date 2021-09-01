@@ -16,9 +16,9 @@
 
 <div>
   <br><p>links</p>
-  <%= print_link_button(new_contest_photo_path(@contest), '作品を提出する', @contest.is_in_period_entry?, 'link_class') %>
-  <%= print_link_button(contest_photos_path(@contest), '投票する', @contest.is_in_period_voting?, 'link_class') %>
-  <%= print_link_button(contest_photos_path(@contest), '作品を見る', @contest.is_after_period_voting?, 'link_class') %>
+  <%= print_link_button('作品を提出する', new_contest_photo_path(@contest), @contest.is_in_period_entry?, class: 'link_class') %>
+  <%= print_link_button('投票する', contest_photos_path(@contest), @contest.is_in_period_voting?, class: 'link_class') %>
+  <%= print_link_button('作品を見る', contest_photos_path(@contest), @contest.is_after_period_voting?, class: 'link_class') %>
 </div>
 
 

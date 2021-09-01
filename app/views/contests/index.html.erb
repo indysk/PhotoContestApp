@@ -9,6 +9,10 @@
 
 <%= will_paginate %>
 <ul>
-  <%= render @contests unless @contests.nil? %>
+<% if @contests.present? %>
+  <%= render @contests, labels: Contest.model_labels, select_options: Contest.select_options %>
+<% else %>
+  <p>コンテストが見つかりません。</p>
+<% end %>
 </ul>
 <%= will_paginate %>

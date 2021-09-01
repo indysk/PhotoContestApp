@@ -34,6 +34,25 @@ class Contest < ApplicationRecord
     return result
   end
 
+  def self.model_labels
+    options = {
+      name: 'コンテスト名',
+      description: 'コンテストの説明',
+      entry_period: '作品の募集期間',
+      entry_start_at: '作品の募集開始日時',
+      entry_end_at: '作品の募集終了日時',
+      vote_period: '投票の募集期間',
+      vote_start_at: '投票の募集開始日時',
+      vote_end_at: '投票の募集終了日時',
+      visible_range_entry: '応募ページの公開範囲',
+      visible_range_vote: '投票ページの公開範囲',
+      visible_range_show: '作品一覧の公開範囲',
+      visible_range_result: '投票結果の公開範囲',
+      visible_setting_for_user_name: '作品の応募者名の公開範囲'
+    }
+  end
+
+
   def self.select_options
     options = {
       visible_range_entry:           [['一般に公開', 0], ['URLで限定公開', 1]],
@@ -45,39 +64,45 @@ class Contest < ApplicationRecord
   end
 
   def self.form_options
+    contest_labels = Contest.model_labels
     select_options = Contest.select_options
     now = Date.today.year
-    options = [{entry_period: { label:  '作品の募集期間',
+    options = [{entry_period: { label:  contest_labels[:entry_period],
                                 start: {obj:              'entry_start_at',
-                                        label:            '作品の募集開始日時',
+                                        label:            contest_labels[:entry_start_at],
                                         default_datetime: now },
                                 end:   {obj:              'entry_end_at',
-                                        label:            '作品の募集終了日時',
+                                        label:            contest_labels[:entry_end_at],
                                         default_datetime: now }},
-                vote_period:  { label:  '投票の募集期間',
+                vote_period:  { label:  contest_labels[:vote_period],
                                 start: {obj:              'vote_start_at',
-                                        label:            '投票の募集開始日時',
+                                        label:            contest_labels[:vote_start_at],
                                         default_datetime: now },
                                 end:   {obj:              'vote_end_at',
-                                        label:            '投票の募集終了日時',
+                                        label:            contest_labels[:vote_end_at],
                                         default_datetime: now }}},
 
               { visible_range_entry:  { options:  select_options[:visible_range_entry],
-                                        label:    '応募ページの公開範囲',
+                                        label:    contest_labels[:visible_range_entry],
                                         selected: 0},
                 visible_range_vote:   { options:  select_options[:visible_range_vote],
-                                        label:    '投票ページの公開範囲',
+                                        label:    contest_labels[:visible_range_vote],
                                         selected: 0},
                 visible_range_show:   { options:  select_options[:visible_range_show],
-                                        label:    '作品一覧の公開範囲',
+                                        label:    contest_labels[:visible_range_show],
                                         selected: 0},
                 visible_range_result: { options:  select_options[:visible_range_result],
-                                        label:    '投票結果の公開範囲',
+                                        label:    contest_labels[:visible_range_result],
                                         selected: 0 }},
 
-              { visible_setting_for_user_name: {options: select_options[:visible_setting_for_user_name],
-                                                label:    '作品の応募者名の公開範囲',
+              { visible_setting_for_user_name: {options:  select_options[:visible_setting_for_user_name],
+                                                label:    contest_labels[:visible_setting_for_user_name],
                                                 selected: 0 }}]
+  end
+
+  def excerpt_description(i = 50)
+    description = self.description
+    description.length > i ? description[0..i-1] + '...' : description
   end
 
   def is_in_period_voting?
