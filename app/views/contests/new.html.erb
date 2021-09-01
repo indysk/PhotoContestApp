@@ -1,8 +1,2 @@
-<%= form_with model: @contest, url: contests_path, local: true do |f| %>
-<%= render 'shared/error_messages', model: @contest %>
-
-<%= f.label :name %>
-<%= f.text_field :name, autocomplete: 'off' %>
-
-<%= f.submit 'コンテスト作成' %>
-<% end %>
+<h1>新しいコンテストを作成</h1>
+<%= render  "form", contest: @contest, url: contests_path, submit_message: 'コンテストを作成' %>

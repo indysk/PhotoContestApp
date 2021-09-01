@@ -1,38 +1,31 @@
 <li class='contestlist__item'>
+  <div class="contestlist__item__contents">
+    <span class="contestlist__item__infomation_main-title">Infomation</span>
+    <%= link_to contest_path(contest), class: 'contestlist__item__infomation_main-contents' do %>
+      <p class="contestlist__item__infomation_main-name"><%= contest.name %></p>
+      <p class="contestlist__item__infomation_main-description">コンテストの説明：<%= contest.excerpt_description %></p>
+    <% end %>
 
-  <div class="contestlist__item__infomation-container">
-    <span class="contestlist__item__infomation-title">Infomation</span>
-    <div class="contestlist__item__infomation-contents">
-
-      <div class="contestlist__item__infomation-contents-container">
-        <span class="contestlist__item__infomation-contents-title">Contents</span>
-        <%= link_to contest_path(contest), class: 'contestlist__item__infomation-contents-wrapper' do %>
-          <p class="contestlist__item__infomation-contents-name">コンテスト名：<%= contest.name %></p>
-        <% end %>
-      </div>
-
-      <div class="contestlist__item__infomation-description-container">
-        <span class="contestlist__item__infomation-description-title">Description</span>
-        <div class="contestlist__item__infomation-description-wrapper">
-          <p class='contestlist__item__infomation-description-host'>主催：<%= print_contest_creator(contest) %></p>
-        </div>
-      </div>
+    <span class="contestlist__item__infomation_sub-title"></span>
+    <div class="contestlist__item__infomation_sub-contents">
+      <p class='contestlist__item__infomation_sub-host'>主催：<%= print_contest_creator(contest) %></p>
+      <p class='contestlist__item__infomation_sub-entry_period'><%= labels[:entry_period] %>：<%= contest.entry_start_at.to_s(:datetime_jp_date) %>▷<%= contest.entry_end_at.to_s(:datetime_jp_date) %></p>
+      <p class='contestlist__item__infomation_sub-vote_period'><%= labels[:vote_period] %>：<%= contest.vote_start_at.to_s(:datetime_jp_date) %>▷<%= contest.vote_end_at.to_s(:datetime_jp_date) %></p>
+      <p class='contestlist__item__infomation_sub-visible_setting_for_user_name'><%= labels[:visible_setting_for_user_name] %>：<%= select_options[:visible_setting_for_user_name][contest.visible_setting_for_user_name][0] %></p>
     </div>
-  </div>
 
-  <div class="contestlist__item__links-container">
     <span class="contestlist__item__links-title">Links</span>
     <div class="contestlist__item__links-contents">
-      <%= link_to new_contest_photo_path(contest), class: 'contestlist__item__links-link' do %>
-        <i class="contestlist__item__links-link-icon fas fa-paper-plane"></i>
-        <p class="contestlist__item__links-link-value">Submit</p>
+      <%= print_link_button contest_path(contest), true, class: 'contestlist__item__links-link' do %>
+        <i class="contestlist__item__links-link-icon fas fa-search-plus"></i>
+        <p class="contestlist__item__links-link-value">More</p>
       <% end %>
-      <%= link_to contest_path(contest), class: 'contestlist__item__links-link' do %>
+      <%= print_link_button contest_path(contest), contest.is_in_period_voting?, class: 'contestlist__item__links-link' do %>
         <i class="contestlist__item__links-link-icon fas fa-vote-yea"></i>
         <p class="contestlist__item__links-link-value">Vote</p>
       <% end %>
-      <%= link_to contest_path(contest), class: 'contestlist__item__links-link' do %>
-        <i class="contestlist__item__links-link-icon fas fa-eye"></i>
+      <%= print_link_button contest_photos_path(contest), contest.is_after_period_voting?, class: 'contestlist__item__links-link' do %>
+        <i class="contestlist__item__links-link-icon fas fa-images"></i>
         <p class="contestlist__item__links-link-value">View</p>
       <% end %>
     </div>

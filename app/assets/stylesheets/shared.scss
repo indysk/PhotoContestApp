@@ -1,15 +1,13 @@
-$color_main: #f2f3f3;
-$color_sub: #6b6e74;
+@import 'modules';
 
 :root {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: $color_sub;
 }
 
-
-
-
-
+body {
+  background-color: $color_base;
+  color: $color_font;
+}
 
 .header {
   &__nav {
@@ -19,11 +17,21 @@ $color_sub: #6b6e74;
 
     &-container {
       padding: 16px;
+      background-color: $color_main;
+      color: $color_base;
+      margin-bottom: 16px;
     }
 
     &-ul {
       display: flex;
       justify-content: space-between;
+    }
+
+    &-li {
+      &-item {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+      }
     }
 
     &-accordionmenu {
@@ -43,7 +51,7 @@ $color_sub: #6b6e74;
         transition: ease .2s;
 
         .accordionmenu_open & {
-          transform: rotate(-540deg);
+          transform: rotate(180deg);
         }
       }
 
@@ -64,7 +72,8 @@ $color_sub: #6b6e74;
       &-contents {
         display: flex;
         flex-flow: column;
-        background-color: #f2f3f3;
+        background-color: $color_base;
+        color: $color_font;
       }
 
       &-item {
@@ -77,7 +86,7 @@ $color_sub: #6b6e74;
         }
 
         &:hover {
-          background-color: $color_sub;
+          background-color: $color_base;
           color: $color_main;
         }
       }
@@ -86,11 +95,6 @@ $color_sub: #6b6e74;
 }
 
 .modal {
-  $color_icon_success: #5264ff;
-  $color_icon_danger: #fd3179;
-  $color_icon_danger: #3f3f3f;
-  $color_icon_success: #3f3f3f;
-  $color_main: #fff;
   $size_icon: 56px;
   $size_icon_no_height: $size_icon * (5/14);
   $size_icon_no_width: $size_icon / 14;
@@ -122,7 +126,7 @@ $color_sub: #6b6e74;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    background: #e4e4e4;
+    background-color: $color_main;
 
     &-title {
       width: 100%;
@@ -132,7 +136,7 @@ $color_sub: #6b6e74;
       justify-content: center;
       align-items: center;
 
-      background-color: white;
+      background-color: $color_base;
       font-size: 1.2rem;
     }
 
@@ -146,6 +150,7 @@ $color_sub: #6b6e74;
       justify-content: center;
       align-items: center;
 
+      color: $color_base;
       word-break: break-all;
     }
   }
@@ -156,7 +161,7 @@ $color_sub: #6b6e74;
       padding: 3vw 0;
       display: flex;
       justify-content: space-around;
-      background-color: #fff;
+      background-color: $color_base;
     }
 
     &-container {
@@ -187,7 +192,7 @@ $color_sub: #6b6e74;
           left: $size_icon * (9/14);
           height: $size_icon * (5/7);
           width: $size_icon * (5/7);
-          background-color: $color_icon_danger;
+          background-color: $color_main;
         }
 
         &::after {
@@ -195,7 +200,7 @@ $color_sub: #6b6e74;
           left: $size_icon * (1/2);
           height: $size_icon;
           width: $size_icon;
-          border: 3px solid $color_icon_danger;
+          border: 3px solid $color_main;
         }
       }
     }
@@ -203,11 +208,11 @@ $color_sub: #6b6e74;
     &-yes {
       &-link {
         &::before {
-          background-color: $color_icon_success;
+          background-color: $color_main;
         }
 
         &::after {
-          border: 3px solid $color_icon_success;
+          border: 3px solid $color_main;
         }
       }
 
@@ -219,7 +224,7 @@ $color_sub: #6b6e74;
         left: $size_icon - $size_icon_yes_width / 2;
         height: $size_icon_yes_height;
         width: $size_icon_yes_width;
-        border: $size_icon_yes_border solid #fff;
+        border: $size_icon_yes_border solid $color_base;
       }
     }
 
@@ -236,7 +241,7 @@ $color_sub: #6b6e74;
           position: absolute;
           height: $size_icon * (5/14);
           width: $size_icon / 14;
-          background-color: #fff;
+          background-color: $color_base;
           transform: rotate(-45deg);
         }
 
@@ -298,10 +303,19 @@ textarea {
   font-size: small;
 }
 
+select {
+  width: auto;
+  padding: 4px;
+  border: 1px solid #999;
+  background: #eee;
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+
 input[type='submit'] {
   border: none;
-  color: #fff;
   background-color: #0d6efd;
+  color: $color_base;
   padding: 8px;
   margin: 8px 0;
   border-radius: 3px;

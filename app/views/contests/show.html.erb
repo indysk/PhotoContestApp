@@ -1,50 +1,31 @@
 <%= render  "shared/error_messages", model: @vote %>
+<% options = Contest.select_options %>
 <h1>コンテスト名：<%= @contest.name %></h1>
-<p>作成者：<%= print_contest_creator(@contest) %></p>
-<%= link_to  "写真を投稿", new_contest_photo_path(@contest) %>
-<%= link_to  "前のページに戻る", :back %>
+<p>主催者：<%= link_to @contest.user.name, user_path(@contest.user) %></p>
+<p>コンテストの説明：<%= @contest.description %></p>
+<p>作品の募集期間：<%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+<p>投票の募集期間：<%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
+<p>応募ページの公開範囲：<%= options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
+<p>投票ページの公開範囲：<%= options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
+<p>作品一覧の公開範囲：<%= options[:visible_range_show][@contest.visible_range_show][0] %></p>
+<p>投票結果の公開範囲：<%= options[:visible_range_result][@contest.visible_range_result][0] %></p>
+<p>投票者の持ち点：<%= @contest.voting_points %></p>
+<p>上位者の表示人数：<%= @contest.num_of_views_in_result %></p>
+<p>作品の応募者名の公開範囲：<%= options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
 
-<% if @photos %>
-  <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
 
-    <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-    <div class="img_list">
-      <%= render partial: 'photos/photo', collection: @photos, locals: { f: f } %>
-    </div>
-    <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<div>
+  <br><p>links</p>
+  <%= print_link_button('作品を提出する', new_contest_photo_path(@contest), @contest.is_in_period_entry?, class: 'link_class') %>
+  <%= print_link_button('投票する', contest_photos_path(@contest), @contest.is_in_period_voting?, class: 'link_class') %>
+  <%= print_link_button('作品を見る', contest_photos_path(@contest), @contest.is_after_period_voting?, class: 'link_class') %>
+</div>
 
-    <h3>投票</h3>
-    <%= f.submit %>
-  <% end %>
-  <%= link_to  "投票結果", contest_vote_path(@contest) %>
-
-<% else %>
-  <div>写真が投稿されていません</div>
-<% end %>
 
 <% if correct_user?(@contest.user) %>
+  <br><p>管理者用</p>
   <div>
-    <a class="js-modal-open" href="" data-target="modal__window">このコンテストを削除</a>
-    <div id="modal__window" class="modal__window js-modal">
-      <div class="modal__bg js-modal-close"></div>
-      <div class="modal__content">
-
-        <h3 class="modal__content-title">Alert</h3>
-        <p class="modal__content-body">コンテスト名：<%= @contest.name %>を削除しますか？</p>
-        <ul class="modal__icon-list">
-          <li class="modal__icon-container">
-            <%= link_to contest_path(@contest), method: :delete, class: 'modal__icon-yes-link' do %>
-              <span class="modal__icon-yes-content"></span>
-            <% end %>
-          </li>
-          <li class="modal__icon-container">
-            <a class="js-modal-close modal__icon-no-link" href="">
-              <span class="modal__icon-no-content"></span>
-            </a>
-          </li>
-        </ul>
-
-      </div>
-    </div>
+    <%= link_to  "コンテストを編集", edit_contest_path(@contest) %>
+    <%= render 'shared/modal_form', link_message: 'このコンテストを削除', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
   </div>
 <% end %>

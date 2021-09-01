@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   #コンテスト+++++++++++++++++++++++++++++++++++++++++++++++++++++
   resources :contests, except: [:index] do
     #コンテストに紐付けられた写真
-    resources :photos, except: [:index, :edit, :update]
+    resources :photos, except: [:edit, :update]
     #コンテストに紐付けられた投票
     resources :votes, only: [:show, :new, :create, :destroy]
   end

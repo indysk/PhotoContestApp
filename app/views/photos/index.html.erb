@@ -1,0 +1,17 @@
+<% if @photos.present? %>
+  <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
+
+    <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+    <div class="img_list">
+      <%= render partial: 'photos/photo', collection: @photos, locals: { f: f } %>
+    </div>
+    <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+
+    <h3>投票</h3>
+    <%= f.submit %>
+  <% end %>
+  <%= link_to  "投票結果", contest_vote_path(@contest) %>
+
+<% else %>
+  <div>作品が投稿されていません</div>
+<% end %>

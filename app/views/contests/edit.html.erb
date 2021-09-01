@@ -1,2 +1,2 @@
-<h1>Contests#edit</h1>
-<p>Find me in app/views/contests/edit.html.erb</p>
+<h1>新しいコンテストを編集</h1>
+<%= render  "form", contest: @contest, url: contest_path(@contest), submit_message: 'コンテストを編集' %>

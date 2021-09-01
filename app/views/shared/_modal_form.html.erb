@@ -1,0 +1,21 @@
+<a class="js-modal-open" href="" data-target="modal__window"><%= link_message %></a>
+<div id="modal__window" class="modal__window js-modal">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="modal__content">
+
+    <h3 class="modal__content-title">Alert</h3>
+    <p class="modal__content-body"><%= modal_message %></p>
+    <ul class="modal__icon-list">
+      <li class="modal__icon-container">
+        <%= link_to link, method: method, class: 'modal__icon-yes-link' do %>
+          <span class="modal__icon-yes-content"></span>
+        <% end %>
+      </li>
+      <li class="modal__icon-container">
+        <a class="js-modal-close modal__icon-no-link" href="">
+          <span class="modal__icon-no-content"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

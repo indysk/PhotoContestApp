@@ -4,11 +4,10 @@ function OnLinkClick(target_id) {
 }
 
 $(function(){
+  //モーダルフォーム
   $('.js-modal-open').each(function(){
     $(this).on('click',function(){
-      var target = $(this).data('target');
-      var modal = document.getElementById(target);
-      $(modal).fadeIn();
+      $(this).next('#modal__window').fadeIn();
       return false;
     });
   });
@@ -19,9 +18,16 @@ $(function(){
 });
 
 
+//headerアコーディオンメニュー用
 $(function(){
   $('.js-AccordionMenu').click(function(){
     $(this).next('.header__nav-accordionmenu-window').slideToggle(200);
     $(this).toggleClass("accordionmenu_open");
   });
+});
+$(document).on('click touchstart', function(event) {
+  if (!($(event.target).closest('.header__nav-accordionmenu-window').length || $(event.target).closest('.header__nav-accordionmenu-container').length) && $('.header__nav-accordionmenu-window').css('display') == 'block'){
+    $('.js-AccordionMenu').next('.header__nav-accordionmenu-window').slideToggle(200);
+    $('.js-AccordionMenu').toggleClass("accordionmenu_open");
+  }
 });
