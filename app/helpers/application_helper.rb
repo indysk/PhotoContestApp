@@ -39,4 +39,9 @@ module ApplicationHelper
   def print_default_img
     'cat_S.jpg'
   end
+
+  def print_link_button(path = '', value = '', bool = true, tag_class = 'link_button')
+    bool ? link_to(value, path, class: tag_class + '-true') : content_tag(:div, value, class: tag_class + '-false')
+  end
+
 end

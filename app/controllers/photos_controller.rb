@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  before_action :check_correct_user_for_photo, only: [:edit, :update, :destory]
+
   def show
     @photo = Photo.find_by(id: params[:id])
     redirect_to :back unless @photo

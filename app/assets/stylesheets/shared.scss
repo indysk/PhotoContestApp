@@ -51,7 +51,7 @@ body {
         transition: ease .2s;
 
         .accordionmenu_open & {
-          transform: rotate(-540deg);
+          transform: rotate(180deg);
         }
       }
 

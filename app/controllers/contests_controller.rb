@@ -1,5 +1,5 @@
 class ContestsController < ApplicationController
-  # before_action :check_logged_in, only: [:create, :update, :show, :destory]
+  before_action :check_correct_user_for_contest, only: [:edit, :update, :destory]
 
   def index
     @contests = Contest.includes(:user).paginate(page: params[:page])
@@ -16,7 +16,6 @@ class ContestsController < ApplicationController
 
   def new
     @contest = Contest.new
-    @select_options = Contest.form_select_options
   end
 
   def create
@@ -25,16 +24,25 @@ class ContestsController < ApplicationController
     if @contest.save
       redirect_to root_path
     else
-      @select_options = Contest.form_select_options
       render :new
     end
   end
 
   def edit
+    @contest ||= Contest.find_by(id: params[:id])
+  end
+
+  def update
+    @contest ||= Contest.find_by(id: params[:id])
+    if @contest && @contest.update(contest_params)
+      redirect_to contest_path(@contest)
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @contest = Contest.find_by(id: params[:id])
+    @contest ||= Contest.find_by(id: params[:id])
     if @contest && @contest.destroy
       flash[:success] = 'コンテストの削除に成功しました'
       redirect_to root_path
@@ -60,4 +68,4 @@ class ContestsController < ApplicationController
                                       :num_of_views_in_result,
                                       :visible_setting_for_user_name)
     end
-end
+  end
