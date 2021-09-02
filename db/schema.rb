@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_031316) do
+ActiveRecord::Schema.define(version: 2021_09_02_040217) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 2021_08_23_031316) do
     t.string "contest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "photographer"
+    t.text "description"
+    t.string "camera"
+    t.string "lens"
+    t.string "iso"
+    t.string "aperture"
+    t.string "shutter_speed"
     t.index ["contest_id"], name: "fk_rails_f9368fe956"
     t.index ["user_id"], name: "fk_rails_c79d76afc0"
   end
