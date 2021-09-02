@@ -17,4 +17,18 @@ class Photo < ApplicationRecord
       self.image.attach(io: File.open('app/assets/images/cat_S.jpg'), filename: 'cat_S.jpg', content_type: 'image/jpeg')
     end
   end
+
+  def self.model_labels
+    {
+      image: '写真',
+      name: '作品名',
+      description: '作品の説明',
+      photographer: '撮影者のニックネーム',
+      camera: 'カメラの名前',
+      lens: 'カメラのレンズ',
+      iso: 'ISO',
+      aperture: 'F値',
+      shutter_speed: 'シャッター速度',
+    }
+  end
 end

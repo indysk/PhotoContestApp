@@ -1,5 +1,33 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.2.1/exif.min.js"></script>
+<% labels = Photo.model_labels %>
 <%= form_with model: @photo, url: contest_photos_path(params[:contest_id]), local: true  do |f| %>
-<%= f.text_field :name %><br><br>
-<%= f.file_field :image %><br>
-<%= f.submit %>
+
+  <div class="photo_show_img_container" style="display: none;"><img src="" alt="プレビュー画像"></div>
+  <%= f.label :image, labels[:image] %>
+  <%= f.file_field :image, id: 'photoFile' %><br><br>
+
+  <%= f.label :name, labels[:name] %>
+  <%= f.text_field :name %><br><br>
+
+  <%= f.label :description, labels[:description] %>
+  <%= f.text_area :description, id: 'form_description' %><br><br>
+
+  <%= f.label :photographer, labels[:photographer] %>
+  <%= f.text_field :photographer, value: current_user.name, id: 'form_photographer' %><br><br>
+
+  <%= f.label :camera, labels[:camera] %>
+  <%= f.text_field :camera, id: 'form_camera' %><br><br>
+
+  <%= f.label :lens, labels[:lens] %>
+  <%= f.text_field :lens, id: 'form_lens' %><br><br>
+
+  <%= f.label :iso, labels[:iso] %>
+  <%= f.text_field :iso, id: 'form_iso' %><br><br>
+
+  <%= f.label :aperture, labels[:aperture] %>
+  <%= f.text_field :aperture, id: 'form_aperture' %><br><br>
+
+  <%= f.label :shutter_speed, labels[:shutter_speed] %>
+  <%= f.text_field :shutter_speed, id: 'shutter_speed' %><br><br>
+  <%= f.submit %>
 <% end %>
