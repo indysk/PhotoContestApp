@@ -8,7 +8,7 @@
 
 
 <%= will_paginate %>
-<ul>
+<ul class="contestlist__body-listcontainer">
 <% if @contests.present? %>
   <%= render @contests, labels: Contest.model_labels, select_options: Contest.select_options %>
 <% else %>

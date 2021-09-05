@@ -1,6 +1,13 @@
 class PhotosController < ApplicationController
   before_action :check_correct_user_for_photo, only: [:edit, :update, :destory]
 
+  def index
+    @contest = Contest.find_by(id: params[:contest_id])
+    render :new unless @contest
+    @photos = @contest.photos
+    @vote = Vote.new
+  end
+
   def show
     @photo = Photo.find_by(id: params[:id])
     redirect_to :back unless @photo
@@ -28,6 +35,16 @@ class PhotosController < ApplicationController
     redirect_to photos_path unless @photo
   end
 
+  def update
+    @photo = Photo.find_by(id: params[:id])
+    if @photo && @photo.update(photo_params)
+      redirect_to contest_path(params[:contest_id])
+    else
+      flash[:danger] = '作品の編集に失敗しました'
+      render :edit
+    end
+  end
+
   def destroy
     @photo = Photo.find_by(id: params[:id])
     if @photo && @photo.destroy
@@ -41,6 +58,15 @@ class PhotosController < ApplicationController
 
   private
     def photo_params
-      params.require(:photo).permit(:name, :image).merge(user_id: current_user_or_guest.id)
+      params.require(:photo).permit(:name,
+                                    :image,
+                                    :description,
+                                    :photographer,
+                                    :camera,
+                                    :lens,
+                                    :iso,
+                                    :aperture,
+                                    :shutter_speed,
+                                    ).merge(user_id: current_user_or_guest.id)
     end
 end

@@ -9,6 +9,11 @@ body {
   color: $color_font;
 }
 
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
 .header {
   &__nav {
     &-title {
@@ -62,11 +67,12 @@ body {
       &-window {
         position: absolute;
         width: max-content;
-        top: calc(1rem + 4px);
+        top: calc(1rem + 8px);
         right: 0;
         padding: 4px 8px;
-        background-color: rgb(242, 243, 243);
-        border: 1px solid black;
+        background-color: $color_base;
+        border: 1px solid #ddd;
+        border-top: none;
       }
 
       &-contents {
@@ -91,6 +97,21 @@ body {
         }
       }
     }
+  }
+}
+
+.footer {
+  &-container {
+    border-top: 1px #ddd solid;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-copyright {
+    font-size: .8rem;
+    color: #666;
   }
 }
 
@@ -253,48 +274,6 @@ body {
   }
 }
 
-ul.pagination {
-  display: flex;
-
-  li {
-    padding: 0 2px;
-  }
-}
-
-div.img_list {
-  display: flex;
-  flex-wrap: wrap;
-
-  div.img_container {
-    height: 100px;
-    width: 100px;
-    margin: 8px;
-
-    a {
-      display: inline-block;
-      width: inherit;
-      height: inherit;
-    }
-
-    img {
-      width: inherit;
-      height: inherit;
-      object-fit: contain;
-    }
-  }
-}
-
-div.photo_show_img_container {
-  img {
-    height: 80vh;
-  }
-}
-
-div.photo_checkbox_container {
-  text-align: right;
-  padding: 8px;
-}
-
 input,
 textarea {
   border: 1px rgb(88, 87, 87) solid;
@@ -320,4 +299,38 @@ input[type='submit'] {
   margin: 8px 0;
   border-radius: 3px;
   font-size: small;
+}
+
+
+
+
+.arrow_more:hover {
+  border-bottom: 1px solid #41A849;
+  color: #41A849;
+}
+
+.arrow_more:hover::after {
+  border-right: 1px solid #41A849;
+  color: #41A849;
+}
+
+.arrow_more {
+  font-size: .8rem;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #000;
+  position: relative;
+  width: fit-content;
+  padding: 0 24px 2px 0;
+  cursor: pointer
+}
+
+.arrow_more::after {
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 4px;
+  bottom: -1px;
+  content: '';
+  height: 8px;
+  border-right: 1px solid #000;
+  transform: skew(45deg);
 }

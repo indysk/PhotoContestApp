@@ -1,11 +1,8 @@
 class VotesController < ApplicationController
-  def show
+  def index
     contest = Contest.find_by(id: params[:contest_id])
     redirect_to root_path unless contest
     @result = contest.vote_result
-  end
-
-  def new
   end
 
   def create

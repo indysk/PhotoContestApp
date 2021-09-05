@@ -1,0 +1,60 @@
+@import 'modules';
+
+.photoCreate {
+
+  &__form {
+    &-container {}
+
+    &-body {
+      width: 60%;
+      padding: 16px;
+      margin: auto;
+
+      & input[type="text"]:focus,
+      & textarea:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem #007bff40;
+      }
+    }
+
+    &-classification {
+      margin-top: 24px;
+      font-size: 1.4rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-classificationContainer {
+      padding-left: 8px;
+    }
+
+    &-preview {
+      &-imgcontainer {
+        margin-top: 8px;
+      }
+
+      &-img {
+        height: 50vh;
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-flow: column;
+      margin-top: 8px;
+    }
+
+    &-label {
+      width: 160px;
+    }
+
+    &-input {
+      &#form_description {
+        height: 100px;
+      }
+    }
+  }
+}

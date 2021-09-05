@@ -27,20 +27,19 @@ $(function() {
   });
 
 
-
   //作品応募フォーム、exif取り出し
-  $('#photoFile').on('change', function() {
+  $('#photoFileField').on('change', function() {
     var file = $(this)[0].files[0];
     EXIF.getData(file, function() {
       (artist = EXIF.getTag(this, "Artist")) ? $('#form_photographer').val(artist) : null ;
       $('#form_camera').val(EXIF.getTag(this, "Model"));
       $('#form_lens').val(`${EXIF.getTag(this, "FocalLength")}mm`);
       $('#form_iso').val(EXIF.getTag(this, "ISOSpeedRatings"));
-      $('#form_aperture').val(EXIF.getTag(this, "FNumber"));
-      $('#shutter_speed').val(`1/${1 / EXIF.getTag(this, "ExposureTime")}`);
+      $('#form_aperture').val(Number(EXIF.getTag(this, "FNumber")).toFixed(1));
+      $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
     });
     // img要素に表示
-    img_container = $('.photo_show_img_container')
+    img_container = $('.photoCreate__form-preview-imgcontainer');
     img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });

@@ -8,10 +8,10 @@ class ContestsController < ApplicationController
   def show
     if (@contest = Contest.find_by(id: params[:id]))
       @photos = @contest.photos.includes(:user).paginate(page: params[:page])
+      @options ||= Contest.select_options
     else
       redirect_to root_path
     end
-    @vote = Vote.new
   end
 
   def new

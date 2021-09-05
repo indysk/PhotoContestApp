@@ -122,4 +122,17 @@ class Contest < ApplicationRecord
     return self.vote_end_at <= Time.current ? true : false
   end
 
+  def is_already_submitted?(current_user)
+    self.photos.exists?(user: current_user)
+  end
+
+  def is_already_voted?(current_user)
+    self.votes.exists?(user: current_user)
+  end
+
+  def is_able_to_submit?(current_user)
+    self.is_in_period_entry? && self.is_already_submitted?(current_user)
+  end
+
+
 end
