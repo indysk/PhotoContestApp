@@ -48,7 +48,7 @@ class Contest < ApplicationRecord
       visible_range_vote: '投票ページの公開範囲',
       visible_range_show: '作品一覧の公開範囲',
       visible_range_result: '投票結果の公開範囲',
-      visible_setting_for_user_name: '作品の応募者名の公開範囲'
+      visible_setting_for_user_name: '応募者名の公開'
     }
   end
 
@@ -66,7 +66,7 @@ class Contest < ApplicationRecord
   def self.form_options
     contest_labels = Contest.model_labels
     select_options = Contest.select_options
-    now = Date.today.year
+    now = Time.current
     options = [{entry_period: { label:  contest_labels[:entry_period],
                                 start: {obj:              'entry_start_at',
                                         label:            contest_labels[:entry_start_at],

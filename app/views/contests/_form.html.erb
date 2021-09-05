@@ -1,49 +1,66 @@
-<% form_options = Contest.form_options %>
-<%= form_with model: contest, url: url, local: true do |f| %>
-  <%= render 'shared/error_messages', model: contest %>
+<% @form_options ||= Contest.form_options %>
+<div class="contestCreate__form-container">
+  <%= form_with model: contest, url: url, local: true, class:'contestCreate__form-body', autocapitalize: 'none' do |f| %>
+    <h3 class="contestCreate__form-classification">コンテスト情報</h3>
+    <div class="contestCreate__form-classificationContainer">
+      <div class="contestCreate__form-group">
+        <%= f.label :name, 'コンテスト名', class: 'contestCreate__form-label' %>
+        <%= f.text_field :name, class: 'contestCreate__form-input', autocomplete: 'off' %>
+      </div>
+      <div class="contestCreate__form-group">
+        <%= f.label :description, 'コンテストの説明', class: 'contestCreate__form-label' %>
+        <%= f.text_area :description, class: 'contestCreate__form-input', autocomplete: 'off' %>
+      </div>
+    </div>
 
-  <%= f.label :name, 'コンテスト名' %>
-  <%= f.text_field :name, autocomplete: 'off' %><br>
 
-  <%= f.label :description, 'コンテストの説明' %>
-  <%= f.text_area :description, autocomplete: 'off' %><br>
+    <h3 class="contestCreate__form-classification">期間の設定</h3>
+    <div class="contestCreate__form-classificationContainer">
+      <% @form_options[0].each do |key, value| %>
+        <div class="contestCreate__form-group">
+          <%= f.label key, value[:label], class: 'contestCreate__form-label' %>
+          <div class="contestCreate__form-datetime-container">
+            <div class="contestCreate__form-datetime-start">
+              <%= f.date_field value[:start][:obj] + '_date', value: print_date_for_form(value[:start][:default_datetime]), class: 'contestCreate__form-input-date', autocomplete: 'off' %>
+              <%= f.time_field value[:start][:obj] + '_time', value: print_time_for_form(value[:start][:default_datetime]), class: 'contestCreate__form-input-time', autocomplete: 'off' %>
+            </div>
+            <i class="fas fa-chevron-right contestCreate__form-datetime-icon"></i>
+            <div class="contestCreate__form-datetime-end">
+              <%= f.date_field value[:end][:obj] + '_date', value: print_date_for_form(value[:end][:default_datetime]), class: 'contestCreate__form-input-date', autocomplete: 'off' %>
+              <%= f.time_field value[:end][:obj] + '_time', value: print_time_for_form(value[:end][:default_datetime]), class: 'contestCreate__form-input-time', autocomplete: 'off' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-  <p>期間の設定</p>
-  <div>
-    <% form_options[0].each do |key, value| %>
-      <%= f.label key, value[:label] %>
-      <%= raw sprintf(f.datetime_select(value[:start][:obj],
-                                        use_month_numbers: true,
-                                        start_year: value[:start][:default_datetime],
-                                        :minute_step => 5,
-                                        date_separator: '%s', datetime_separator: '%s'), '年', '月', '日') %>~
-      <%= raw sprintf(f.datetime_select(value[:end][:obj],
-                                        use_month_numbers: true,
-                                        start_year: value[:end][:default_datetime],
-                                        :minute_step => 5,
-                                        date_separator: '%s', datetime_separator: '%s', :minute_step => 10), '年', '月', '日') %><br>
-    <% end %>
-  </div>
+    <h3 class="contestCreate__form-classification">公開範囲の設定</h3>
+    <div class="contestCreate__form-classificationContainer">
+      <% @form_options[1].each do |key, value| %>
+        <div class="contestCreate__form-group">
+          <%= f.label key, value[:label], class: 'contestCreate__form-label' %>
+          <%= f.select key, value[:options], {selected: value[:selected]}, {class: 'contestCreate__form-input-select', autocomplete: 'off'} %>
+        </div>
+      <% end %>
+    </div>
 
-  <p>公開範囲の設定</p>
-  <div>
-    <% form_options[1].each do |key, value| %>
-      <%= f.label key, value[:label] %>
-      <%= f.select key, value[:options], selected: value[:selected] %><br>
-    <% end %>
-  </div>
+    <h3 class="contestCreate__form-classification">その他の設定</h3>
+    <div class="contestCreate__form-classificationContainer">
+      <div class="contestCreate__form-group">
+        <%= f.label :voting_points, '投票者の持ち点', class: 'contestCreate__form-label' %>
+        <%= f.number_field :voting_points, autocomplete: 'off', step: 1, min: -1, value: 3, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+      </div>
+      <div class="contestCreate__form-group">
+        <%= f.label :num_of_views_in_result, '上位者の表示人数', class: 'contestCreate__form-label' %>
+        <%= f.number_field :num_of_views_in_result, autocomplete: 'off', step: 1, min: -1, value: 3, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+      </div>
+      <% @form_options[2].each do |key, value| %>
+        <div class="contestCreate__form-group">
+          <%= f.label key, value[:label], class: 'contestCreate__form-label' %>
+          <%= f.select key, value[:options], {selected: value[:selected]}, {class: 'contestCreate__form-input-select', autocomplete: 'off'} %>
+        </div>
+      <% end %>
 
-  <p>その他の設定</p>
-  <div>
-    <%= f.label :voting_points, '投票者の持ち点' %>
-    <%= f.number_field :voting_points, autocomplete: 'off', step: 1, min: -1, value: 3 %><br>
-    <%= f.label :num_of_views_in_result, '上位者の表示人数' %>
-    <%= f.number_field :num_of_views_in_result, autocomplete: 'off', step: 1, min: -1, value: 3 %><br>
-    <% form_options[2].each do |key, value| %>
-      <%= f.label key, value[:label] %>
-      <%= f.select key, value[:options], selected: value[:selected] %><br>
-    <% end %>
-  </div>
-
-  <%= f.submit submit_message %>
-<% end %>
+    <%= f.submit submit_message %>
+  <% end %>
+</div>

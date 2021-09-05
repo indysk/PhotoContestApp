@@ -54,18 +54,29 @@ class ContestsController < ApplicationController
 
   private
     def contest_params
-      params.require(:contest).permit(:name,
-                                      :description,
-                                      :entry_start_at,
-                                      :entry_end_at,
-                                      :vote_start_at,
-                                      :vote_end_at,
-                                      :visible_range_entry,
-                                      :visible_range_vote,
-                                      :visible_range_show,
-                                      :visible_range_result,
-                                      :voting_points,
-                                      :num_of_views_in_result,
-                                      :visible_setting_for_user_name)
+      get = params.require(:contest).permit(
+        :name,
+        :description,
+        :entry_start_at_date, :entry_start_at_time, :entry_end_at_date, :entry_end_at_time,
+        :vote_start_at_date, :vote_start_at_time, :vote_end_at_date, :vote_end_at_time,
+        :visible_range_entry, :visible_range_vote, :visible_range_show, :visible_range_result,
+        :voting_points,
+        :num_of_views_in_result,
+        :visible_setting_for_user_name
+      )
+
+      tmp = {
+        entry_start_at: print_datetime_from_string(get[:entry_start_at_date], get[:entry_start_at_time]),
+        entry_end_at:   print_datetime_from_string(get[:entry_end_at_date], get[:entry_end_at_time]),
+        vote_start_at:  print_datetime_from_string(get[:vote_start_at_date], get[:vote_start_at_time]),
+        vote_end_at:    print_datetime_from_string(get[:vote_end_at_date], get[:vote_end_at_time])
+      }
+
+      delete_list = %w(entry_start_at_date entry_start_at_time entry_end_at_date entry_end_at_time vote_start_at_date vote_start_at_time vote_end_at_date vote_end_at_time)
+      delete_list.each do |value|
+        get.delete(value)
+      end
+
+      get.merge(tmp)
     end
   end

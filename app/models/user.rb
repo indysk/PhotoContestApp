@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :contests, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_many :votes
+  has_one_attached :image
 
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "")
                 self.email = email.downcase

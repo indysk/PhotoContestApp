@@ -59,9 +59,21 @@ module ApplicationHelper
     bool ? content_tag("a", name || url, html_options, &block) : content_tag(:div, name, html_options, &block)
   end
 
-  def print_date_with_wday(date)
+  def print_datetime_with_wday(date)
     time = Time.parse(date.to_s)
     time.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[time.wday]}) %H:%M")
+  end
+
+  def print_date_for_form(date)
+    date.strftime("%Y-%m-%d")
+  end
+
+  def print_time_for_form(date)
+    date.strftime("%H:%M")
+  end
+
+  def print_datetime_from_string(date, time)
+    Time.zone.parse("#{date} #{time}")
   end
 
 end
