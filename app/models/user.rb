@@ -7,7 +7,9 @@ class User < ApplicationRecord
   has_many :contests, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_many :votes
-  has_one_attached :image
+  # has_one_attached :image
+  mount_uploader :image, ImageUploader
+  DEFAULT_FILE_NAME = 'default_user.jpg'
 
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "")
                 self.email = email.downcase

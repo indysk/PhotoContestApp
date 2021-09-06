@@ -4,8 +4,8 @@
 
     <h3 class="photoCreate__form-classification">作品情報</h3>
     <div class="photoCreate__form-classificationContainer">
-      <%= tag.div class: 'photoCreate__form-preview-imgcontainer', style: photo.image.attached? ? '' : 'display: none;' do %>
-        <%= image_tag photo.image.attached? ? photo.image : '', class: 'photoCreate__form-preview-img', alt: 'プレビュー画像' %>
+      <%= tag.div class: 'photoCreate__form-preview-imgcontainer', style: photo.image.file.nil? ? 'display: none;' : '' do %>
+        <%= image_tag photo.image.file.nil? ? '' : photo.image.url, class: 'photoCreate__form-preview-img', alt: 'プレビュー画像' %>
       <% end %>
       <div class="photoCreate__form-group photoCreate__form-preview-group">
         <%= f.label :image, @labels[:image], class: 'photoCreate__form-label' %>

@@ -3,8 +3,10 @@ class Photo < ApplicationRecord
   belongs_to :user
   has_many :votes, dependent: :destroy
   default_scope -> { order(created_at: :desc) }
-  has_one_attached :image
-  before_create :attach_default_image
+  # has_one_attached :image
+  # before_create :attach_default_image
+  mount_uploader :image, ImageUploader
+  DEFAULT_FILE_NAME = 'cat_S.jpg'
 
   # #===nameカラム============================================================
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }

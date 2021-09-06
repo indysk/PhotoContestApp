@@ -1,7 +1,7 @@
 <div class="photo_container">
   <div class="img_container">
     <%= link_to path_for_photo(photo) do %>
-    <%= image_tag photo.image %>
+    <%= image_tag photo.image.url %>
     <% end %>
   </div>
   <% if defined? f %>

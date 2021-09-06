@@ -7,13 +7,6 @@ module ApplicationHelper
     page_title.present? ? page_title + " | " + base_title : base_title
   end
 
-  def current_user_or_guest
-    unless (user = current_user)
-      user = User.find(Rails.application.credentials.guest[:id])
-    end
-    return user
-  end
-
   def print_current_user_with_link
     user = current_user
     user_signed_in? ? link_to(user.name, user_path(user)) : 'ゲストモード'
@@ -22,19 +15,6 @@ module ApplicationHelper
   def print_current_user
     user = current_user
     user_signed_in? ? user.name : 'ゲストモード'
-  end
-
-
-  def print_contest_creator(contest)
-    user = contest.user
-    return link_to(user.name, user_path(user)) unless user.guest?
-    return user.name
-  end
-
-  def print_photo_creator(photo)
-    user = photo.user
-    return link_to(user.name, user_path(user)) unless user.guest?
-    return user.name
   end
 
   def correct_user?(user)
