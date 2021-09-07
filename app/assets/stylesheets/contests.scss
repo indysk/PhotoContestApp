@@ -57,9 +57,26 @@
         color: #000;
       }
 
-      &-span {
-        font-size: 0.8rem;
-        opacity: .8;
+      &-creater {
+        &-link {
+          display: inline-flex;
+          flex-flow: row;
+          align-items: center;
+          font-size: 0.8rem;
+          opacity: .8;
+          padding-left: 8px;
+        }
+
+        &-img {
+          margin-left: 4px;
+          width: 1rem;
+          height: 1rem;
+          border-radius: .5rem;
+        }
+
+        &-name {
+          padding-left: 2px;
+        }
       }
 
       &-badge {
@@ -69,8 +86,15 @@
         font-weight: bold;
         color: white;
         background-color: #6c757d;
+        transition: ease .2s;
         padding: 2px 4px;
         border-radius: 4px;
+
+        &:hover {
+          color: white;
+          text-decoration: none;
+          background-color: #545d64;
+        }
       }
     }
 
@@ -174,7 +198,6 @@
     }
   }
 }
-
 
 .contestCreate {
 

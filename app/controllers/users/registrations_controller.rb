@@ -19,27 +19,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    if current_user == resource && current_user.guest?
-      flash[:error] = "ゲストユーザはプロフィールを更新できません"
-      redirect_to root_path
-    else
-      super
-    end
+    super
   end
 
   # DELETE /resource
   def destroy
-    if current_user == resource && current_user.guest?
-      flash[:error] = "ゲストユーザは削除できません"
-      redirect_to root_path
-    else
-      super
-    end
+    super
   end
 
   def show
     if (@user = User.find_by(id: params[:id]))
-      @photos = @user.photos.paginate(page: params[:page])
+      @photos = @user.photos.paginate(page: params[:page_photos])
+      @contests = @user.contests.paginate(page: params[:page_contests])
     else
       redirect_to root_path
     end

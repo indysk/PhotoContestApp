@@ -62,6 +62,21 @@ a:hover {
 
       &-value {
         padding-right: 8px;
+        display: inline-flex;
+        flex-flow: row;
+        align-items: center;
+        opacity: .8;
+        padding-left: 8px;
+
+        &-img {
+          width: 1.2rem;
+          height: 1.2rem;
+          border-radius: .6rem;
+        }
+
+        &-name {
+          padding-left: 8px;
+        }
       }
 
       &-window {
@@ -104,9 +119,8 @@ a:hover {
   &-container {
     border-top: 1px #ddd solid;
     height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    line-height: 80px;
   }
 
   &-copyright {
@@ -128,6 +142,7 @@ a:hover {
     height: 100vh;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
   }
 
@@ -280,6 +295,7 @@ textarea {
   padding: 8px;
   border-radius: 4px;
   font-size: small;
+  height: auto;
 }
 
 select {

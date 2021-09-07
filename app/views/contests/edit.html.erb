@@ -1,2 +1,3 @@
-<h1>新しいコンテストを編集</h1>
+<% provide(:title, 'コンテストの編集') %>
+<h1>コンテストの編集</h1>
 <%= render  "form", contest: @contest, url: contest_path(@contest), submit_message: 'コンテストを編集' %>

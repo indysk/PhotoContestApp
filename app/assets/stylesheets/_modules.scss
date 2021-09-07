@@ -25,7 +25,8 @@ $border_nomal: $border_line_size $color_main solid;
 
   &:hover {
     color: $color_base;
-    background-color: $color_accent;
+    background-color: $color_main;
+    text-decoration: none;
   }
 }
 

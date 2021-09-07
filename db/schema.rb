@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_02_040217) do
+ActiveRecord::Schema.define(version: 2021_09_06_195242) do
 
   create_table "contests", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_09_02_040217) do
     t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "point", null: false
     t.index ["contest_id"], name: "fk_rails_2e961e225e"
     t.index ["photo_id"], name: "fk_rails_e0710e95e4"
     t.index ["user_id"], name: "fk_rails_c9b3bef597"

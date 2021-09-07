@@ -16,11 +16,12 @@ class ContestsController < ApplicationController
 
   def new
     @contest = Contest.new
+    @contest.initialize_for_form
   end
 
   def create
     @contest = Contest.new(contest_params)
-    @contest.user_id = current_user_or_guest.id
+    @contest.user_id = current_user.id
     if @contest.save
       redirect_to root_path
     else

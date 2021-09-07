@@ -1,8 +1,26 @@
 <li class="contestlist__item-container">
   <div class="contestlist__item__header-container">
     <%= link_to contest.name, contest_path(contest), class: 'contestlist__item__header-title' %>
-    <span class="contestlist__item__header-span"><%= link_to '作成者 ' + contest.user.name, user_path(contest.user) %></span>
-    <span class="contestlist__item__header-badge">作品募集中</span>
+    <%= link_to user_path(contest.user), class: 'contestlist__item__header-creater-link' do %>
+      <p class="contestlist__item__header-creater-label">作成者</p>
+      <%= image_tag contest.user.image.url, class: 'contestlist__item__header-creater-img' %>
+      <p class="contestlist__item__header-creater-name"><%= contest.user.name %></p>
+    <% end %>
+    <% if contest.is_in_period_entry? %>
+      <% if contest.is_already_submitted?(current_user) %>
+        <%= link_to  "作品提出済み", edit_contest_photo_path(contest, Photo.find_by(contest: contest, user: current_user)), class: 'contestlist__item__header-badge' %>
+      <% else %>
+        <%= link_to  "作品募集中", new_contest_photo_path(contest), class: 'contestlist__item__header-badge' %>
+      <% end %>
+    <% elsif contest.is_in_period_voting? %>
+      <% if contest.is_already_voted?(current_user) %>
+        <div class="contestlist__item__header-badge">投票済み</div>
+      <% else %>
+        <%= link_to  "投票期間中", contest_photos_path(contest), class: 'contestlist__item__header-badge' %>
+      <% end %>
+    <% elsif contest.is_after_period_voting? %>
+      <%= link_to  "投票終了", contest_votes_path(contest), class: 'contestlist__item__header-badge' %>
+    <% end %>
   </div>
   <%= link_to contest_path(contest), class: 'contestlist__item__body-container' do %>
     <div class="contestlist__item__body-main">

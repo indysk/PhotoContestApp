@@ -1,23 +1,33 @@
-<% if @photos.present? %>
-  <% if @contest.is_in_period_voting? %>
+<% provide(:title, "作品一覧 #{@contest.name}") %>
+<div class="photos-container">
 
-    <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
-      <div class="img_list">
-        <%= render partial: 'photos/photo', collection: @photos, locals: { f: f } %>
-      </div>
-      <h3>投票</h3>
-      <%= f.submit %>
+  <h2 class="photos-title"><%= @contest.name %></h2>
+
+  <div class="photos__body-container">
+    <h1 class="photos__body-title">作品一覧</h1>
+    <% if @photos.present? %>
+      <% if @contest.is_in_period_voting? %>
+        <%= form_with model: @vote, url: contest_votes_path(contest_id: @contest), local: true do |f| %>
+          <ul class="photos__body-img_container">
+            <%= render partial: 'photos/photo', collection: @photos, locals: { f: f, contest: @contest } %>
+          </ul>
+          <h3>投票</h3>
+          <%= f.submit %>
+        <% end %>
+
+      <% elsif @contest.is_after_period_voting? %>
+        <ul class="photos__body-img_container">
+          <%= render partial: 'photos/photo', collection: @photos %>
+        </ul>
+
+        <h3 class="photos__body-title">その他</h3>
+        <div class="photos__body-link_container">
+          <%= link_to  "投票結果", contest_votes_path(@contest), class: 'photos__body-link' %>
+        </div>
+      <% end %>
+
+    <% else %>
+      <div class="photos__body-no_image">作品が投稿されていません</div>
     <% end %>
-
-  <% else %>
-
-    <div class="img_list">
-      <%= render partial: 'photos/photo', collection: @photos %>
-    </div>
-    <%= link_to  "投票結果", contest_votes_path(@contest) %>
-
-  <% end %>
-
-<% else %>
-  <div>作品が投稿されていません</div>
-<% end %>
+  </div>
+</div>

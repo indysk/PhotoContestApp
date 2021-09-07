@@ -1,3 +1,27 @@
-// Place all the styles related to the Votes controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.votes {
+  &__results {
+    &-container {
+      padding: 32px 16px;
+      display: flex;
+      flex-wrap: wrap;
+
+      & .photolist__item-container {
+        width: calc(100% / 3);
+      }
+
+      & .photolist__item-img_square::before {
+        padding-top: 100%;
+
+      }
+    }
+  }
+
+  &__item {
+    &-info {
+      &_container {
+        display: flex;
+        flex-flow: row;
+      }
+    }
+  }
+}

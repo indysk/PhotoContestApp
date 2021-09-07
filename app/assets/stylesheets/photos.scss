@@ -33,6 +33,8 @@
     &-preview {
       &-imgcontainer {
         margin-top: 8px;
+        padding: 4px;
+        background-color: #444;
       }
 
       &-img {
@@ -55,5 +57,163 @@
         height: 100px;
       }
     }
+  }
+}
+
+.photo {
+  &-container {
+    padding: 0 10% 32px 10%;
+  }
+
+  &__img {
+    &-container {
+      width: 100%;
+      height: auto;
+      background-color: #444;
+      padding: 4px;
+    }
+
+    &-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    &-container {
+      padding: 16px 0 0 8px;
+    }
+
+    &-classification {
+      margin-top: 24px;
+      font-size: 1.4rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-classificationContainer {
+      padding: 8px 0 0 8px;
+    }
+  }
+
+  &__admin {
+    &-container {
+      padding: 16px 0;
+    }
+
+  }
+}
+
+.photolist {
+  &__item {
+    &-container {}
+
+    &-img {
+
+      &_square {
+        position: relative;
+
+        &::before {
+          display: block;
+          content: '';
+        }
+      }
+
+      &_container {
+        padding: 2px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+
+      &_link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 4px;
+        background-color: #444;
+      }
+
+      &_image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-info {
+      &_container {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        align-items: center;
+      }
+
+      &_name {
+        width: 70%;
+        word-break: break-all;
+      }
+    }
+  }
+}
+
+.photos {
+  &-container {
+    padding: 8%;
+  }
+
+  &-title {
+    padding-top: 24px;
+    font-size: 1.4rem;
+    color: #444;
+    font-weight: bold;
+  }
+
+
+  &__body {
+    &-container {}
+
+    &-title {
+      padding-top: 24px;
+      font-size: 1.2rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-img {
+      &_container {
+        padding-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+
+        & .photolist__item-container {
+          width: calc(100% / 3);
+        }
+
+        & .photolist__item-img_square::before {
+          padding-top: 100%;
+        }
+
+        & .photolist__item-info_name_fill {
+          width: 100%;
+          word-break: break-all;
+        }
+      }
+    }
+
+    &-link {
+      text-decoration: underline;
+
+      &_container {
+        padding: 8px;
+      }
+    }
+
+    &-link {}
+
+    &no_image {}
   }
 }

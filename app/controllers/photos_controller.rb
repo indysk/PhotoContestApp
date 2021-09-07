@@ -38,7 +38,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find_by(id: params[:id])
     if @photo && @photo.update(photo_params)
-      redirect_to contest_path(params[:contest_id])
+      redirect_to contest_path(@photo.contest)
     else
       flash[:danger] = '作品の編集に失敗しました'
       render :edit

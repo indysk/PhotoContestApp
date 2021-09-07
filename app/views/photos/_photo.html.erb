@@ -1,12 +1,20 @@
-<div class="photo_container">
-  <div class="img_container">
-    <%= link_to path_for_photo(photo) do %>
-    <%= image_tag photo.image.url %>
-    <% end %>
+<li class="photolist__item-container">
+  <div class="photolist__item-img_square">
+    <div class="photolist__item-img_container">
+      <%= link_to path_for_photo(photo), class: 'photolist__item-img_link' do %>
+        <%= image_tag photo.image.url, class: 'photolist__item-img_image' %>
+      <% end %>
+    </div>
   </div>
+
   <% if defined? f %>
-    <div class="photo_checkbox_container">
-      <%= f.check_box :photo_id, { multiple: true, checked: false }, photo.id, nil %>
+    <div class="photolist__item-info_container">
+      <p class="photolist__item-info_name"><%= photo.name %></p>
+      <%= f.number_field "vote[#{photo.id}]", step: 1, min: 0, max: contest.voting_points, autocomplete: 'off', class: 'photolist__item-vote_select' %>
+    </div>
+  <% else %>
+    <div class="photolist__item-info_container">
+      <p class="photolist__item-info_name_fill"><%= photo.name %></p>
     </div>
   <% end %>
-</div>
+</li>

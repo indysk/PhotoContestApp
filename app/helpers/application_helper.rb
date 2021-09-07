@@ -7,16 +7,6 @@ module ApplicationHelper
     page_title.present? ? page_title + " | " + base_title : base_title
   end
 
-  def print_current_user_with_link
-    user = current_user
-    user_signed_in? ? link_to(user.name, user_path(user)) : 'ゲストモード'
-  end
-
-  def print_current_user
-    user = current_user
-    user_signed_in? ? user.name : 'ゲストモード'
-  end
-
   def correct_user?(user)
     user == current_user
   end

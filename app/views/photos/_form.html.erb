@@ -1,9 +1,9 @@
 <% @labels ||= Photo.model_labels %>
 <div class="photoCreate__form-container">
-  <%= form_with model: photo, url: current_page?(new_contest_photo_path(params[:contest_id])) ? contest_photos_path(params[:contest_id]) : contest_photo_path(params[:contest_id], photo.id), local: true, class:'photoCreate__form-body', autocapitalize: 'none' do |f| %>
-
+  <%= form_with model: photo, url: path_for_photo(photo, 'form'), local: true, class:'photoCreate__form-body', autocapitalize: 'none' do |f| %>
     <h3 class="photoCreate__form-classification">作品情報</h3>
     <div class="photoCreate__form-classificationContainer">
+
       <%= tag.div class: 'photoCreate__form-preview-imgcontainer', style: photo.image.file.nil? ? 'display: none;' : '' do %>
         <%= image_tag photo.image.file.nil? ? '' : photo.image.url, class: 'photoCreate__form-preview-img', alt: 'プレビュー画像' %>
       <% end %>

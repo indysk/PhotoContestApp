@@ -44,4 +44,13 @@ $(function() {
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
 
+    //user画像をプレビューに表示
+    $('#userFileField').on('change', function() {
+      var file = $(this)[0].files[0];
+      // img要素に表示
+      img_container = $('.userEdit__form-preview_imgcontainer');
+      img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
+      img_container.children().first().attr('src',window.URL.createObjectURL(file));
+    });
+
 });
