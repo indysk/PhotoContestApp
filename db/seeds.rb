@@ -1,10 +1,10 @@
 #ゲストデータ+++++++++++++++++++++++++++++++++++++++++++++++
-guest = User.create!( id: Rails.application.credentials.guest[:id],
-                      name:  "ゲスト",
-                      email: "guest@example.com",
-                      password:              Rails.application.credentials.guest[:password],
-                      password_confirmation: Rails.application.credentials.guest[:password],
-                      guest: true)
+# guest = User.create!( id: Rails.application.credentials.guest[:id],
+#                       name:  "ゲスト",
+#                       email: "guest@example.com",
+#                       password:              Rails.application.credentials.guest[:password],
+#                       password_confirmation: Rails.application.credentials.guest[:password],
+#                       guest: true)
 # contest = Contest.create!(name:  "ゲストが作成したコンテスト",
 #                           user_id: Rails.application.credentials.guest[:id])
 # photo = Photo.create!(name:       'ゲストの写真',
