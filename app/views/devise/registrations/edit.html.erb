@@ -1,31 +1,50 @@
-<h2>アカウントを編集</h2>
+<% provide(:title, 'プロフィール編集') %>
+<div class="userEdit-container">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-<%= render "devise/shared/error_messages", resource: resource %>
 
-<div class="field">
-  <%= f.label :name %><br />
-  <%= f.text_field :name, autofocus: true, autocomplete: "username" %>
+  <div class="userEdit-body">
+    <h1 class="userEdit-title">プロフィールを編集</h1>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="userEdit__form-container">
+        <div class="userEdit__form-group userEdit__form-preview_group">
+          <%= tag.div class: 'userEdit__form-preview_imgcontainer', style: resource.image.file.nil? ? 'display: none;' : '' do %>
+            <%= image_tag resource.image.file.nil? ? '' : resource.image.url, class: 'userEdit__form-preview_img', alt: 'プレビュー画像' %>
+            <%= f.label :image, tag.i('', class: 'far fa-plus-square'), class: 'userEdit__form-preview_label', for: 'userFileField' %>
+            <%= f.file_field :image, id: 'userFileField', class:'userEdit__form-preview_input' %>
+          <% end %>
+        </div>
+
+        <div class="userEdit__form-info_container">
+          <div class="userEdit__form-info_group">
+            <%= f.label :name, class: 'userEdit__form-info_label-name' %><br />
+            <%= f.text_field :name, autofocus: true, autocomplete: "username", class: 'userEdit__form-info_input-name' %>
+          </div>
+
+          <div class="userEdit__form-info_group">
+            <%= f.label :email, class: 'userEdit__form-info_label-email' %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'userEdit__form-info_input-name' %>
+          </div>
+
+          <div class="userEdit__form-info_group_submit">
+            <%= f.submit "アカウントを更新" %>
+          </div>
+        </div>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+
+    <% end %>
+
+    <h3 class="userEdit-title">その他</h3>
+    <div class="userEdit__else-container">
+      <%= render 'shared/modal_form', link_message: 'このアカウントを削除', modal_message: "アカウント名：#{resource.name}を削除しますか？", link: registration_path(resource_name), method: 'delete' %>
+    </div>
+
+
+  </div>
 </div>
-
-<div class="field">
-  <%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-</div>
-
-<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-<div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-<% end %>
-
-<div class="actions">
-  <%= f.submit "アカウントを更新" %>
-</div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy?
-  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
-</p>
-
-<%= link_to "Back", :back %>

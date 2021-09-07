@@ -1,0 +1,61 @@
+<% @labels ||= Photo.model_labels %>
+<div class="photoCreate__form-container">
+  <%= form_with model: photo, url: path_for_photo(photo, 'form'), local: true, class:'photoCreate__form-body', autocapitalize: 'none' do |f| %>
+    <h3 class="photoCreate__form-classification">作品情報</h3>
+    <div class="photoCreate__form-classificationContainer">
+
+      <%= tag.div class: 'photoCreate__form-preview-imgcontainer', style: photo.image.file.nil? ? 'display: none;' : '' do %>
+        <%= image_tag photo.image.file.nil? ? '' : photo.image.url, class: 'photoCreate__form-preview-img', alt: 'プレビュー画像' %>
+      <% end %>
+      <div class="photoCreate__form-group photoCreate__form-preview-group">
+        <%= f.label :image, @labels[:image], class: 'photoCreate__form-label' %>
+        <%= f.file_field :image, id: 'photoFileField', class:'photoCreate__form-input' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :name, @labels[:name], class: 'photoCreate__form-label' %>
+        <%= f.text_field :name, class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :description, @labels[:description], class: 'photoCreate__form-label' %>
+        <%= f.text_area :description, id: 'form_description', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+    </div>
+
+    <h3 class="photoCreate__form-classification">写真情報</h3>
+    <div class="photoCreate__form-classificationContainer">
+      <div class="photoCreate__form-group">
+        <%= f.label :photographer, @labels[:photographer], class: 'photoCreate__form-label' %>
+        <%= f.text_field :photographer, value: current_user.name, id: 'form_photographer', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :camera, @labels[:camera], class: 'photoCreate__form-label' %>
+        <%= f.text_field :camera, id: 'form_camera', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :lens, @labels[:lens], class: 'photoCreate__form-label' %>
+        <%= f.text_field :lens, id: 'form_lens', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :iso, @labels[:iso], class: 'photoCreate__form-label' %>
+        <%= f.text_field :iso, id: 'form_iso', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :aperture, @labels[:aperture], class: 'photoCreate__form-label' %>
+        <%= f.text_field :aperture, id: 'form_aperture', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+
+      <div class="photoCreate__form-group">
+        <%= f.label :shutter_speed, @labels[:shutter_speed], class: 'photoCreate__form-label' %>
+        <%= f.text_field :shutter_speed, id: 'shutter_speed', class: 'photoCreate__form-input', autocomplete: 'off' %>
+      </div>
+    </div>
+
+    <%= f.submit '確認画面' %>
+  <% end %>
+</div>

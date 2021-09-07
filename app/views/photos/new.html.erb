@@ -1,5 +1,3 @@
-<%= form_with model: @photo, url: contest_photos_path(params[:contest_id]), local: true  do |f| %>
-<%= f.text_field :name %><br><br>
-<%= f.file_field :image %><br>
-<%= f.submit %>
-<% end %>
+<% provide(:title, '作品提出フォーム') %>
+
+<%= render  "form", photo: @photo, url: contest_photos_path(params[:contest_id]) %>

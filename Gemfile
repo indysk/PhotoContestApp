@@ -11,14 +11,15 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'unicorn'
-gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'devise'
-gem "aws-sdk-s3", require: false
 gem 'jquery-rails'
+gem 'carrierwave'
+gem 'fog-aws'
 
 group :development, :test do
+  gem 'faker'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
 end

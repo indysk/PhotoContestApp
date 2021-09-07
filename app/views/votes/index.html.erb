@@ -1,0 +1,28 @@
+<% provide(:title, "投票結果 #{@contest.name}") %>
+<div class="votes-container">
+
+  <h1 class="votes-title"><%= @contest.name %></h1>
+  <h2 class="votes-title_sub">投票結果</h2>
+
+  <ul class="votes__results-container">
+    <% @result.each do |record| %>
+      <li class="photolist__item-container">
+        <div class="photolist__item-img_square">
+          <div class="photolist__item-img_container">
+            <%= link_to path_for_photo(record[:photo]), class: 'photolist__item-img_link' do %>
+              <%= image_tag record[:photo].image.url, class: 'photolist__item-img_image' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="votes__item-info_container">
+          <div class="votes__item-info_rank">第 <%= record[:rank] %> 位</div>
+          <div class="votes__item-info_title"><%= record[:photo].name %></div>
+          <div class="votes__item-info_points">得票数：<%= record[:points] %></div>
+          <% if false %>
+            <div class="votes__item-info_artist">投稿者：<%= record[:user].name %></div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

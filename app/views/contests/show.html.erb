@@ -1,31 +1,74 @@
-<%= render  "shared/error_messages", model: @vote %>
-<% options = Contest.select_options %>
-<h1>コンテスト名：<%= @contest.name %></h1>
-<p>主催者：<%= link_to @contest.user.name, user_path(@contest.user) %></p>
-<p>コンテストの説明：<%= @contest.description %></p>
-<p>作品の募集期間：<%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
-<p>投票の募集期間：<%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
-<p>応募ページの公開範囲：<%= options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
-<p>投票ページの公開範囲：<%= options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
-<p>作品一覧の公開範囲：<%= options[:visible_range_show][@contest.visible_range_show][0] %></p>
-<p>投票結果の公開範囲：<%= options[:visible_range_result][@contest.visible_range_result][0] %></p>
-<p>投票者の持ち点：<%= @contest.voting_points %></p>
-<p>上位者の表示人数：<%= @contest.num_of_views_in_result %></p>
-<p>作品の応募者名の公開範囲：<%= options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
+<% provide(:title, @contest.name) %>
+<div class="contest__body-container">
 
-
-<div>
-  <br><p>links</p>
-  <%= print_link_button('作品を提出する', new_contest_photo_path(@contest), @contest.is_in_period_entry?, class: 'link_class') %>
-  <%= print_link_button('投票する', contest_photos_path(@contest), @contest.is_in_period_voting?, class: 'link_class') %>
-  <%= print_link_button('作品を見る', contest_photos_path(@contest), @contest.is_after_period_voting?, class: 'link_class') %>
-</div>
-
-
-<% if correct_user?(@contest.user) %>
-  <br><p>管理者用</p>
-  <div>
-    <%= link_to  "コンテストを編集", edit_contest_path(@contest) %>
-    <%= render 'shared/modal_form', link_message: 'このコンテストを削除', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
+  <div class="contest__body__title-container">
+    <h1 class="contest__body__title-name"><%= @contest.name %></h1>
+    <% if @contest.is_in_period_entry? %>
+      <% if @contest.is_already_submitted?(current_user) %>
+        <%= link_to  "作品提出済み", edit_contest_photo_path(@contest, Photo.find_by(contest: @contest, user: current_user)), class: 'contest__body__title-badge' %>
+      <% else %>
+        <%= link_to  "作品募集中", new_contest_photo_path(@contest), class: 'contest__body__title-badge' %>
+      <% end %>
+    <% elsif @contest.is_in_period_voting? %>
+      <% if @contest.is_already_voted?(current_user) %>
+        <div class="contest__body__title-badge">投票済み</div>
+      <% else %>
+        <%= link_to  "投票期間中", contest_photos_path(@contest), class: 'contest__body__title-badge' %>
+      <% end %>
+    <% elsif @contest.is_after_period_voting? %>
+      <%= link_to  "投票終了", contest_votes_path(@contest), class: 'contest__body__title-badge' %>
+    <% end %>
   </div>
-<% end %>
+
+
+  <h3 class="contest__body__info-title">コンテスト情報</h3>
+  <div class="contest__body__info-container">
+    <p>主催者：<%= link_to @contest.user.name, user_path(@contest.user) %></p>
+    <p>コンテストの説明：<%= @contest.description %></p>
+    <p>作品の募集期間：<%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+    <p>投票の募集期間：<%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
+    <p>応募ページの公開範囲：<%= @options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
+    <p>投票ページの公開範囲：<%= @options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
+    <p>作品一覧の公開範囲：<%= @options[:visible_range_show][@contest.visible_range_show][0] %></p>
+    <p>投票結果の公開範囲：<%= @options[:visible_range_result][@contest.visible_range_result][0] %></p>
+    <p>投票者の持ち点：<%= @contest.voting_points %></p>
+    <p>上位者の表示人数：<%= @contest.num_of_views_in_result %></p>
+    <p>作品の応募者名の公開範囲：<%= @options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
+  </div>
+
+
+  <h3 class="contest__body__info-title">links</h3>
+  <div class="contest__body__info-container">
+    <% if @contest.is_in_period_entry? %>
+      <% if @contest.is_already_submitted?(current_user) %>
+        <div>作品を提出済み</div>
+        <%= link_to  "作品を編集する", edit_contest_photo_path(@contest, Photo.find_by(contest: @contest, user: current_user)) %>
+      <% else %>
+        <%= link_to  "作品を提出する", new_contest_photo_path(@contest) %>
+      <% end %>
+
+    <% elsif @contest.is_in_period_voting? %>
+      <% if @contest.is_already_voted?(current_user) %>
+        <div>投票済み</div>
+      <% else %>
+        <%= link_to  "投票する", contest_photos_path(@contest) %>
+      <% end %>
+
+    <% elsif @contest.is_after_period_voting? %>
+      <%= link_to  "作品一覧", contest_photos_path(@contest) %>
+      <%= link_to  "投票結果", contest_votes_path(@contest) %>
+    <% end %>
+  </div>
+
+
+
+  <% if correct_user?(@contest.user) %>
+    <h3 class="contest__body__info-title">管理者用</h3>
+    <div class="contest__body__info-container">
+      <%= link_to  "コンテストを編集", edit_contest_path(@contest) %>
+      <%= render 'shared/modal_form', link_message: 'このコンテストを削除', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
+    </div>
+  <% end %>
+
+
+</div>

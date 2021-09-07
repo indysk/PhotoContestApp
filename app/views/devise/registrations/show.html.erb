@@ -1,13 +1,26 @@
-<h1>プロフィール</h1>
-<p>名前 : <%= @user.name %></p>
-<%= link_to  "プロフィールを変更", edit_user_registration_path %>
-
-<% if @photos.present? %>
-  <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-  <div class="img_list">
-    <%= render partial: 'photos/photo', collection: @photos %>
+<div class="user-container">
+  <div class="user__profile-container">
+    <h3 class="user__profile-title">プロフィール</h3>
+    <div class="user__profile-body">
+      <%= image_tag @user.image.url, class: 'user__profile-img' %>
+      <div class="user__profile-content">
+        <div class="user__profile-name_container">
+          <p class="user__profile-name"><%= @user.name %></p>
+          <%= link_to  "プロフィールを変更", edit_user_registration_path, class: 'user__profile-name_link' %>
+        </div>
+        <p class="user__profile-howmany">応募した作品：<%= @photos.length %></p>
+        <p class="user__profile-howmany">主催したコンテスト：<%= @contests.length %></p>
+      </div>
+    </div>
   </div>
-  <%= will_paginate @photos, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-<% else %>
-  <p>投稿した写真がありません</p>
-<% end %>
+
+  <ul class="user__photoslist-container">
+    <% if @photos.present? %>
+      <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+        <%= render partial: 'photos/photo', collection: @photos %>
+      <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+    <% else %>
+      <p>投稿した写真がありません</p>
+    <% end %>
+  </ul>
+</div>

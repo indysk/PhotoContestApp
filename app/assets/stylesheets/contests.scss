@@ -31,78 +31,269 @@
     }
   }
 
+  &__body {
+    &-listcontainer {
+      padding: 16px;
+    }
+  }
+
   &__item {
-    border: $border_nomal;
-    margin: 8px 16px 0 16px;
-    line-height: 1.4;
-    letter-spacing: .4px;
-    word-break: break-all;
-
-    &__contents {
-      height: auto;
-      width: 100%;
-      padding: 8px 8px;
-
-      display: grid;
-      grid-template-columns: 1fr 0.8fr auto;
-      grid-template-rows: auto 1fr;
-      grid-gap: $space_size_nomal;
+    &-container {
+      border: 1px #ddd solid;
+      border-radius: 4px;
+      background-color: white;
+      margin-bottom: 16px;
     }
 
-    &__infomation {
-      &_main {
-        @include contenst_list_grid(1, 2);
+    &__header {
+      &-container {
+        background-color: #f7f7f7;
+        padding: 16px;
+        border-bottom: 1px #ddd solid;
+        position: relative;
+      }
+
+      &-title {
+        color: #000;
+      }
+
+      &-creater {
+        &-link {
+          display: inline-flex;
+          flex-flow: row;
+          align-items: center;
+          font-size: 0.8rem;
+          opacity: .8;
+          padding-left: 8px;
+        }
+
+        &-img {
+          margin-left: 4px;
+          width: 1rem;
+          height: 1rem;
+          border-radius: .5rem;
+        }
 
         &-name {
-          color: $color_font_hard;
-          font-size: 1.4rem;
-        }
-
-        &-body {
-          color: $color_font_hard;
+          padding-left: 2px;
         }
       }
 
-      &_sub {
-        @include contenst_list_grid(2, 3);
+      &-badge {
+        position: absolute;
+        right: 16px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: white;
+        background-color: #6c757d;
+        transition: ease .2s;
+        padding: 2px 4px;
+        border-radius: 4px;
 
-        &-contents {
-          padding-top: calc(1.2rem * 1.4);
-          font-size: 0.8rem;
+        &:hover {
+          color: white;
+          text-decoration: none;
+          background-color: #545d64;
         }
       }
     }
 
-    &__links {
-      @include contenst_list_grid(3, 4);
-
-      &-contents {
-        padding: 0;
-
+    &__body {
+      &-container {
+        transition: ease .2s;
         display: flex;
-        flex-direction: column;
-        line-height: 1;
+        padding: 16px 16px 28px 16px;
+        position: relative;
+
+        & .arrow_more {
+          position: absolute;
+          right: 16px;
+          bottom: 8px;
+        }
+
+        &:hover {
+          color: #000;
+          text-decoration: none;
+
+          & .arrow_more {
+            right: 8px;
+            color: #58595B;
+          }
+        }
+      }
+
+      &-main {
+        font-size: 0.8rem;
+        max-width: fit-content;
+        min-width: fit-content;
+        border-right: 1px black solid;
+        padding-right: 8px;
+        line-height: 1.6;
+      }
+
+      &-sub {
+        padding: 0 8px;
+        font-size: 0.8rem;
+        min-width: 50%;
+        width: fit-content;
+        position: relative;
+
+
+      }
+    }
+  }
+}
+
+.contest {
+  &__body {
+    &-container {
+      padding: 0 16px;
+    }
+
+    &__title {
+      &-container {
+        width: 100%;
+        padding: 32px;
+        background-color: #eee;
+        text-align: center;
+        border-radius: 6px;
 
       }
 
-      &-link {
-        @include button_with_icon();
-        height: calc(100% / 3);
-        padding: $space_size_nomal 40px $space_size_nomal $space_size_nomal;
-        margin: 0 0 $space_size_nomal $space_size_nomal;
-        transition: ease .1s;
+      &-name {
+        font-size: 2rem;
+        color: #3e3e3e;
+      }
 
-        &:last-child {
-          margin-bottom: 0;
-        }
+      &-badge {
+        width: fit-content;
+        margin: 8px auto 0 auto;
+        display: block;
+        background-color: #444;
+        color: white;
+        padding: 4px 16px;
+        border-radius: 4px;
+        transition: ease .2s;
 
-        &-false,
-        &-false:hover,
-        &-false &-icon,
-        &-false:hover &-icon {
-          background-color: inherit;
-          color: $color_font_soft;
+        &:hover {
+          color: white;
+          box-shadow: #00000033 0px 2px 4px;
+          text-decoration: none;
+          background-color: #5f5e5e;
         }
+      }
+    }
+
+    &__info {
+      &-title {
+        margin-top: 24px;
+        font-size: 1.4rem;
+        color: #444;
+        font-weight: bold;
+      }
+
+      &-container {
+        padding: 8px 0 8px 8px;
+      }
+    }
+  }
+}
+
+.contestCreate {
+
+  &__form {
+    &-body {
+      width: 70%;
+      padding: 16px;
+      margin: auto;
+
+      & input[type="text"]:focus,
+      & input[type="date"]:focus,
+      & input[type="time"]:focus,
+      & textarea:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem #007bff40;
+      }
+    }
+
+    &-classification {
+      margin-top: 24px;
+      font-size: 1.4rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-classificationContainer {
+      padding-left: 8px;
+    }
+
+    &-preview {
+      &-imgcontainer {
+        margin-top: 8px;
+      }
+
+      &-img {
+        height: 50vh;
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-flow: column;
+      margin-top: 8px;
+    }
+
+    &-datetime {
+      &-container {
+        display: flex;
+        flex-flow: row;
+        margin-top: 8px;
+        align-items: center;
+      }
+
+      &-icon {
+        padding: 0 8px;
+      }
+    }
+
+    &-label {
+      width: 200px;
+    }
+
+    &-input {
+      &-textarea {
+        height: 100px;
+      }
+
+      &-date {
+        width: fit-content;
+      }
+
+      &-time {
+        width: fit-content;
+      }
+
+      &-select {
+        display: inline-block;
+        width: fit-content;
+        text-align: center;
+        /* height: calc(1.5em + .75rem + 2px); */
+        padding: 8px 16px;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        /* color: #495057; */
+        vertical-align: middle;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+      }
+
+      &-num {
+        width: fit-content;
       }
     }
   }

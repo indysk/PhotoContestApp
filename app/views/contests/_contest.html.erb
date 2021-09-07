@@ -1,33 +1,36 @@
-<li class='contestlist__item'>
-  <div class="contestlist__item__contents">
-    <span class="contestlist__item__infomation_main-title">Infomation</span>
-    <%= link_to contest_path(contest), class: 'contestlist__item__infomation_main-contents' do %>
-      <p class="contestlist__item__infomation_main-name"><%= contest.name %></p>
-      <p class="contestlist__item__infomation_main-description">コンテストの説明：<%= contest.excerpt_description %></p>
+<li class="contestlist__item-container">
+  <div class="contestlist__item__header-container">
+    <%= link_to contest.name, contest_path(contest), class: 'contestlist__item__header-title' %>
+    <%= link_to user_path(contest.user), class: 'contestlist__item__header-creater-link' do %>
+      <p class="contestlist__item__header-creater-label">作成者</p>
+      <%= image_tag contest.user.image.url, class: 'contestlist__item__header-creater-img' %>
+      <p class="contestlist__item__header-creater-name"><%= contest.user.name %></p>
     <% end %>
-
-    <span class="contestlist__item__infomation_sub-title"></span>
-    <div class="contestlist__item__infomation_sub-contents">
-      <p class='contestlist__item__infomation_sub-host'>主催：<%= print_contest_creator(contest) %></p>
-      <p class='contestlist__item__infomation_sub-entry_period'><%= labels[:entry_period] %>：<%= contest.entry_start_at.to_s(:datetime_jp_date) %>▷<%= contest.entry_end_at.to_s(:datetime_jp_date) %></p>
-      <p class='contestlist__item__infomation_sub-vote_period'><%= labels[:vote_period] %>：<%= contest.vote_start_at.to_s(:datetime_jp_date) %>▷<%= contest.vote_end_at.to_s(:datetime_jp_date) %></p>
-      <p class='contestlist__item__infomation_sub-visible_setting_for_user_name'><%= labels[:visible_setting_for_user_name] %>：<%= select_options[:visible_setting_for_user_name][contest.visible_setting_for_user_name][0] %></p>
-    </div>
-
-    <span class="contestlist__item__links-title">Links</span>
-    <div class="contestlist__item__links-contents">
-      <%= print_link_button contest_path(contest), true, class: 'contestlist__item__links-link' do %>
-        <i class="contestlist__item__links-link-icon fas fa-search-plus"></i>
-        <p class="contestlist__item__links-link-value">More</p>
+    <% if contest.is_in_period_entry? %>
+      <% if contest.is_already_submitted?(current_user) %>
+        <%= link_to  "作品提出済み", edit_contest_photo_path(contest, Photo.find_by(contest: contest, user: current_user)), class: 'contestlist__item__header-badge' %>
+      <% else %>
+        <%= link_to  "作品募集中", new_contest_photo_path(contest), class: 'contestlist__item__header-badge' %>
       <% end %>
-      <%= print_link_button contest_path(contest), contest.is_in_period_voting?, class: 'contestlist__item__links-link' do %>
-        <i class="contestlist__item__links-link-icon fas fa-vote-yea"></i>
-        <p class="contestlist__item__links-link-value">Vote</p>
+    <% elsif contest.is_in_period_voting? %>
+      <% if contest.is_already_voted?(current_user) %>
+        <div class="contestlist__item__header-badge">投票済み</div>
+      <% else %>
+        <%= link_to  "投票期間中", contest_photos_path(contest), class: 'contestlist__item__header-badge' %>
       <% end %>
-      <%= print_link_button contest_photos_path(contest), contest.is_after_period_voting?, class: 'contestlist__item__links-link' do %>
-        <i class="contestlist__item__links-link-icon fas fa-images"></i>
-        <p class="contestlist__item__links-link-value">View</p>
-      <% end %>
-    </div>
+    <% elsif contest.is_after_period_voting? %>
+      <%= link_to  "投票終了", contest_votes_path(contest), class: 'contestlist__item__header-badge' %>
+    <% end %>
   </div>
+  <%= link_to contest_path(contest), class: 'contestlist__item__body-container' do %>
+    <div class="contestlist__item__body-main">
+      <p class="contestlist__item__body-main-p">募集期間：<%= print_datetime_with_wday(contest.entry_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.entry_end_at) %></p>
+      <p class="contestlist__item__body-main-p">投票期間：<%= print_datetime_with_wday(contest.vote_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.vote_end_at) %></p>
+      <p class="contestlist__item__body-main-p">応募者名の公開：<%= select_options[:visible_setting_for_user_name][contest.visible_setting_for_user_name][0] %></p>
+    </div>
+    <div class="contestlist__item__body-sub">
+      <div class="contestlist__item__body-sub-p"><%= contest.excerpt_description(100) %></div>
+    </div>
+    <div class="arrow_more">more</div>
+  <% end %>
 </li>

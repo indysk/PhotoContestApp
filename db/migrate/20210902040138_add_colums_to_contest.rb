@@ -1,4 +1,4 @@
-class AddDescriptionToPhotos < ActiveRecord::Migration[5.2]
+class AddColumsToContest < ActiveRecord::Migration[5.2]
   def change
     add_column :contests, :description, :text
 
@@ -20,7 +20,5 @@ class AddDescriptionToPhotos < ActiveRecord::Migration[5.2]
     #投票結果表示の設定
     add_column :contests, :num_of_views_in_result, :integer, null: false #上位何人の作品を表示するか
     add_column :contests, :visible_setting_for_user_name, :integer, null: false #作品の応募者名の公開範囲
-
-
   end
 end

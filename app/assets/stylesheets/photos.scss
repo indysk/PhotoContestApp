@@ -1,3 +1,221 @@
-// Place all the styles related to the Photos controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'modules';
+
+.photoCreate {
+
+  &__form {
+
+    &-body {
+      width: 60%;
+      padding: 16px;
+      margin: auto;
+
+      & input[type="text"]:focus,
+      & textarea:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem #007bff40;
+      }
+    }
+
+    &-classification {
+      margin-top: 24px;
+      font-size: 1.4rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-classificationContainer {
+      padding-left: 8px;
+    }
+
+    &-preview {
+      &-imgcontainer {
+        margin-top: 8px;
+        padding: 4px;
+        background-color: #444;
+      }
+
+      &-img {
+        width: 100%;
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-flow: column;
+      margin-top: 8px;
+    }
+
+    &-label {
+      width: 160px;
+    }
+
+    &-input {
+      &#form_description {
+        height: 100px;
+      }
+    }
+  }
+}
+
+.photo {
+  &-container {
+    padding: 0 10% 32px 10%;
+  }
+
+  &__img {
+    &-container {
+      width: 100%;
+      height: auto;
+      background-color: #444;
+      padding: 4px;
+    }
+
+    &-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    &-container {
+      padding: 16px 0 0 8px;
+    }
+
+    &-classification {
+      margin-top: 24px;
+      font-size: 1.4rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-classificationContainer {
+      padding: 8px 0 0 8px;
+    }
+  }
+
+  &__admin {
+    &-container {
+      padding: 16px 0;
+    }
+
+  }
+}
+
+.photolist {
+  &__item {
+    &-img {
+
+      &_square {
+        position: relative;
+
+        &::before {
+          display: block;
+          content: '';
+        }
+      }
+
+      &_container {
+        padding: 2px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+
+      &_link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 4px;
+        background-color: #444;
+      }
+
+      &_image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-info {
+      &_container {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        align-items: flex-start;
+      }
+
+      &_name {
+        width: 70%;
+        word-break: break-all;
+      }
+    }
+
+    &-vote {
+      &_input {
+        height: fit-content;
+      }
+    }
+  }
+}
+
+.photos {
+  &-container {
+    padding: 0 8% 8% 8%;
+  }
+
+  &-title {
+    padding-top: 24px;
+    font-size: 1.4rem;
+    color: #444;
+    font-weight: bold;
+  }
+
+
+  &__body {
+    &-title {
+      padding-top: 24px;
+      font-size: 1.2rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    &-img {
+      &_container {
+        padding-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+
+        & .photolist__item-container {
+          width: calc(100% / 3);
+        }
+
+        & .photolist__item-img_square::before {
+          padding-top: 100%;
+        }
+
+        & .photolist__item-info_name_fill {
+          width: 100%;
+          word-break: break-all;
+        }
+      }
+    }
+
+    &-link {
+      text-decoration: underline;
+
+      &_container {
+        padding: 8px;
+      }
+    }
+
+    &-link {}
+
+    &no_image {}
+  }
+}

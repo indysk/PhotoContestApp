@@ -1,4 +1,4 @@
-$color_base: #F2F2F2;
+$color_base: #FFF;
 $color_main: #6593A6;
 $color_accent: #F2CF63;
 $color_font: #58595B;
@@ -25,7 +25,8 @@ $border_nomal: $border_line_size $color_main solid;
 
   &:hover {
     color: $color_base;
-    background-color: $color_accent;
+    background-color: $color_main;
+    text-decoration: none;
   }
 }
 

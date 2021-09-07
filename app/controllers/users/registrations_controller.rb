@@ -19,27 +19,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    if current_user == resource && current_user.guest?
-      flash[:error] = "ゲストユーザはプロフィールを更新できません"
-      redirect_to root_path
-    else
-      super
-    end
+    super
   end
 
   # DELETE /resource
   def destroy
-    if current_user == resource && current_user.guest?
-      flash[:error] = "ゲストユーザは削除できません"
-      redirect_to root_path
-    else
-      super
-    end
+    super
   end
 
   def show
     if (@user = User.find_by(id: params[:id]))
-      @photos = @user.photos.paginate(page: params[:page])
+      @photos = @user.photos.paginate(page: params[:page_photos])
+      @contests = @user.contests.paginate(page: params[:page_contests])
     else
       redirect_to root_path
     end
@@ -58,12 +49,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :image])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
     end
 
     # The path used after sign up.
