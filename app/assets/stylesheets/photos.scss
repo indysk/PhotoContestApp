@@ -107,8 +107,6 @@
 
 .photolist {
   &__item {
-    &-container {}
-
     &-img {
 
       &_square {
@@ -149,7 +147,7 @@
         display: flex;
         justify-content: space-between;
         padding: 8px;
-        align-items: center;
+        align-items: flex-start;
       }
 
       &_name {
@@ -157,12 +155,18 @@
         word-break: break-all;
       }
     }
+
+    &-vote {
+      &_input {
+        height: fit-content;
+      }
+    }
   }
 }
 
 .photos {
   &-container {
-    padding: 8%;
+    padding: 0 8% 8% 8%;
   }
 
   &-title {
@@ -174,8 +178,6 @@
 
 
   &__body {
-    &-container {}
-
     &-title {
       padding-top: 24px;
       font-size: 1.2rem;
