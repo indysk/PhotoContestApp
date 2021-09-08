@@ -35,13 +35,15 @@ class Contest < ApplicationRecord
     i = 0
     limit = result.length
     now_rank = 1
+    count = 1
     while i < limit
       #最初の要素は必ず１位
       if i == 0
         result[i][:rank] = now_rank
       else
         #1つ小さい番号の要素と比較して得点が小さければ順位が下がる
-        now_rank += 1 if result[i][:points] < result[i-1][:points]
+        count += 1
+        now_rank = count if result[i][:points] < result[i-1][:points]
         result[i][:rank] = now_rank
       end
       i += 1

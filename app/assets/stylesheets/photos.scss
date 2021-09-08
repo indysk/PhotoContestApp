@@ -165,17 +165,13 @@
 }
 
 .photos {
-  &-container {
-    padding: 0 8% 8% 8%;
-  }
+  &-container {}
 
   &-title {
-    padding-top: 24px;
     font-size: 1.4rem;
     color: #444;
     font-weight: bold;
   }
-
 
   &__body {
     &-title {
@@ -192,7 +188,7 @@
         flex-wrap: wrap;
 
         & .photolist__item-container {
-          width: calc(100% / 3);
+          width: calc(100% / 2);
         }
 
         & .photolist__item-img_square::before {
@@ -217,5 +213,44 @@
     &-link {}
 
     &no_image {}
+  }
+
+  &__aside {
+    &__vote {
+      &-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__points {
+        &-container {
+          display: flex;
+          font-weight: bold;
+          align-items: baseline;
+          width: fit-content;
+          padding-left: 24px;
+        }
+
+        &-label {}
+
+        &-value {
+          font-size: 2rem;
+          padding: 0 4px;
+          color: #28a745;
+
+          &.danger {
+            color: #dc3545;
+          }
+        }
+
+        &-unit {}
+      }
+
+      &-submit {
+        &:disabled {
+          background-color: #8898af;
+        }
+      }
+    }
   }
 }

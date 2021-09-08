@@ -10,7 +10,7 @@
   <% if defined? f %>
     <div class="photolist__item-info_container">
       <%= link_to  photo.name, path_for_photo(photo), class: 'photolist__item-info_name' %>
-      <%= f.number_field "vote[#{photo.id}]", step: 1, min: 0, max: contest.voting_points, autocomplete: 'off', class: 'photolist__item-vote_input' %>
+      <%= f.number_field "vote[#{photo.id}]", step: 1, min: 0, max: contest.voting_points, autocomplete: 'off', class: 'photolist__item-vote_input', id: photo.id %>
     </div>
   <% else %>
     <div class="photolist__item-info_container">
