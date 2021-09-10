@@ -40,8 +40,6 @@ $break_point_aside: 960px;
   background-color: inherit;
 
   &:hover {
-    color: $color_base;
-    background-color: $color_main;
     text-decoration: none;
   }
 }
@@ -56,10 +54,6 @@ $break_point_aside: 960px;
 
   &-icon {
     color: $color_main;
-  }
-
-  &:hover &-icon {
-    color: $color_base;
   }
 }
 

@@ -149,54 +149,30 @@ class Contest < ApplicationRecord
     description.length > i ? description[0..i-1] + '...' : description
   end
 
+
+  def is_after_period_voting?
+    return self.vote_end_at <= Time.current ? true : false
+  end
   def is_in_period_voting?
-    return false if self.vote_start_at.nil?
     now = Time.current
     return self.vote_start_at <= now && now < self.vote_end_at ? true : false
   end
-
+  def is_after_period_entry?
+    return self.entry_end_at <= Time.current ? true : false
+  end
   def is_in_period_entry?
-    return false if self.entry_start_at.nil?
     now = Time.current
     return self.entry_start_at <= now && now < self.entry_end_at ? true : false
   end
 
-  def is_after_period_voting?
-    return false if self.vote_start_at.nil?
-    return self.vote_end_at <= Time.current ? true : false
-  end
 
   def is_already_submitted?(current_user)
     self.photos.exists?(user: current_user)
   end
-
   def is_already_voted?(current_user)
     self.votes.exists?(user: current_user)
   end
-
   def is_able_to_submit?(current_user)
     self.is_in_period_entry? && self.is_already_submitted?(current_user)
   end
-
-  def status_for_current_user(parent_class)
-    if self.is_after_period_voting?
-      if self
-      {status: '投票終了', tag: 'a',link: contest_votes_path(self), badge_class: 'vote_finish', class: parent_class}
-
-    elsif self.is_in_period_voting?
-
-
-    elsif self.is_after_period_entry?
-
-
-    elsif self.is_in_period_entry?
-
-
-    else
-
-
-    end
-  end
-
-
 end

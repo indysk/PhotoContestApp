@@ -24,9 +24,18 @@
       border-radius: 2rem;
       padding: 8px 16px 8px 8px;
       transition: ease .1s;
+      font-size: .8rem;
 
       &-value {
         padding-left: 8px;
+      }
+
+      &-icon {
+        transition: ease .2s;
+      }
+
+      &:hover &-icon {
+        transform: rotate(45deg);
       }
     }
   }
@@ -43,6 +52,15 @@
       border-radius: 4px;
       background-color: white;
       margin-bottom: 16px;
+
+
+      @include mobile {
+        border: none;
+        border-radius: 0;
+        padding: 16px 0;
+        border-bottom: 1px #ddd solid;
+        margin: 0;
+      }
     }
 
     &__header {
@@ -50,11 +68,29 @@
         background-color: #f7f7f7;
         padding: 16px;
         border-bottom: 1px #ddd solid;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
         position: relative;
+
+        @include mobile {
+          display: grid;
+          grid-template-columns: 1fr auto auto;
+          grid-template-rows: auto 1fr;
+          background-color: transparent;
+          border: none;
+          padding: 0;
+        }
       }
 
       &-title {
         color: #000;
+        word-break: break-all;
+
+        @include mobile {
+          grid-row: 2/3;
+          grid-column: 1/4;
+          padding: 4px 0 0 0;
+        }
       }
 
       &-creater {
@@ -65,6 +101,14 @@
           font-size: 0.8rem;
           opacity: .8;
           padding-left: 8px;
+
+          @include mobile {
+            grid-row: 1/2;
+            grid-column: 2/3;
+            padding: 0 8px 0 0;
+            opacity: 1;
+            width: fit-content;
+          }
         }
 
         &-img {
@@ -76,6 +120,12 @@
 
         &-name {
           padding-left: 2px;
+        }
+
+        &-label {
+          @include mobile {
+            display: none;
+          }
         }
       }
 
@@ -96,6 +146,14 @@
           text-decoration: none;
           background-color: #545d64;
         }
+
+        @include mobile {
+          position: static;
+          grid-row: 1/2;
+          grid-column: 3/4;
+          height: fit-content;
+          margin: auto;
+        }
       }
     }
 
@@ -105,6 +163,17 @@
         display: flex;
         padding: 16px 16px 28px 16px;
         position: relative;
+
+        @include mobile {
+          display: block;
+          padding: 0;
+        }
+
+        & .arrow_more {
+          @include mobile {
+            display: none;
+          }
+        }
 
         & .arrow_more {
           position: absolute;
@@ -130,6 +199,21 @@
         border-right: 1px black solid;
         padding-right: 8px;
         line-height: 1.6;
+
+        @include mobile {
+          border: none;
+          padding: 0;
+          font-size: 8px;
+          opacity: .8;
+        }
+
+        &-p {
+          display: none;
+
+          &.need {
+            display: block;
+          }
+        }
       }
 
       &-sub {
@@ -139,7 +223,9 @@
         width: fit-content;
         position: relative;
 
-
+        @include mobile {
+          display: none;
+        }
       }
     }
   }
