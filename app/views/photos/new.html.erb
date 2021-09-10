@@ -1,3 +1,22 @@
 <% provide(:title, '作品提出フォーム') %>
+<% provide(:aside_type, 'flex') %>
+<% content_for :aside do %>
+
+  <li class="aside__item-container">
+      <div class="aside__item__header-container">
+        <h3 class="aside__item__header-title">コンテストの情報</h3>
+      </div>
+      <div class="aside__item__body-container">
+        <div class="photoCreate__aside__contest-container">
+          <h4 class="photoCreate__aside__contest-name">コンテスト名：<%= link_to @contest.name, contest_path(@contest) %></h4>
+          <p class="photoCreate__aside__contest-p">説明：<%= @contest.description %></p>
+        </div>
+
+      </div>
+    </li>
+
+<% end %>
+
+<h1 class="photoCreate-title">作品の提出フォーム</h1>
 
 <%= render  "form", photo: @photo, url: contest_photos_path(params[:contest_id]) %>

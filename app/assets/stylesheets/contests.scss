@@ -147,10 +147,6 @@
 
 .contest {
   &__body {
-    &-container {
-      padding: 0 16px;
-    }
-
     &__title {
       &-container {
         width: 100%;
@@ -201,11 +197,13 @@
 }
 
 .contestCreate {
+  &-title {
+    @include title_h1;
+  }
 
   &__form {
     &-body {
-      padding: 16px;
-      margin: auto;
+      width: fit-content;
 
       & input[type="text"]:focus,
       & input[type="date"]:focus,
@@ -220,14 +218,11 @@
     }
 
     &-classification {
-      margin-top: 24px;
-      font-size: 1.4rem;
-      color: #444;
-      font-weight: bold;
+      @include title_h3;
     }
 
     &-classificationContainer {
-      padding-left: 8px;
+      @include form_content_group;
     }
 
     &-preview {
@@ -250,7 +245,6 @@
       &-container {
         display: flex;
         flex-flow: row;
-        margin-top: 8px;
         align-items: center;
       }
 
@@ -261,6 +255,7 @@
 
     &-label {
       width: 200px;
+      padding-bottom: 2px;
     }
 
     &-input {
@@ -293,8 +288,14 @@
       }
 
       &-num {
-        width: fit-content;
+        width: 4rem;
       }
     }
+  }
+}
+
+.contestEdit {
+  &-title {
+    @include title_h1;
   }
 }

@@ -2,11 +2,13 @@ class Photo < ApplicationRecord
   belongs_to :contest
   belongs_to :user
   has_many :votes, dependent: :destroy
-  default_scope -> { order(created_at: :desc) }
-  # has_one_attached :image
-  # before_create :attach_default_image
+  default_scope -> { order(id: :asc) }
   mount_uploader :image, ImageUploader
   DEFAULT_FILE_NAME = 'cat_S.jpg'
+
+  #投票結果表示で使う
+  attr_accessor :vote_points
+  attr_accessor :vote_rank
 
   # #===nameカラム============================================================
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }

@@ -1,12 +1,15 @@
 @import 'modules';
 
 .photoCreate {
+  &-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    padding: 4px 0 4px 0;
+    border-bottom: 1px solid #444;
+  }
 
   &__form {
-
     &-body {
-      width: 60%;
-      padding: 16px;
       margin: auto;
 
       & input[type="text"]:focus,
@@ -20,14 +23,13 @@
     }
 
     &-classification {
-      margin-top: 24px;
       font-size: 1.4rem;
       color: #444;
       font-weight: bold;
     }
 
     &-classificationContainer {
-      padding-left: 8px;
+      padding: 0 0 24px 8px;
     }
 
     &-preview {
@@ -252,5 +254,14 @@
         }
       }
     }
+  }
+}
+
+.photoEdit {
+  &-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    padding: 4px 0 4px 0;
+    border-bottom: 1px solid #444;
   }
 }

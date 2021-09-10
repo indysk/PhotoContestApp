@@ -1,8 +1,34 @@
+@import 'modules';
+
 .votes {
+  &-title {
+    &_container {
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      align-items: center;
+    }
+
+    text-align: center;
+    width: fit-content;
+    font-size: 1.4rem;
+    padding: 0 8%;
+    border-bottom: 1px black solid;
+
+    &_sub {
+      text-align: center;
+      opacity: .7;
+      font-size: 1rem;
+      padding: 8px;
+      width: auto;
+      word-break: break-all;
+    }
+  }
+
   &__results {
     &-container {
-      padding: 32px 16px;
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
 
       & .photolist__item-container {
@@ -14,13 +40,69 @@
 
       }
     }
+
+    &__rank {
+      &-group {
+        display: flex;
+        width: 120vh;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 100%;
+
+        &.rank1 {
+          &.one {
+            & .votes__item-container {
+              width: 90vh;
+              max-width: 100%;
+              margin: auto;
+            }
+          }
+
+          &.even {
+            width: 136vh;
+
+            & .votes__item-container {
+              width: 50%;
+            }
+          }
+
+          &.odd {
+            width: 100vh;
+
+            & .votes__item-container {
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
   }
 
   &__item {
+    @include square_image(100% /3, 100%);
+
+    &-container {
+      padding-bottom: 8px;
+    }
+
     &-info {
       &_container {
-        display: flex;
-        flex-flow: row;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        padding: 4px;
+      }
+
+      &_rank {
+        width: fit-content;
+      }
+
+      &_title {
+        padding: 0 4px;
+        word-break: break-all;
+      }
+
+      &_points {
+        width: fit-content;
       }
     }
   }

@@ -1,19 +1,19 @@
 @import 'modules';
 
 .user {
-  &-container {
-    padding: 0 8px;
+  &-container {}
+
+  &-title {
+    @include title_h1;
   }
 
   &__profile {
     &-container {
-      padding: 0 32px;
+      padding-bottom: 16px
     }
 
     &-title {
-      font-size: 1.4rem;
-      color: #444;
-      font-weight: bold;
+      @include title_h3;
     }
 
     &-img {
@@ -58,9 +58,15 @@
 
   }
 
+  &__photos {
+    &-title {
+      @include title_h3;
+      padding-bottom: 16px;
+    }
+  }
+
   &__photoslist {
     &-container {
-      padding: 32px 16px;
       display: flex;
       flex-wrap: wrap;
 

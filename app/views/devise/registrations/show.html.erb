@@ -3,6 +3,7 @@
 <% provide(:aside, "none") %>
 
 <div class="user-container">
+  <h1 class="user-title">ユーザ情報</h1>
   <div class="user__profile-container">
     <h3 class="user__profile-title">プロフィール</h3>
     <div class="user__profile-body">
@@ -18,13 +19,20 @@
     </div>
   </div>
 
-  <ul class="user__photoslist-container">
-    <% if @photos.present? %>
-      <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
-        <%= render partial: 'photos/photo', collection: @photos %>
-      <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
-    <% else %>
-      <p>投稿した写真がありません</p>
-    <% end %>
-  </ul>
+  <div class="user__photos-container">
+    <h3 class="user__photos-title">応募した作品</h3>
+      <% if @photos.present? %>
+        <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+        <ul class="user__photoslist-container">
+          <%= render partial: 'photos/photo', collection: @photos %>
+        </ul>
+        <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+      <% else %>
+        <ul class="user__photoslist-container">
+          <p>作品を応募していません</p>
+        </ul>
+      <% end %>
+    </ul>
+  </div>
+
 </div>

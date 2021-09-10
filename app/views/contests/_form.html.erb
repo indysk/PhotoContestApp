@@ -46,13 +46,20 @@
 
     <h3 class="contestCreate__form-classification">その他の設定</h3>
     <div class="contestCreate__form-classificationContainer">
-      <div class="contestCreate__form-group">
+      <div class="contestCreate__form-group row">
         <%= f.label :voting_points, '投票者の持ち点', class: 'contestCreate__form-label' %>
-        <%= f.number_field :voting_points, step: 1, min: -1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+        <div>
+          <%= f.number_field :voting_points, step: 1, min: -1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+          <span>pt</span>
+        </div>
       </div>
-      <div class="contestCreate__form-group">
-        <%= f.label :num_of_views_in_result, '上位者の表示人数', class: 'contestCreate__form-label' %>
-        <%= f.number_field :num_of_views_in_result, step: 1, min: -1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+      <div class="contestCreate__form-group row">
+        <%= f.label :num_of_views_in_result, '表示する順位', class: 'contestCreate__form-label' %>
+        <div>
+          <%= f.number_field :num_of_views_in_result, step: 1, min: 1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+          <span>位まで</span>
+        </div>
+
       </div>
       <% @form_options[2].each do |key, value| %>
         <div class="contestCreate__form-group">
@@ -60,7 +67,7 @@
           <%= f.select key, value[:options], {}, {class: 'contestCreate__form-input-select', autocomplete: 'off'} %>
         </div>
       <% end %>
-
+    </div>
     <%= f.submit submit_message %>
   <% end %>
 </div>

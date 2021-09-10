@@ -9,7 +9,23 @@ $space_size_nomal: 8px;
 $border_line_size: 1px;
 $border_nomal: $border_line_size $color_main solid;
 
+$break_point_mobile: 640px;
+$break_point_aside: 960px;
 
+
+
+
+@mixin mobile {
+  @media screen and (max-width: $break_point_mobile) {
+    @content;
+  }
+}
+
+@mixin non_aside {
+  @media screen and (max-width: $break_point_aside) {
+    @content;
+  }
+}
 
 @mixin button_nomal {
   padding: $space_size_nomal;
@@ -71,6 +87,67 @@ $border_nomal: $border_line_size $color_main solid;
     &:nth-child(2) {
       padding-left: 0;
       border-left: none;
+    }
+  }
+}
+
+@mixin title_h1 {
+  width: 48%;
+  padding: 4px 0 4px 0;
+  margin-bottom: 24px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  border-bottom: 1px #6593A6 solid;
+}
+
+@mixin title_h3 {
+  font-size: 1.4rem;
+  color: #444;
+  font-weight: bold;
+}
+
+@mixin form_content_group {
+  padding: 0 0 24px 8px;
+}
+
+@mixin square_image($width: 50%, $height: 100%) {
+  &-container {
+    width: $width;
+  }
+
+  &-img {
+
+    &_square {
+      position: relative;
+
+      &::before {
+        display: block;
+        padding-top: $height;
+        content: '';
+      }
+    }
+
+    &_container {
+      padding: 2px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+
+    &_link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      background-color: #444;
+    }
+
+    &_image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 }

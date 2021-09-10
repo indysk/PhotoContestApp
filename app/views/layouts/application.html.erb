@@ -5,7 +5,7 @@
   <%= render  "layouts/header" %>
   <div class="app-container">
 
-    <main class="app__main-flex_container <%= "support_for__aside-#{content_for?(:aside_type) ? yield(:aside_type) : 'none'}" %>">
+    <main class="app__main-flex_container <%= "aside_#{content_for?(:aside_type) ? yield(:aside_type) : 'none'}" %>">
       <%= render  "layouts/flash_messages" %>
       <%= yield %>
     </main>
