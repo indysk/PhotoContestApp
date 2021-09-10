@@ -44,13 +44,34 @@ $(function() {
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
 
-    //user画像をプレビューに表示
-    $('#userFileField').on('change', function() {
-      var file = $(this)[0].files[0];
-      // img要素に表示
-      img_container = $('.userEdit__form-preview_imgcontainer');
-      img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
-      img_container.children().first().attr('src',window.URL.createObjectURL(file));
-    });
+  //user画像をプレビューに表示
+  $('#userFileField').on('change', function() {
+    var file = $(this)[0].files[0];
+    // img要素に表示
+    img_container = $('.userEdit__form-preview_imgcontainer');
+    img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
+    img_container.children().first().attr('src',window.URL.createObjectURL(file));
+  });
 
+  //投票用input制御
+  const max_points = Number($('#voting_points').attr('name'));
+  const result_DOM = $('#now-voting-points');
+  $('.photolist__item-vote_input').each(function(){
+    $(this).on('change',function(){
+      var sum_points = 0;
+      $('.photolist__item-vote_input').each(function(){
+        sum_points += Number($(this).val());
+      })
+      var diff = max_points - sum_points
+      result_DOM.text(diff);
+      const vote_submit_DOM = $("#vote-submit");
+      if(diff >= 0){
+        vote_submit_DOM.prop("disabled", false);
+        result_DOM.removeClass("danger");
+      }else{
+        vote_submit_DOM.prop("disabled", true);
+        result_DOM.addClass("danger");
+      }
+    });
+  });
 });

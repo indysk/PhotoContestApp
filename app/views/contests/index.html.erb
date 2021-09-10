@@ -1,3 +1,21 @@
+<% provide(:aside_type, 'flex') %>
+<% content_for :aside do %>
+  <li class="aside__item-container">
+    <div class="aside__item__header-container">
+      <% if user_signed_in? %>
+        <h3><%= current_user.name %>でログイン中</h3>
+      <% else %>
+        <h3>ログインしていません</h3>
+      <% end %>
+    </div>
+    <div class="aside__item__body-container">
+      <div class="aside__item__body-main">
+        <p>test</p>
+      </div>
+    </div>
+  </li>
+<% end %>
+
 <div class="contestlist__header-container">
   <h2 class="contestlist__header-title">最新のコンテスト</h2>
   <%= link_to new_contest_path, class: 'contestlist__header-newlink' do %>
@@ -5,7 +23,6 @@
     <p class="contestlist__header-newlink-value">新しいコンテストを作る</p>
   <% end %>
 </div>
-
 
 <%= will_paginate %>
 <ul class="contestlist__body-listcontainer">

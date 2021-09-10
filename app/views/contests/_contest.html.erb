@@ -6,26 +6,13 @@
       <%= image_tag contest.user.image.url, class: 'contestlist__item__header-creater-img' %>
       <p class="contestlist__item__header-creater-name"><%= contest.user.name %></p>
     <% end %>
-    <% if contest.is_in_period_entry? %>
-      <% if contest.is_already_submitted?(current_user) %>
-        <%= link_to  "作品提出済み", edit_contest_photo_path(contest, Photo.find_by(contest: contest, user: current_user)), class: 'contestlist__item__header-badge' %>
-      <% else %>
-        <%= link_to  "作品募集中", new_contest_photo_path(contest), class: 'contestlist__item__header-badge' %>
-      <% end %>
-    <% elsif contest.is_in_period_voting? %>
-      <% if contest.is_already_voted?(current_user) %>
-        <div class="contestlist__item__header-badge">投票済み</div>
-      <% else %>
-        <%= link_to  "投票期間中", contest_photos_path(contest), class: 'contestlist__item__header-badge' %>
-      <% end %>
-    <% elsif contest.is_after_period_voting? %>
-      <%= link_to  "投票終了", contest_votes_path(contest), class: 'contestlist__item__header-badge' %>
-    <% end %>
+    <% badge_options = content_tag_options_for_contest_badge(contest, 'contestlist__item__header-badge') %>
+    <%= content_tag(badge_options[:tag], badge_options[:content], badge_options[:options]) %>
   </div>
   <%= link_to contest_path(contest), class: 'contestlist__item__body-container' do %>
     <div class="contestlist__item__body-main">
-      <p class="contestlist__item__body-main-p">募集期間：<%= print_datetime_with_wday(contest.entry_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.entry_end_at) %></p>
-      <p class="contestlist__item__body-main-p">投票期間：<%= print_datetime_with_wday(contest.vote_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.vote_end_at) %></p>
+      <p class="contestlist__item__body-main-p <%= 'need' if badge_options[:value] < 2 %>">募集期間：<%= print_datetime_with_wday(contest.entry_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.entry_end_at) %></p>
+      <p class="contestlist__item__body-main-p <%= 'need' if badge_options[:value] >= 2 %>">投票期間：<%= print_datetime_with_wday(contest.vote_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.vote_end_at) %></p>
       <p class="contestlist__item__body-main-p">応募者名の公開：<%= select_options[:visible_setting_for_user_name][contest.visible_setting_for_user_name][0] %></p>
     </div>
     <div class="contestlist__item__body-sub">

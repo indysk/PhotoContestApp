@@ -14,28 +14,102 @@ a:hover {
   text-decoration: underline;
 }
 
+
+.app {
+  &-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 32px 16px;
+
+    @include mobile {
+      padding: 32px 8px;
+    }
+  }
+
+  &__main {
+    &-flex_container {
+      padding: 0 8px 8px 8px;
+
+      &.aside_flex {
+        width: calc(100% - 320px);
+        max-width: calc(960px - 320px);
+
+        @include non_aside {
+          width: 100%;
+        }
+      }
+
+      &.aside_none {
+        width: 100%;
+        max-width: 960px;
+      }
+
+
+    }
+  }
+
+  &__aside {
+    &-flex {
+      width: 320px;
+      padding-left: 16px;
+
+
+      @include non_aside {
+        display: none;
+      }
+    }
+
+    &-fixed {
+      position: fixed;
+      right: 16px;
+      width: 320px;
+      padding-left: 16px;
+    }
+
+    &-none {
+      display: none;
+    }
+  }
+}
+
+
 .header {
   &__nav {
     &-title {
+      display: block;
       font-size: 1.2rem;
+      line-height: 56px;
+      padding: 0 16px;
+
+      &:hover {
+        color: white;
+        text-decoration: none;
+      }
     }
 
     &-container {
-      padding: 16px;
       background-color: $color_main;
       color: $color_base;
-      margin-bottom: 16px;
     }
 
     &-ul {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     &-li {
+      &_container {
+        padding-right: 8px;
+        display: flex;
+      }
+
       &-item {
         font-size: 0.8rem;
-        padding: 4px 8px;
+        padding: 0 8px;
+        display: block;
+        line-height: 56px;
       }
     }
 
@@ -49,6 +123,7 @@ a:hover {
         justify-content: flex-end;
         align-items: center;
         cursor: pointer;
+        padding: 16px;
       }
 
       &-icon {
@@ -82,12 +157,13 @@ a:hover {
       &-window {
         position: absolute;
         width: max-content;
-        top: calc(1rem + 8px);
-        right: 0;
+        top: calc(1rem + 24px);
+        right: 16px;
         padding: 4px 8px;
         background-color: $color_base;
         border: 1px solid #ddd;
         border-top: none;
+        z-index: 1;
       }
 
       &-contents {
@@ -110,6 +186,41 @@ a:hover {
           background-color: $color_base;
           color: $color_main;
         }
+      }
+    }
+  }
+}
+
+.aside {
+  &__item {
+    &-container {
+      border: 1px #ddd solid;
+      border-radius: 4px;
+      background-color: white;
+      margin-bottom: 16px;
+    }
+
+    &__header {
+      &-container {
+        background-color: #f7f7f7;
+        padding: 16px;
+        border-bottom: 1px #ddd solid;
+        position: relative;
+      }
+
+      &-title {
+        color: #000;
+      }
+    }
+
+    &__body {
+      &-container {
+        padding: 16px;
+      }
+
+      &-main {
+        font-size: 0.8rem;
+        line-height: 1.6;
       }
     }
   }
@@ -289,6 +400,59 @@ a:hover {
   }
 }
 
+div.pagination {
+  padding: 8px 0;
+
+  & ul.pagination {
+    display: flex;
+    justify-content: center;
+
+    & li {
+      &:first-child a {
+        margin-left: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+      }
+
+      &:last-child a {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+      }
+
+      &.active a {
+        color: #eee;
+        text-decoration: none;
+        background-color: #444;
+      }
+    }
+
+    & a {
+      display: block;
+      padding: .5rem .75rem;
+      margin-left: -1px;
+      line-height: 1.25;
+      color: #777;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+
+      &:hover {
+        color: #eee;
+        text-decoration: none;
+        background-color: #444;
+      }
+    }
+  }
+}
+
+#flash_message {
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  width: 100%;
+  text-align: center;
+}
+
 input,
 textarea {
   border: 1px rgb(88, 87, 87) solid;
@@ -316,9 +480,6 @@ input[type='submit'] {
   border-radius: 3px;
   font-size: small;
 }
-
-
-
 
 .arrow_more:hover {
   border-bottom: 1px solid #41A849;

@@ -1,12 +1,15 @@
 @import 'modules';
 
 .photoCreate {
+  &-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    padding: 4px 0 4px 0;
+    border-bottom: 1px solid #444;
+  }
 
   &__form {
-
     &-body {
-      width: 60%;
-      padding: 16px;
       margin: auto;
 
       & input[type="text"]:focus,
@@ -20,14 +23,13 @@
     }
 
     &-classification {
-      margin-top: 24px;
       font-size: 1.4rem;
       color: #444;
       font-weight: bold;
     }
 
     &-classificationContainer {
-      padding-left: 8px;
+      padding: 0 0 24px 8px;
     }
 
     &-preview {
@@ -165,17 +167,13 @@
 }
 
 .photos {
-  &-container {
-    padding: 0 8% 8% 8%;
-  }
+  &-container {}
 
   &-title {
-    padding-top: 24px;
     font-size: 1.4rem;
     color: #444;
     font-weight: bold;
   }
-
 
   &__body {
     &-title {
@@ -192,7 +190,7 @@
         flex-wrap: wrap;
 
         & .photolist__item-container {
-          width: calc(100% / 3);
+          width: calc(100% / 2);
         }
 
         & .photolist__item-img_square::before {
@@ -217,5 +215,53 @@
     &-link {}
 
     &no_image {}
+  }
+
+  &__aside {
+    &__vote {
+      &-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__points {
+        &-container {
+          display: flex;
+          font-weight: bold;
+          align-items: baseline;
+          width: fit-content;
+          padding-left: 24px;
+        }
+
+        &-label {}
+
+        &-value {
+          font-size: 2rem;
+          padding: 0 4px;
+          color: #28a745;
+
+          &.danger {
+            color: #dc3545;
+          }
+        }
+
+        &-unit {}
+      }
+
+      &-submit {
+        &:disabled {
+          background-color: #8898af;
+        }
+      }
+    }
+  }
+}
+
+.photoEdit {
+  &-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    padding: 4px 0 4px 0;
+    border-bottom: 1px solid #444;
   }
 }

@@ -15,6 +15,7 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
+    @contest = Contest.find_by(id: params[:contest_id])
   end
 
   def create
@@ -32,6 +33,7 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = Photo.find_by(id: params[:id])
+    @contest = Contest.find_by(id: params[:contest_id])
     redirect_to photos_path unless @photo
   end
 

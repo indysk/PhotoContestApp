@@ -11,43 +11,57 @@ class Contest < ApplicationRecord
   # #========================================================================
 
   def vote_result
-    votes = self.votes.includes(:photo, :user)
-    result = []
+    votes = self.votes
+    photos = self.photos.includes(:user)
+
+    received_votes = {}
+
+    #IDをキー、作品を値にしたハッシュを定義
+    #この後の点数計算でキー検索をするので、ハッシュである必要がある
+    photos.each do |photo|
+      photo.vote_points = 0
+      received_votes[:"#{photo.id}"] = photo
+    end
+
+    #該当する作品に得点を加算する。
     votes.each do |vote|
-      photo_id = vote.photo.id
-      flag = false
-      result.each_with_index do |item, i|
-        if item[:photo_id] == photo_id
-          result[i][:points] += vote.point
-          flag = true
-          break
-        end
-      end
-
-      unless flag
-        result << {photo_id: photo_id, photo: vote.photo, user: vote.user, points: vote.point}
-      end
-    end
-    result.sort! do |a, b|
-      [-a[:points], a[:photo_id]] <=> [-b[:points], b[:photo_id]]
+      received_votes[:"#{vote.photo_id}"].vote_points += vote.point
     end
 
-    i = 0
-    limit = result.length
+    #ハッシュからキーを取り除いて配列にする
+    photos_array_has_points = received_votes.map{|key, value| value }
+
+    #ポイント降順 & id昇順 でソート
+    photos_array_has_points.sort! do |a, b|
+      [-a.vote_points, a.id] <=> [-b.vote_points, b.id]
+    end
+
     now_rank = 1
+    result = {}
+    result[:rank1], result[:else] = [], []
+    i, limit = 0, photos_array_has_points.length
     while i < limit
       #最初の要素は必ず１位
       if i == 0
-        result[i][:rank] = now_rank
+        photos_array_has_points[i].vote_rank = now_rank
       else
         #1つ小さい番号の要素と比較して得点が小さければ順位が下がる
-        now_rank += 1 if result[i][:points] < result[i-1][:points]
-        result[i][:rank] = now_rank
+        now_rank = i + 1 if photos_array_has_points[i].vote_points < photos_array_has_points[i-1].vote_points
+        photos_array_has_points[i].vote_rank = now_rank
+      end
+
+      #順位が設定値より高くなった時点で終了
+      break if now_rank > self.num_of_views_in_result
+
+      if now_rank <= 1
+        result[:rank1] << photos_array_has_points[i]
+      else
+        result[:else] << photos_array_has_points[i]
       end
       i += 1
     end
 
-    return result
+    result
   end
 
   def self.model_labels
@@ -135,34 +149,30 @@ class Contest < ApplicationRecord
     description.length > i ? description[0..i-1] + '...' : description
   end
 
+
+  def is_after_period_voting?
+    return self.vote_end_at <= Time.current ? true : false
+  end
   def is_in_period_voting?
-    return false if self.vote_start_at.nil?
     now = Time.current
     return self.vote_start_at <= now && now < self.vote_end_at ? true : false
   end
-
+  def is_after_period_entry?
+    return self.entry_end_at <= Time.current ? true : false
+  end
   def is_in_period_entry?
-    return false if self.entry_start_at.nil?
     now = Time.current
     return self.entry_start_at <= now && now < self.entry_end_at ? true : false
   end
 
-  def is_after_period_voting?
-    return false if self.vote_start_at.nil?
-    return self.vote_end_at <= Time.current ? true : false
-  end
 
   def is_already_submitted?(current_user)
     self.photos.exists?(user: current_user)
   end
-
   def is_already_voted?(current_user)
     self.votes.exists?(user: current_user)
   end
-
   def is_able_to_submit?(current_user)
     self.is_in_period_entry? && self.is_already_submitted?(current_user)
   end
-
-
 end

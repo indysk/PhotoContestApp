@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
 <%= render  "layouts/meta" %>
-<%= render  "layouts/header" %>
 <body>
-  <%= render  "layouts/flash_messages" %>
-  <%= yield %>
+  <%= render  "layouts/header" %>
+  <div class="app-container">
+
+    <main class="app__main-flex_container <%= "aside_#{content_for?(:aside_type) ? yield(:aside_type) : 'none'}" %>">
+      <%= render  "layouts/flash_messages" %>
+      <%= yield %>
+    </main>
+
+    <aside class="app__aside-<%= content_for?(:aside_type) ? yield(:aside_type) : 'none' %>">
+      <ul class="app__aside-container">
+        <%= render  "layouts/aside" %>
+      </ul>
+    </aside>
+  </div>
+  <%= render  "layouts/footer" %>
 </body>
-<%= render  "layouts/footer" %>
 </html>

@@ -4,7 +4,7 @@
 
   &__header {
     &-container {
-      padding: 0 16px;
+      padding: 0;
       display: flex;
       justify-content: space-between;
     }
@@ -24,16 +24,25 @@
       border-radius: 2rem;
       padding: 8px 16px 8px 8px;
       transition: ease .1s;
+      font-size: .8rem;
 
       &-value {
         padding-left: 8px;
+      }
+
+      &-icon {
+        transition: ease .2s;
+      }
+
+      &:hover &-icon {
+        transform: rotate(45deg);
       }
     }
   }
 
   &__body {
     &-listcontainer {
-      padding: 16px;
+      padding: 16px 0;
     }
   }
 
@@ -43,6 +52,15 @@
       border-radius: 4px;
       background-color: white;
       margin-bottom: 16px;
+
+
+      @include mobile {
+        border: none;
+        border-radius: 0;
+        padding: 16px 0;
+        border-bottom: 1px #ddd solid;
+        margin: 0;
+      }
     }
 
     &__header {
@@ -50,11 +68,29 @@
         background-color: #f7f7f7;
         padding: 16px;
         border-bottom: 1px #ddd solid;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
         position: relative;
+
+        @include mobile {
+          display: grid;
+          grid-template-columns: 1fr auto auto;
+          grid-template-rows: auto 1fr;
+          background-color: transparent;
+          border: none;
+          padding: 0;
+        }
       }
 
       &-title {
         color: #000;
+        word-break: break-all;
+
+        @include mobile {
+          grid-row: 2/3;
+          grid-column: 1/4;
+          padding: 4px 0 0 0;
+        }
       }
 
       &-creater {
@@ -65,6 +101,14 @@
           font-size: 0.8rem;
           opacity: .8;
           padding-left: 8px;
+
+          @include mobile {
+            grid-row: 1/2;
+            grid-column: 2/3;
+            padding: 0 8px 0 0;
+            opacity: 1;
+            width: fit-content;
+          }
         }
 
         &-img {
@@ -77,9 +121,16 @@
         &-name {
           padding-left: 2px;
         }
+
+        &-label {
+          @include mobile {
+            display: none;
+          }
+        }
       }
 
       &-badge {
+        display: inline;
         position: absolute;
         right: 16px;
         font-size: 0.8rem;
@@ -95,6 +146,14 @@
           text-decoration: none;
           background-color: #545d64;
         }
+
+        @include mobile {
+          position: static;
+          grid-row: 1/2;
+          grid-column: 3/4;
+          height: fit-content;
+          margin: auto;
+        }
       }
     }
 
@@ -104,6 +163,17 @@
         display: flex;
         padding: 16px 16px 28px 16px;
         position: relative;
+
+        @include mobile {
+          display: block;
+          padding: 0;
+        }
+
+        & .arrow_more {
+          @include mobile {
+            display: none;
+          }
+        }
 
         & .arrow_more {
           position: absolute;
@@ -129,16 +199,33 @@
         border-right: 1px black solid;
         padding-right: 8px;
         line-height: 1.6;
+
+        @include mobile {
+          border: none;
+          padding: 0;
+          font-size: 8px;
+          opacity: .8;
+        }
+
+        &-p {
+          display: none;
+
+          &.need {
+            display: block;
+          }
+        }
       }
 
       &-sub {
         padding: 0 8px;
         font-size: 0.8rem;
-        min-width: 50%;
+        word-break: break-all;
         width: fit-content;
         position: relative;
 
-
+        @include mobile {
+          display: none;
+        }
       }
     }
   }
@@ -146,10 +233,6 @@
 
 .contest {
   &__body {
-    &-container {
-      padding: 0 16px;
-    }
-
     &__title {
       &-container {
         width: 100%;
@@ -200,12 +283,13 @@
 }
 
 .contestCreate {
+  &-title {
+    @include title_h1;
+  }
 
   &__form {
     &-body {
-      width: 70%;
-      padding: 16px;
-      margin: auto;
+      width: fit-content;
 
       & input[type="text"]:focus,
       & input[type="date"]:focus,
@@ -220,14 +304,11 @@
     }
 
     &-classification {
-      margin-top: 24px;
-      font-size: 1.4rem;
-      color: #444;
-      font-weight: bold;
+      @include title_h3;
     }
 
     &-classificationContainer {
-      padding-left: 8px;
+      @include form_content_group;
     }
 
     &-preview {
@@ -250,7 +331,6 @@
       &-container {
         display: flex;
         flex-flow: row;
-        margin-top: 8px;
         align-items: center;
       }
 
@@ -261,6 +341,7 @@
 
     &-label {
       width: 200px;
+      padding-bottom: 2px;
     }
 
     &-input {
@@ -293,8 +374,14 @@
       }
 
       &-num {
-        width: fit-content;
+        width: 4rem;
       }
     }
+  }
+}
+
+.contestEdit {
+  &-title {
+    @include title_h1;
   }
 }
