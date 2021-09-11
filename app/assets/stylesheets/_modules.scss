@@ -92,12 +92,22 @@ $break_point_aside: 960px;
   font-size: 1.2rem;
   letter-spacing: 1px;
   border-bottom: 1px #6593A6 solid;
+  word-break: break-all;
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 @mixin title_h3 {
   font-size: 1.4rem;
   color: #444;
   font-weight: bold;
+  word-break: break-all;
+
+  @include mobile {
+    font-size: 1.2rem;
+  }
 }
 
 @mixin form_content_group {

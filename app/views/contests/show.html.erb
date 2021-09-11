@@ -1,41 +1,13 @@
 <% provide(:title, @contest.name) %>
 <% provide(:aside_type,'none')%>
 <% provide(:aside,'none')%>
+<% labels = Contest.model_labels %>
 <div class="contest__body-container">
 
   <div class="contest__body__title-container">
     <h1 class="contest__body__title-name"><%= @contest.name %></h1>
-    <% if @contest.is_in_period_entry? %>
-      <% if @contest.is_already_submitted?(current_user) %>
-        <%= link_to  "作品提出済み", edit_contest_photo_path(@contest, Photo.find_by(contest: @contest, user: current_user)), class: 'contest__body__title-badge' %>
-      <% else %>
-        <%= link_to  "作品募集中", new_contest_photo_path(@contest), class: 'contest__body__title-badge' %>
-      <% end %>
-    <% elsif @contest.is_in_period_voting? %>
-      <% if @contest.is_already_voted?(current_user) %>
-        <div class="contest__body__title-badge">投票済み</div>
-      <% else %>
-        <%= link_to  "投票期間中", contest_photos_path(@contest), class: 'contest__body__title-badge' %>
-      <% end %>
-    <% elsif @contest.is_after_period_voting? %>
-      <%= link_to  "投票終了", contest_votes_path(@contest), class: 'contest__body__title-badge' %>
-    <% end %>
-  </div>
-
-
-  <h3 class="contest__body__info-title">コンテスト情報</h3>
-  <div class="contest__body__info-container">
-    <p>主催者：<%= link_to @contest.user.name, user_path(@contest.user) %></p>
-    <p>コンテストの説明：<%= @contest.description %></p>
-    <p>作品の募集期間：<%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
-    <p>投票の募集期間：<%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
-    <p>応募ページの公開範囲：<%= @options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
-    <p>投票ページの公開範囲：<%= @options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
-    <p>作品一覧の公開範囲：<%= @options[:visible_range_show][@contest.visible_range_show][0] %></p>
-    <p>投票結果の公開範囲：<%= @options[:visible_range_result][@contest.visible_range_result][0] %></p>
-    <p>投票者の持ち点：<%= @contest.voting_points %></p>
-    <p>上位者の表示人数：<%= @contest.num_of_views_in_result %></p>
-    <p>作品の応募者名の公開範囲：<%= @options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
+    <% badge_options = content_tag_options_for_contest_badge(@contest, 'contest__body__title-badge') %>
+    <%= content_tag(badge_options[:tag], badge_options[:content], badge_options[:options]) %>
   </div>
 
 
@@ -63,6 +35,65 @@
   </div>
 
 
+  <h3 class="contest__body__info-title">コンテスト情報</h3>
+  <div class="contest__body__info-container">
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:organizer] %></p>
+      <p class="contest__body__info-p"><%= link_to @contest.user.name, user_path(@contest.user) %></p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:description] %></p>
+      <p class="contest__body__info-p"><%= @contest.description %></p>
+    </div>
+  </div>
+
+  <h3 class="contest__body__info-title">作品募集と投票の期間</h3>
+  <div class="contest__body__info-container">
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:entry_period] %></p>
+      <p class="contest__body__info-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:vote_period] %></p>
+      <p class="contest__body__info-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
+    </div>
+  </div>
+
+  <h3 class="contest__body__info-title">投票の設定</h3>
+  <div class="contest__body__info-container">
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:voting_points] %></p>
+      <p class="contest__body__info-p"><%= @contest.voting_points %> pt</p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:num_of_views_in_result] %></p>
+      <p class="contest__body__info-p"><%= @contest.num_of_views_in_result %> 位まで</p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:visible_setting_for_user_name] %></p>
+      <p class="contest__body__info-p"><%= @options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
+    </div>
+  </div>
+
+  <h3 class="contest__body__info-title">公開範囲の設定</h3>
+  <div class="contest__body__info-container">
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:visible_range_entry] %></p>
+      <p class="contest__body__info-p"><%= @options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:visible_range_vote] %></p>
+      <p class="contest__body__info-p"><%= @options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:visible_range_show] %></p>
+      <p class="contest__body__info-p"><%= @options[:visible_range_show][@contest.visible_range_show][0] %></p>
+    </div>
+    <div class="contest__body__info-group">
+      <p class="contest__body__info-label"><%= labels[:visible_range_result] %></p>
+      <p class="contest__body__info-p"><%= @options[:visible_range_result][@contest.visible_range_result][0] %></p>
+    </div>
+  </div>
 
   <% if correct_user?(@contest.user) %>
     <h3 class="contest__body__info-title">管理者用</h3>
