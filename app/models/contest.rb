@@ -67,6 +67,7 @@ class Contest < ApplicationRecord
   def self.model_labels
     options = {
       name: 'コンテスト名',
+      organizer: '主催者',
       description: 'コンテストの説明',
       entry_period: '作品の募集期間',
       entry_start_at: '作品の募集開始日時',
@@ -78,7 +79,9 @@ class Contest < ApplicationRecord
       visible_range_vote: '投票ページの公開範囲',
       visible_range_show: '作品一覧の公開範囲',
       visible_range_result: '投票結果の公開範囲',
-      visible_setting_for_user_name: '応募者名の公開'
+      visible_setting_for_user_name: '応募者名の公開',
+      voting_points: '投票者の持ち点',
+      num_of_views_in_result: '表示する順位',
     }
   end
 

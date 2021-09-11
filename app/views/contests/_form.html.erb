@@ -24,8 +24,8 @@
               <%= f.date_field value[:start][:obj] + '_date', value: print_date_for_form(contest.send(value[:start][:obj])), class: 'contestCreate__form-input-date', autocomplete: 'off' %>
               <%= f.time_field value[:start][:obj] + '_time', value: print_time_for_form(contest.send(value[:start][:obj])), class: 'contestCreate__form-input-time', autocomplete: 'off' %>
             </div>
-            <i class="fas fa-chevron-right contestCreate__form-datetime-icon"></i>
             <div class="contestCreate__form-datetime-end">
+              <i class="fas fa-long-arrow-alt-right contestCreate__form-datetime-icon"></i>
               <%= f.date_field value[:end][:obj] + '_date', value: print_date_for_form(contest.send(value[:end][:obj])), class: 'contestCreate__form-input-date', autocomplete: 'off' %>
               <%= f.time_field value[:end][:obj] + '_time', value: print_time_for_form(contest.send(value[:end][:obj])), class: 'contestCreate__form-input-time', autocomplete: 'off' %>
             </div>

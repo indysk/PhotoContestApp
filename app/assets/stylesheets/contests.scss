@@ -208,10 +208,15 @@
         }
 
         &-p {
-          display: none;
+          @include mobile {
+            display: none;
+
+          }
 
           &.need {
-            display: block;
+            @include mobile {
+              display: block;
+            }
           }
         }
       }
@@ -240,12 +245,16 @@
         background-color: #eee;
         text-align: center;
         border-radius: 6px;
-
+        margin-bottom: 32px;
       }
 
       &-name {
         font-size: 2rem;
         color: #3e3e3e;
+
+        @include mobile {
+          font-size: 1.4rem;
+        }
       }
 
       &-badge {
@@ -269,14 +278,24 @@
 
     &__info {
       &-title {
-        margin-top: 24px;
-        font-size: 1.4rem;
-        color: #444;
-        font-weight: bold;
+        @include title_h3;
       }
 
       &-container {
-        padding: 8px 0 8px 8px;
+        padding: 0 0 40px 8px;
+      }
+
+      &-group {
+        padding: 16px 0;
+        border-bottom: 1px #ededed solid;
+      }
+
+      &-label {
+        font-size: .8rem
+      }
+
+      &-p {
+        padding: 8px 8px 8px 0
       }
     }
   }
@@ -285,6 +304,7 @@
 .contestCreate {
   &-title {
     @include title_h1;
+
   }
 
   &__form {
@@ -300,6 +320,10 @@
         border-color: #80bdff;
         outline: 0;
         box-shadow: 0 0 0 0.2rem #007bff40;
+      }
+
+      @include mobile {
+        width: auto;
       }
     }
 
@@ -332,6 +356,24 @@
         display: flex;
         flex-flow: row;
         align-items: center;
+
+        @include mobile {
+          align-items: start;
+          flex-wrap: wrap;
+          width: fit-content;
+        }
+      }
+
+      &-start {
+        @include mobile {
+          padding-bottom: 8px;
+        }
+      }
+
+      &-end {
+        @include mobile {
+          margin-left: auto;
+        }
       }
 
       &-icon {
