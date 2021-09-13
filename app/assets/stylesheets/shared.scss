@@ -222,6 +222,42 @@ a:hover {
         font-size: 0.8rem;
         line-height: 1.6;
       }
+
+      &-title {}
+
+      &-table {
+        & thead {
+          & tr {
+            background-color: #fff;
+          }
+        }
+
+        & tr {
+          border-bottom: 1px black solid;
+
+          &:nth-of-type(odd) {
+            background-color: #f9f9f9;
+          }
+        }
+
+        & th {
+          padding: 4px 0;
+
+          &:first-child {
+            width: 36%;
+          }
+        }
+
+        & td {
+          font-size: 85%;
+        }
+
+        &_date {}
+
+        &_time {
+          text-align: center;
+        }
+      }
     }
   }
 }

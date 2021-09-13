@@ -10,7 +10,31 @@
     </div>
     <div class="aside__item__body-container">
       <div class="aside__item__body-main">
-        <p>test</p>
+        <% if user_signed_in? %>
+          <h4 class="aside__item__body-title">応募したコンテスト</h4>
+          <table class="aside__item__body-table">
+            <thead>
+              <tr>
+                <th>投票終了日時</th>
+                <th>コンテスト名</th>
+              </tr>
+            </thead>
+            <% if @contests.present? %>
+              <tbody>
+                <%= render partial: "shared/aside_contest", collection: @contests, as: 'contest', locals: {labels: Contest.model_labels, select_options: Contest.select_options} %>
+              </tbody>
+            <% else %>
+              応募したコンテストはありません
+            <% end %>
+          </table>
+
+
+          </div>
+        <% else %>
+          <p class="contestlist__aside-p">下のリンクからログインまたは新規登録する。</p>
+          <%= link_to '新規登録', new_user_registration_path, class: 'contestlist__aside-link' %>
+          <%= link_to 'ログイン', new_user_session_path, class: 'contestlist__aside-link' %>
+        <% end %>
       </div>
     </div>
   </li>

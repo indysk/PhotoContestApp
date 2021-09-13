@@ -234,69 +234,81 @@
       }
     }
   }
+
+  &__aside {
+    &-link {
+      text-decoration: underline;
+    }
+  }
 }
 
 .contest {
-  &__body {
-    &__title {
-      &-container {
-        width: 100%;
-        padding: 32px;
-        background-color: #eee;
-        text-align: center;
-        border-radius: 6px;
-        margin-bottom: 32px;
-      }
+  &__header {
+    &-container {
+      padding-bottom: 32px;
+    }
 
-      &-name {
-        font-size: 2rem;
-        color: #3e3e3e;
+    &-content {
+      width: 100%;
+      padding: 32px;
+      background-color: #eee;
+      text-align: center;
+      border-radius: 6px;
+    }
 
-        @include mobile {
-          font-size: 1.4rem;
-        }
-      }
+    &-title {
+      font-size: 2rem;
+      color: #3e3e3e;
 
-      &-badge {
-        width: fit-content;
-        margin: 8px auto 0 auto;
-        display: block;
-        background-color: #444;
-        color: white;
-        padding: 4px 16px;
-        border-radius: 4px;
-        transition: ease .2s;
-
-        &:hover {
-          color: white;
-          box-shadow: #00000033 0px 2px 4px;
-          text-decoration: none;
-          background-color: #5f5e5e;
-        }
+      @include mobile {
+        font-size: 1.4rem;
       }
     }
 
-    &__info {
-      &-title {
-        @include title_h3;
-      }
+    &-badge {
+      width: fit-content;
+      margin: 8px auto 0 auto;
+      display: block;
+      background-color: #444;
+      color: white;
+      padding: 4px 16px;
+      border-radius: 4px;
+      transition: ease .2s;
 
-      &-container {
-        padding: 0 0 40px 8px;
+      &:hover {
+        color: white;
+        box-shadow: #00000033 0px 2px 4px;
+        text-decoration: none;
+        background-color: #5f5e5e;
       }
+    }
 
-      &-group {
-        padding: 16px 0;
-        border-bottom: 1px #ededed solid;
-      }
+    &-links {
+      text-align: right;
+      padding: 4px 8px 0 0;
+    }
+  }
 
-      &-label {
-        font-size: .8rem
-      }
+  &__info {
+    &-title {
+      @include title_h3;
+    }
 
-      &-p {
-        padding: 8px 8px 8px 0
-      }
+    &-container {
+      padding: 0 0 40px 8px;
+    }
+
+    &-group {
+      padding: 16px 0;
+      border-bottom: 1px #ededed solid;
+    }
+
+    &-label {
+      font-size: .8rem
+    }
+
+    &-p {
+      padding: 8px 8px 8px 0
     }
   }
 }
