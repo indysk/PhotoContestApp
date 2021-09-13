@@ -34,6 +34,11 @@ module ApplicationHelper
     time.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[time.wday]}) %H:%M")
   end
 
+  def print_date_with_wday(date)
+    time = Time.parse(date.to_s)
+    time.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[time.wday]})")
+  end
+
   def print_date_for_form(date)
     date.strftime("%Y-%m-%d")
   end
