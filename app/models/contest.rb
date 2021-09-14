@@ -99,7 +99,6 @@ class Contest < ApplicationRecord
     self.visible_setting_for_user_name = 0
   end
 
-
   def self.select_options
     options = {
       visible_range_entry:           [['一般に公開', 0], ['URLで限定公開', 1]],

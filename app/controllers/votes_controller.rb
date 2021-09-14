@@ -1,4 +1,7 @@
 class VotesController < ApplicationController
+  before_action :check_logged_in, except: [:index]
+  before_action :check_already_voted, only: [:create]
+
   def index
     @contest = Contest.find_by(id: params[:contest_id])
     redirect_to root_path unless @contest

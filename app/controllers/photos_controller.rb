@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_action :check_logged_in, except: [:index, :show]
   before_action :check_correct_user_for_photo, only: [:edit, :update, :destory]
 
   def index

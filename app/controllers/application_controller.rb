@@ -33,4 +33,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def  check_already_voted(contest_id = nil, user_id = nil)
+    contes_id ||= find_by(id: params[:contest_id]) || find_by(id: params[:id])
+    unless vote ||= Vote.find_by(user: user_id || current_user.id, contest_id: contest_id)
+      flash[:danger] = "すでに投票済みです"
+      redirect_to Contest.find(params[:contest_id])
+    end
+  end
+
+  def check_logged_in
+    unless logged_in?
+      flash = 'ログインしてください'
+      redirect_to user_session_path
+    end
+  end
 end

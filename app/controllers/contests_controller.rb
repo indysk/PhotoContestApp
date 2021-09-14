@@ -1,4 +1,5 @@
 class ContestsController < ApplicationController
+  before_action :check_logged_in, except: [:index, :show]
   before_action :check_correct_user_for_contest, only: [:edit, :update, :destory]
 
   def index
@@ -10,6 +11,7 @@ class ContestsController < ApplicationController
       @photos = @contest.photos.includes(:user).paginate(page: params[:page])
       @options ||= Contest.select_options
     else
+      flash[:danger] = 'コンテストは存在しません'
       redirect_to root_path
     end
   end
@@ -20,7 +22,7 @@ class ContestsController < ApplicationController
   end
 
   def create
-    @contest = Contest.new(contest_params)
+    @contest ||= Contest.new(contest_params)
     @contest.user_id = current_user.id
     if @contest.save
       redirect_to root_path
@@ -79,5 +81,9 @@ class ContestsController < ApplicationController
       end
 
       get.merge(tmp)
+    end
+
+    def check_already_voted
+      super if Contest.find(params[:contest_id]).is_in_period_voting?
     end
   end
