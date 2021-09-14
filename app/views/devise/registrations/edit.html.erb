@@ -9,8 +9,8 @@
 
       <div class="userEdit__form-container">
         <div class="userEdit__form-group userEdit__form-preview_group">
-          <%= tag.div class: 'userEdit__form-preview_imgcontainer', style: resource.image.file.nil? ? 'display: none;' : '' do %>
-            <%= image_tag resource.image.file.nil? ? '' : resource.image.url, class: 'userEdit__form-preview_img', alt: 'プレビュー画像' %>
+          <%= tag.div class: 'userEdit__form-preview_imgcontainer' do %>
+            <%= image_tag resource.image.url, class: 'userEdit__form-preview_img', alt: 'プレビュー画像' %>
             <%= f.label :image, tag.i('', class: 'far fa-plus-square'), class: 'userEdit__form-preview_label', for: 'userFileField' %>
             <%= f.file_field :image, id: 'userFileField', class:'userEdit__form-preview_input' %>
           <% end %>
@@ -18,13 +18,13 @@
 
         <div class="userEdit__form-info_container">
           <div class="userEdit__form-info_group">
-            <%= f.label :name, class: 'userEdit__form-info_label-name' %><br />
+            <%= f.label :name, 'ユーザ名', class: 'userEdit__form-info_label-name' %><br />
             <%= f.text_field :name, autofocus: true, autocomplete: "username", class: 'userEdit__form-info_input-name' %>
           </div>
 
           <div class="userEdit__form-info_group">
-            <%= f.label :email, class: 'userEdit__form-info_label-email' %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'userEdit__form-info_input-name' %>
+            <%= f.label :user_id, 'ユーザID', class: 'userEdit__form-info_label-user_id' %><br />
+            <%= f.text_field :user_id, autofocus: true, autocomplete: "user_id", class: 'userEdit__form-info_input-name' %>
           </div>
 
           <div class="userEdit__form-info_group_submit">
@@ -34,7 +34,7 @@
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_user_id %></div>
       <% end %>
 
 

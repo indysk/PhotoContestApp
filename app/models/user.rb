@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+         :recoverable, :rememberable, :validatable, :trackable, :authentication_keys => [:user_id]
 
   default_scope -> { order(created_at: :desc) }
 
@@ -11,9 +11,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   DEFAULT_FILE_NAME = 'default_user.jpg'
 
-  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "")
-                self.email = email.downcase
-  }
+  # before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
 
   #===nameカラム============================================================
   validates :name,  presence: true,
@@ -22,11 +20,24 @@ class User < ApplicationRecord
 
 
   #===emailカラム===========================================================
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true,
+  VALID_EMAIL_REGEX = /\A[0-9a-zA-Z-_[:space:]]+|[[:space:]]+\z/
+  validates :user_id, presence: true,
                     length: { maximum: 255, allow_blank: true },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   #========================================================================
 
+
+  # No use email
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
+  def will_save_change_to_email?
+    false
+  end
 end

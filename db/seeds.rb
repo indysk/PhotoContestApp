@@ -2,14 +2,14 @@
 #Tom
 user_Tom = User.create!(
   name: 'Tome',
-  email: 'tom@example.com',
+  user_id: 'tom@example.com',
   password: 'tomfoobar',
   password_confirmation: 'tomfoobar'
 )
 
 user_Ken = User.create!(
   name: 'Ken',
-  email: 'ken@example.com',
+  user_id: 'ken@example.com',
   password: 'kenfoobar',
   password_confirmation: 'kenfoobar'
 )
@@ -611,10 +611,10 @@ end
 # 40.times do |n|
 #   #ユーザ
 #   name  = Faker::Name.name
-#   email = "example-#{n+1}@example.com"
+#   user_id = "example-#{n+1}@example.com"
 #   password = "password#{n+1}"
 #   user = User.create!(name:                  name,
-#                       email:                 email,
+#                       user_id:                 user_id,
 #                       password:              password,
 #                       password_confirmation: password)
 #   #コンテスト
