@@ -3,13 +3,15 @@ $(function() {
   //モーダルフォーム
   $('.js-modal-open').each(function(){
     $(this).on('click',function(){
-      $(this).next('#modal__window').fadeIn();
+      $('#' + this.dataset.target).fadeIn();
       return false;
     });
   });
-  $('.js-modal-close').on('click',function(){
-    $('.js-modal').fadeOut();
-    return false;
+  $('.js-modal-close').each(function(){
+    $(this).on('click',function(){
+      $('#' + this.dataset.target).fadeOut();
+      return false;
+    });
   });
 
 
