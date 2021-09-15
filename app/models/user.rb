@@ -19,8 +19,8 @@ class User < ApplicationRecord
   #========================================================================
 
 
-  #===emailカラム===========================================================
-  VALID_EMAIL_REGEX = /\A[0-9a-zA-Z-_[:space:]]+|[[:space:]]+\z/
+  #===user_idカラム========================================================
+  VALID_EMAIL_REGEX = /\A[0-9a-zA-Z-_]+\z/
   validates :user_id, presence: true,
                     length: { maximum: 255, allow_blank: true },
                     format: { with: VALID_EMAIL_REGEX },

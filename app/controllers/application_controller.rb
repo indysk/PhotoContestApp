@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_logged_in
-    unless logged_in?
+    unless signed_in?
       flash = 'ログインしてください'
       redirect_to user_session_path
     end

@@ -2,14 +2,14 @@
 #Tom
 user_Tom = User.create!(
   name: 'Tome',
-  user_id: 'tom@example.com',
+  user_id: 'tom_user',
   password: 'tomfoobar',
   password_confirmation: 'tomfoobar'
 )
 
 user_Ken = User.create!(
   name: 'Ken',
-  user_id: 'ken@example.com',
+  user_id: 'ken_user',
   password: 'kenfoobar',
   password_confirmation: 'kenfoobar'
 )
