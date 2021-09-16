@@ -43,6 +43,11 @@
   &__body {
     &-listcontainer {
       padding: 16px 0;
+
+      @include mobile {
+        width: 90%;
+        margin: auto;
+      }
     }
   }
 
@@ -290,6 +295,10 @@
       text-align: right;
       padding: 4px 8px 0 0;
     }
+
+    &-link {
+      display: inline;
+    }
   }
 
   &__info {
@@ -313,13 +322,34 @@
     &-p {
       padding: 8px 8px 8px 0
     }
+
+    &-copy {
+      &_container {
+        min-width: 50%;
+        width: fit-content;
+        border: 1px #b7b7b7 solid;
+        border-radius: 8px;
+        position: relative;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        transition: ease .2s;
+
+        &:hover {
+          box-shadow: 0px 0px 0px 4px #e4e4e4;
+        }
+
+        &:active {
+          box-shadow: 0px 0px 0px 4px #afd3ff;
+        }
+      }
+    }
   }
 }
 
 .contestCreate {
   &-title {
     @include title_h1;
-
   }
 
   &__form {

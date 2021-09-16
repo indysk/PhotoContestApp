@@ -1,7 +1,7 @@
 <% provide(:title, "作品一覧 #{@contest.name}") %>
 
 <% if @contest.is_in_period_voting? %>
-  <% provide(:aside_type, "fixed") %>
+  <% provide(:aside_type, "fixed vote") %>
   <% content_for :aside do %>
     <li class="aside__item-container">
       <div class="aside__item__header-container">
@@ -50,4 +50,3 @@
     <% end %>
   </div>
 </div>
-<%= render 'shared/modal_photo', link_message: '[modal Photo]', photos: @photos %>

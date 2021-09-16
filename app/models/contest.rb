@@ -12,7 +12,7 @@ class Contest < ApplicationRecord
 
   def vote_result
     votes = self.votes
-    photos = self.photos.includes(:user)
+    photos = self.photos.includes(:user, :contest)
 
     received_votes = {}
 
@@ -151,9 +151,19 @@ class Contest < ApplicationRecord
     description.length > i ? description[0..i-1] + '...' : description
   end
 
+  def create_url(value = '')
+    url = create_random_id
+    self.limited_url_entry = url if value == 'entry' || self.visible_range_entry == 1
+    self.limited_url_vote = url if value == 'vote' || self.visible_range_vote == 1
+    self.limited_url_show = url if value == 'show' || self.visible_range_show == 1
+    self.limited_url_result = url if value == 'result' || self.visible_range_result == 1
+  end
 
   def is_after_period_voting?
     return self.vote_end_at <= Time.current ? true : false
+  end
+  def is_before_period_voting?
+    return !self.is_after_period_voting?
   end
   def is_in_period_voting?
     now = Time.current

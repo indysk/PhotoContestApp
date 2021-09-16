@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
   def index
     @contest = Contest.find_by(id: params[:contest_id])
     render :new unless @contest
-    @photos = @contest.photos
+    @photos = @contest.order('id ASC')
     @vote = Vote.new
   end
 

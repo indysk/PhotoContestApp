@@ -1,0 +1,13 @@
+<p class="contest__info-label"><%= url.label %>の限定公開URL</p>
+<p class="contest__info-p">
+  <button class="contest__info-copy_container js-url-copy">
+    <p class="contest__info-copy_text" id="contest__info-copy_text-<%= url.tag %>"><%= url.url_value %></p>
+    <i class="far fa-copy contest__info-copy_icon"></i>
+  </button>
+  <%= form_with model: url, url: url_path, method: 'patch', class:'contestCreate__form-body', autocapitalize: 'none' do |f| %>
+    <%= f.hidden_field :id, url.contest_id %>
+    <%= f.hidden_field :tag, url.tag %>
+    <%= f.submit (url.url_value.present? ? '更新する' : '作成する') %>
+  <% end %>
+
+</p>

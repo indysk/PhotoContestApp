@@ -2,7 +2,6 @@ class Photo < ApplicationRecord
   belongs_to :contest
   belongs_to :user
   has_many :votes, dependent: :destroy
-  default_scope -> { order(id: :asc) }
   mount_uploader :image, ImageUploader
   DEFAULT_FILE_NAME = 'cat_S.jpg'
 

@@ -1,0 +1,46 @@
+<div id="modal_photo_<%= photo.id %>" class="modal__photo__window">
+  <div class="modal__photo__bg js-modal-close" data-target="<%= "modal_photo_#{photo.id}" %>"></div>
+  <div class="modal__photo__content">
+    <div class="modal__photo-grid">
+
+      <div class="modal__photo__title-container">
+        <%= link_to photo.name, path_for_photo(photo), class: 'modal__photo__title-content' %>
+      </div>
+
+      <div class="modal__photo__links-container">
+        <div class="modal__photo__links-icon_container js-modal-close" data-target="<%= "modal_photo_#{photo.id}" %>">
+          <i class="fas fa-times modal__photo__links-icon_close"></i>
+        </div>
+      </div>
+
+      <div class="modal__photo__body-container">
+        <div class="modal__photo__body-img_container">
+          <%= image_tag photo.image.url, class: 'modal__photo__body-img_image' %>
+        </div>
+      </div>
+
+      <div class="modal__photo__info-container">
+        <div class="modal__photo__info-group work">
+          <div class="modal__photo__info-wrapper">
+            <p class="modal__photo__info-p">タイトル：<%= photo.name %></p>
+            <p class="modal__photo__info-p">説明：<%= photo.description %></p>
+          </div>
+        </div>
+
+        <% if photo.contest.is_after_period_voting? %>
+        <div class="modal__photo__info-group photo">
+          <div class="modal__photo__info-wrapper">
+            <p class="modal__photo__info-p">作者：<%= photo.photographer %></p>
+            <p class="modal__photo__info-p">カメラ：<%= photo.camera %></p>
+            <p class="modal__photo__info-p">レンズ：<%= photo.lens %></p>
+            <p class="modal__photo__info-p">ISO：<%= photo.iso %></p>
+            <p class="modal__photo__info-p">F値：<%= photo.aperture %></p>
+            <p class="modal__photo__info-p">シャッター速度：<%= photo.shutter_speed %></p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

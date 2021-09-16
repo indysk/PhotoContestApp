@@ -2,6 +2,10 @@ module ApplicationHelper
   include ContestsHelper
   include PhotosHelper
 
+  def create_random_id
+    SecureRandom.alphanumeric(16)
+  end
+
   def full_title(page_title = '')
     base_title = "Photo Contest"
     page_title.present? ? page_title + " | " + base_title : base_title

@@ -4,12 +4,14 @@ class ContestsController < ApplicationController
 
   def index
     @contests = Contest.includes(:user).paginate(page: params[:page])
+    @submited_contests = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').limit(5).select('contests.id, contests.name, contests.vote_end_at') if signed_in?
   end
 
   def show
     if (@contest = Contest.find_by(id: params[:id]))
-      @photos = @contest.photos.includes(:user).paginate(page: params[:page])
+      @photos = @contest.photos.includes(:user).paginate(page: params[:page]).order('id ASC')
       @options ||= Contest.select_options
+      @urls = Url.new(@contest).urls_for_view
     else
       flash[:danger] = 'コンテストは存在しません'
       redirect_to root_path
@@ -24,7 +26,8 @@ class ContestsController < ApplicationController
   def create
     @contest ||= Contest.new(contest_params)
     @contest.user_id = current_user.id
-    if @contest.save
+    if @contest.save && (@contest.create_limited_url(contest_params_limited_url))
+      flash[:success] = '正常にコンテストが作成されました'
       redirect_to root_path
     else
       render :new
@@ -86,4 +89,4 @@ class ContestsController < ApplicationController
     def check_already_voted
       super if Contest.find(params[:contest_id]).is_in_period_voting?
     end
-  end
+end

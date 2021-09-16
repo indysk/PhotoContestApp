@@ -15,7 +15,6 @@ $(function() {
   });
 
 
-
   //headerアコーディオンメニュー用
   $('.js-AccordionMenu').click(function(){
     $(this).next('.header__nav-accordionmenu-window').slideToggle(200);
@@ -46,6 +45,7 @@ $(function() {
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
 
+
   //user画像をプレビューに表示
   $('#userFileField').on('change', function() {
     var file = $(this)[0].files[0];
@@ -54,6 +54,7 @@ $(function() {
     img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
+
 
   //投票用input制御
   const max_points = Number($('#voting_points').attr('name'));
@@ -76,6 +77,7 @@ $(function() {
       }
     });
   });
+
 
   //Contest Formのdatetime入力補助
   //d(日付)_1(募集)_a(開始)
@@ -115,6 +117,13 @@ $(function() {
       }else if(this_id === 'contest_vote_end_at_date'){
         changed_2_b = true;
       }
+    });
+  });
+
+  //URLのコピー処理
+  $('.js-url-copy').each(function(){
+    $(this).on('click',function(){
+      navigator.clipboard.writeText($(this).children('p').text());
     });
   });
 });

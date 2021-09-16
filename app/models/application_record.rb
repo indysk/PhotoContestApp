@@ -5,7 +5,7 @@ class ApplicationRecord < ActiveRecord::Base
   private
     def set_id
       while self.id.blank? || User.find_by(id: self.id).present? do
-        self.id = SecureRandom.alphanumeric(16)
+        self.id = create_random_id
       end
     end
 end

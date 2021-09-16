@@ -2,10 +2,7 @@
 
 .photoCreate {
   &-title {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    padding: 4px 0 4px 0;
-    border-bottom: 1px solid #444;
+    @include title_h1;
   }
 
   &__form {
@@ -167,8 +164,6 @@
 }
 
 .photos {
-  &-container {}
-
   &-title {
     font-size: 1.4rem;
     color: #444;
@@ -211,10 +206,6 @@
         padding: 8px;
       }
     }
-
-    &-link {}
-
-    &no_image {}
   }
 
   &__aside {
@@ -232,8 +223,6 @@
           width: fit-content;
           padding-left: 24px;
         }
-
-        &-label {}
 
         &-value {
           font-size: 2rem;
@@ -259,9 +248,6 @@
 
 .photoEdit {
   &-title {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    padding: 4px 0 4px 0;
-    border-bottom: 1px solid #444;
+    @include title_h1;
   }
 }
