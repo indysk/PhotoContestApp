@@ -355,7 +355,12 @@
 
         & input[type='submit'] {
           background-color: #6e6e6e;
-          font-weight: bold
+          font-weight: bold;
+          transition: ease .2s;
+
+          &:disabled {
+            background-color: #b8b8b8;
+          }
         }
       }
 

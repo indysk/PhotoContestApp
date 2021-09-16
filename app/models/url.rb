@@ -78,10 +78,12 @@ class Url
   end
 
   def self.print_limited_url(url_value, page)
-    contest_url url_value if page == 'entry'
-    contest_photos_url url_value if page == 'vote'
-    contest_photos_url url_value if page == 'show'
-    contest_votes_url url_value if page == 'result'
+    return '' if url_value == ''
+    return contest_url(url_value) if page == 'entry'
+    return contest_photos_url(url_value) if page == 'vote'
+    return contest_photos_url(url_value) if page == 'show'
+    return contest_votes_url(url_value) if page == 'result'
+    return false
   end
 
   def self.model_labels
