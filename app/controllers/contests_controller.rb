@@ -11,7 +11,7 @@ class ContestsController < ApplicationController
     if (@contest = Contest.find_by(id: params[:id]))
       @photos = @contest.photos.includes(:user).paginate(page: params[:page]).order('id ASC')
       @options ||= Contest.select_options
-      @urls = Url.new(@contest).urls_for_view
+      @urls = Url.new().urls_for_view(@contest)
     else
       flash[:danger] = 'コンテストは存在しません'
       redirect_to root_path

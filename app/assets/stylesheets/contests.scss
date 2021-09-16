@@ -316,11 +316,16 @@
     }
 
     &-label {
-      font-size: .8rem
+      font-size: .8rem;
     }
 
     &-p {
-      padding: 8px 8px 8px 0
+      padding: 8px 8px 8px 0;
+
+      &.copy_url {
+        align-items: center;
+        display: flex;
+      }
     }
 
     &-copy {
@@ -334,6 +339,7 @@
         display: flex;
         justify-content: space-between;
         transition: ease .2s;
+        height: fit-content;
 
         &:hover {
           box-shadow: 0px 0px 0px 4px #e4e4e4;
@@ -342,6 +348,19 @@
         &:active {
           box-shadow: 0px 0px 0px 4px #afd3ff;
         }
+      }
+
+      &_form {
+        padding-left: 8px;
+
+        & input[type='submit'] {
+          background-color: #6e6e6e;
+          font-weight: bold
+        }
+      }
+
+      &_text {
+        padding-right: 16px;
       }
     }
   }

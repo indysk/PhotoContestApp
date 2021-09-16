@@ -22,4 +22,5 @@ Rails.application.configure do
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::FileUpdateChecker
   config.action_mailer.default_url_options = { host: 'localhost', port: 80 }
+  config.web_console.whitelisted_ips = '0.0.0.0/0'
 end

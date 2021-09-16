@@ -151,14 +151,6 @@ class Contest < ApplicationRecord
     description.length > i ? description[0..i-1] + '...' : description
   end
 
-  def create_url(value = '')
-    url = create_random_id
-    self.limited_url_entry = url if value == 'entry' || self.visible_range_entry == 1
-    self.limited_url_vote = url if value == 'vote' || self.visible_range_vote == 1
-    self.limited_url_show = url if value == 'show' || self.visible_range_show == 1
-    self.limited_url_result = url if value == 'result' || self.visible_range_result == 1
-  end
-
   def is_after_period_voting?
     return self.vote_end_at <= Time.current ? true : false
   end
