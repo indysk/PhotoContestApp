@@ -1,1 +1,2 @@
 $("#contest__info-copy_text-<%= @url[:page] %>").text("<%= print_limited_url(@url[:url_value], @url[:page]) %>");
+$('#flash_container').html('<%=j render partial: "layouts/flash_messages" %>');

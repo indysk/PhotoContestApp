@@ -268,6 +268,8 @@ a:hover {
         padding: 16px;
       }
 
+      @include info_layout;
+
       &-title {
         font-size: 1rem;
         font-weight: bold;
@@ -645,7 +647,7 @@ a:hover {
 }
 
 div.pagination {
-  padding: 8px 0;
+  padding-top: 16px;
 
   & ul.pagination {
     display: flex;
@@ -688,29 +690,95 @@ div.pagination {
   }
 }
 
-#flash_message {
-  background: #eee;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  padding: 16px;
-  width: 100%;
-  text-align: center;
-
-  &.success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+#flash {
+  &_container {
+    position: fixed;
+    top: -40px;
+    left: 16px;
+    right: 16px;
+    transition: ease .4s;
+    opacity: 0;
+    display: none;
+    max-width: 960px;
+    margin: auto;
   }
 
-  &.danger {
+  &_close {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
 
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    & i {
+      color: black;
+      font-size: 1.2rem;
+      opacity: .2;
+      padding: 10px;
+    }
+  }
+
+  &_message {
+    background: #eee;
+    border-radius: 8px;
+    padding: 16px 56px;
+    width: 100%;
+    text-align: center;
+
+    &.success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+
+    &.danger {
+
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
   }
 }
 
+.accordion {
+  &-container {
+    padding-bottom: 24px;
+  }
 
+  &__title {
+    &-container {
+      cursor: pointer;
+    }
+
+    &-icon {
+      font-size: 1.4rem;
+
+      &_rotate {
+        transform: rotate(180deg);
+      }
+    }
+
+    &-content {
+      @include title_h3;
+      font-size: 1.2rem;
+      display: inline;
+      padding-left: 4px;
+    }
+  }
+
+  &__body {
+    &-container {
+      display: none;
+      padding-left: 8px;
+    }
+
+    @include info_layout;
+  }
+}
 
 input,
 textarea {

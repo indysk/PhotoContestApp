@@ -50,12 +50,6 @@
   <% end %>
 </div>
 
-<%= will_paginate %>
-<ul class="contestlist__body-listcontainer">
-<% if @contests.present? %>
-  <%= render @contests, labels: Contest.model_labels, select_options: Contest.select_options %>
-<% else %>
-  <p>コンテストが見つかりません。</p>
-<% end %>
-</ul>
-<%= will_paginate %>
+<div id="contestlist__photolist-container">
+  <%= render  "photos" %>
+</div>

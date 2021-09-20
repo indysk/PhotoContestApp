@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+  add_flash_types :success, :danger
 
   def check_correct_user
     if (@user ||= User.find_by(id: params[:user_id] || params[:id]))

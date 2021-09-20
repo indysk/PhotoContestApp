@@ -4,13 +4,30 @@ $(function() {
   $('.js-modal-open').each(function(){
     $(this).on('click',function(){
       $('#' + this.dataset.target).fadeIn();
-      return false;
+      return true;
     });
   });
   $('.js-modal-close').each(function(){
     $(this).on('click',function(){
       $('#' + this.dataset.target).fadeOut();
-      return false;
+      return true;
+    });
+  });
+
+
+  //補足情報アコーディオン
+  $('.js-body-accordion-open').each(function(){
+    $(this).on('click',function(){
+      $('#' + this.dataset.target).slideToggle(200);
+      $('#' + this.dataset.icon).toggleClass("accordion__title-icon_rotate");
+      return true;
+    });
+  });
+  $('.js-body-accordion-close').each(function(){
+    $(this).on('click',function(){
+      console.log('test')
+      $('#' + this.dataset.target).slideToggle(200);
+      return true;
     });
   });
 
@@ -120,10 +137,43 @@ $(function() {
     });
   });
 
+
   //URLのコピー処理
   $('.js-url-copy').each(function(){
     $(this).on('click',function(){
       navigator.clipboard.writeText($(this).children('p').text());
     });
   });
+
+  //flashメッセージ表示制御
+  function flash_controller(){
+    //表示
+    if ($('#flash_message').text()) {
+      $('#flash_container').css('display', 'block');
+      setTimeout(() => {
+        $('#flash_container').css('opacity', '1');
+        $('#flash_container').css('top', '16px');
+      }, 1);
+      //閉じるボタン
+      $('.js-flash-close').each(function(){
+        $(this).on('click',function(){
+          $('#flash_container').css('opacity', '0');
+          setTimeout(() => {
+            $('#flash_container').css('display', 'none');
+          }, 400);
+        });
+      });
+      //自動非表示
+      setTimeout(() => {
+        $('#flash_container').css('opacity', '0');
+        $('#flash_container').css('top', '-40px');
+        setTimeout(() => {
+          $('#flash_container').css('display', 'none');
+        }, 400);
+      }, 4000);
+    }
+  }
+  let mutationObserver = new MutationObserver(function() { flash_controller() });
+  mutationObserver.observe( document.getElementById('flash_container'), { childList: true, subtree: true });
+  if ($('#flash_message').text()) { flash_controller() };
 });

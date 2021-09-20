@@ -212,3 +212,19 @@ $break_point_aside: 960px;
     }
   }
 }
+
+@mixin info_layout() {
+  &-group {
+    padding: 16px 0;
+    border-bottom: 1px #ededed solid;
+  }
+
+  &-label {
+    font-size: .8rem;
+  }
+
+  &-p {
+    padding: 8px 8px 8px 0;
+    color: #000;
+  }
+}

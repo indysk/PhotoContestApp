@@ -8,9 +8,9 @@ class UrlsController < ApplicationController
     @contest ||= url_model.contest
     if @contest.update(url_model.contest_params)
       @url = {page: url_model.page, url_value: url_model.url_value}
-      flash[:success] = '更新しました'
+      flash.now[:success] = '更新しました'
     else
-      flash[:danger] = 'URLの更新に失敗しました'
+      flash.now[:danger] = 'URLの更新に失敗しました'
     end
   end
 

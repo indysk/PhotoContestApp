@@ -2,13 +2,25 @@ class Contest < ApplicationRecord
   belongs_to :user
   has_many :photos, dependent: :destroy
   has_many :votes, dependent: :destroy
-  default_scope -> { order(created_at: :desc) }
+
+  scope :public_all, -> (time = Time.current){ where('( :time < `contests`.`entry_end_at` AND  `contests`.`visible_range_entry` = 0 ) OR ( `contests`.`entry_end_at` <= :time AND :time < `contests`.`vote_end_at` AND `contests`.`visible_range_vote` = 0 ) OR ( `contests`.`vote_end_at` <= :time AND ( `contests`.`visible_range_show` = 0 OR `contests`.`visible_range_result` = 0 ) )', {time: time}) }
+  scope :public_page, -> (page){ where(:"visible_range_#{page}" => 0)}
+  scope :private_page, -> (page){ where(:"visible_range_#{page}" => 1)}
+
+  scope :in_period_entry, -> (time = Time.current){ where(entry_end_at: time...Float::INFINITY) }
+  scope :in_period_vote, -> (time = Time.current){ where(entry_end_at: -Float::INFINITY..time, vote_end_at: time...Float::INFINITY) }
+  scope :in_period_result, -> (time = Time.current){ where(vote_end_at: Float::INFINITY..time) }
+
 
   # #===nameカラム============================================================
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
   validates :name,  presence: true,
                     length: { maximum: 255, allow_blank: true }
   # #========================================================================
+
+  def self.find_contest_entry(contest_id)
+    Contest.public_page('entry').find_by(id: contest_id) || Contest.find_by(limited_url_entry: contest_id)
+  end
 
   def vote_result
     votes = self.votes
@@ -178,5 +190,9 @@ class Contest < ApplicationRecord
   end
   def is_able_to_submit?(current_user)
     self.is_in_period_entry? && self.is_already_submitted?(current_user)
+  end
+
+  def find_contest
+
   end
 end

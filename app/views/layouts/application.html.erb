@@ -6,7 +6,9 @@
   <div class="app-container">
 
     <main class="app__main-flex_container <%= "aside_#{content_for?(:aside_type) ? yield(:aside_type) : 'none'}" %>">
-      <%= render  "layouts/flash_messages" %>
+      <div id="flash_container">
+        <%= render  "layouts/flash_messages" %>
+      </div>
       <%= yield %>
     </main>
 
