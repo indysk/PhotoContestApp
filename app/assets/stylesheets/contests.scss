@@ -40,8 +40,11 @@
   }
 
   &__body {
-    &-listcontainer {
+    &-container {
       padding: 16px 0;
+    }
+
+    &-listcontainer {
 
       @include mobile {
         width: 90%;

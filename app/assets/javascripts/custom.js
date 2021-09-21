@@ -145,6 +145,7 @@ $(function() {
     });
   });
 
+
   //flashメッセージ表示制御
   function flash_controller(){
     //表示
@@ -176,4 +177,23 @@ $(function() {
   let mutationObserver = new MutationObserver(function() { flash_controller() });
   mutationObserver.observe( document.getElementById('flash_container'), { childList: true, subtree: true });
   if ($('#flash_message').text()) { flash_controller() };
+
+
+  //pagination制御
+  const ajax_accept = 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01'
+  $(document).on('scroll', function(){
+    if($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
+      if($('#loading-target').length && $('#loading-target').css('display') !== 'none' ){
+        $.ajax({
+          type: 'GET',
+          dataType: 'script',
+          url: $('#loading-target').attr('href')
+        })
+        $('#loading-target').css('display', 'none');
+      }
+      if(!$('#loading-icon').length){
+        $('#loading-container').append('<div class="loading-icon" id="loading-icon"></div>')
+      }
+    }
+  })
 });
