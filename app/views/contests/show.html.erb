@@ -111,6 +111,12 @@
           <%= render 'shared/modal_form', link_message: '[このコンテストを削除]', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
         </p>
       </div>
+      <div class="contest__info-group">
+        <p class="contest__info-label">管理画面</p>
+        <p class="contest__info-p">
+          <%= link_to  "[管理画面]", admin_path(@contest) %>
+        </p>
+      </div>
     </div>
   <% end %>
 
