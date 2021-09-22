@@ -29,8 +29,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     if (@user = User.find_by(id: params[:id]))
-      @photos = @user.photos.paginate(page: params[:page_photos], per_page: 18).order('created_at ASC')
-      @contests = @user.contests.paginate(page: params[:page_contests]).order('created_at ASC')
+      @photos = @user.photos.order('created_at ASC').page(params[:page_photos]).per(18)
+      @contests = @user.contests.order('created_at DESC').page(params[:page_contests]).per(18)
     else
       redirect_to root_path
     end

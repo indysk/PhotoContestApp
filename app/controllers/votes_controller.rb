@@ -3,24 +3,27 @@ class VotesController < ApplicationController
   before_action :check_already_voted, only: [:create]
 
   def index
-    @contest = Contest.find_by(id: params[:contest_id])
-    redirect_to root_path unless @contest
+    @contest = Contest.find_contest_result(params[:contest_id])
+    redirect_back fallback_location: root_path, danger: 'コンテストが見つかりませんでした。' and return unless @contest
     @result = @contest.vote_result
   end
 
   def create
-    contest = Contest.find_by(id: params[:contest_id])
-    render :new unless contest
+    @contest ||= Contest.find_contest_vote(params[:contest_id])
+    unless @contest
+      flash.now[:danger] = 'コンテストの取得に失敗しました'
+      render 'photos/index' and return
+    end
 
-    vote = contest.votes.build(user: current_user)
-    render :new unless vote
+    @vote = @contest.votes.build(user: current_user)
+    render 'photos/index' and return unless @vote
 
     votes = []
     para = vote_params
     flag = true
     para[:vote].each do |photo_id, point|
       next if point.blank? || point == '0'
-      vote_dup = vote.dup
+      vote_dup = @vote.dup
       vote_dup.photo_id = photo_id
       vote_dup.point = point.to_i
       if vote_dup.save
@@ -33,13 +36,12 @@ class VotesController < ApplicationController
 
     if flag
       flash[:success] = "投票を完了しました"
-      redirect_to contest
+      redirect_to @contest and return
     else
       votes.each do |vote|
         Vote.find(vote).destroy
       end
-      flash[:danger] = "投票に失敗しました"
-      redirect_to contest
+      redirect_back fallback_location: root_path, danger: "投票に失敗しました" and return
     end
   end
 

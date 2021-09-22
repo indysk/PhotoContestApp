@@ -96,6 +96,10 @@ class Url
     result
   end
 
+  def self.random_id(num = 16)
+    SecureRandom.alphanumeric(num)
+  end
+
   private
     #コンテストの設定を参照して、URL限定公開になっているページをまとめた配列を出力
     def current_setting_visible_pages(contest)

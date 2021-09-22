@@ -96,46 +96,46 @@ $(function() {
   });
 
 
-  //Contest Formのdatetime入力補助
-  //d(日付)_1(募集)_a(開始)
-  const DOM_d_1_a = $('#contest_entry_start_at_date');
-  const DOM_d_1_b = $('#contest_entry_end_at_date');
-  const DOM_d_2_a = $('#contest_vote_start_at_date');
-  const DOM_d_2_b = $('#contest_vote_end_at_date');
-  const DOM_t_1_a = $('#contest_entry_start_at_time');
-  const DOM_t_1_b = $('#contest_entry_end_at_time');
-  const DOM_t_2_a = $('#contest_vote_start_at_time');
-  const DOM_t_2_b = $('#contest_vote_end_at_time');
-  const DOM_date = $('.contestCreate__form-input-date');
-  const DOM_time = $('.contestCreate__form-input-time');
+  // //Contest Formのdatetime入力補助
+  // //d(日付)_1(募集)_a(開始)
+  // const DOM_d_1_a = $('#contest_entry_start_at_date');
+  // const DOM_d_1_b = $('#contest_entry_end_at_date');
+  // const DOM_d_2_a = $('#contest_vote_start_at_date');
+  // const DOM_d_2_b = $('#contest_vote_end_at_date');
+  // const DOM_t_1_a = $('#contest_entry_start_at_time');
+  // const DOM_t_1_b = $('#contest_entry_end_at_time');
+  // const DOM_t_2_a = $('#contest_vote_start_at_time');
+  // const DOM_t_2_b = $('#contest_vote_end_at_time');
+  // const DOM_date = $('.contestCreate__form-input-date');
+  // const DOM_time = $('.contestCreate__form-input-time');
 
-  let changed_1_b = false;
-  let changed_2_a = false;
-  let changed_2_b = false;
+  // let changed_1_b = false;
+  // let changed_2_a = false;
+  // let changed_2_b = false;
 
-  //日付が変更された時
-  DOM_date.each(function(){
-    $(this).on('change',function(){
-      this_value = $(this).val();
-      this_date = new Date(this_value).getDate();
-      this_id = $(this).attr('id');
-      console.log(this_id);
+  // //日付が変更された時
+  // DOM_date.each(function(){
+  //   $(this).on('change',function(){
+  //     this_value = $(this).val();
+  //     this_date = new Date(this_value).getDate();
+  //     this_id = $(this).attr('id');
+  //     console.log(this_id);
 
-      if(this_id === 'contest_entry_start_at_date'){
-        console.log('test');
-        changed_1_b ? null : DOM_d_1_b.val(this_value);
-      }else if(this_id === 'contest_entry_end_at_date') {
-        changed_1_b = true;
-        changed_2_a ? null : DOM_d_2_a.val(this_value);
-        changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
-      }else if(this_id === 'contest_vote_start_at_date'){
-        changed_2_a = true;
-        changed_2_b ? null : DOM_d_2_b.val(this_value);
-      }else if(this_id === 'contest_vote_end_at_date'){
-        changed_2_b = true;
-      }
-    });
-  });
+  //     if(this_id === 'contest_entry_start_at_date'){
+  //       console.log('test');
+  //       changed_1_b ? null : DOM_d_1_b.val(this_value);
+  //     }else if(this_id === 'contest_entry_end_at_date') {
+  //       changed_1_b = true;
+  //       changed_2_a ? null : DOM_d_2_a.val(this_value);
+  //       changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
+  //     }else if(this_id === 'contest_vote_start_at_date'){
+  //       changed_2_a = true;
+  //       changed_2_b ? null : DOM_d_2_b.val(this_value);
+  //     }else if(this_id === 'contest_vote_end_at_date'){
+  //       changed_2_b = true;
+  //     }
+  //   });
+  // });
 
 
   //URLのコピー処理

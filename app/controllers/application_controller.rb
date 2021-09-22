@@ -34,11 +34,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def  check_already_voted(contest_id = nil, user_id = nil)
-    contes_id ||= find_by(id: params[:contest_id]) || find_by(id: params[:id])
-    unless vote ||= Vote.find_by(user: user_id || current_user.id, contest_id: contest_id)
-      flash[:danger] = "すでに投票済みです"
-      redirect_to Contest.find(params[:contest_id])
+  def check_already_voted(contest_id = nil, user_id = nil)
+    @contest ||= Contest.find_contest_vote(params[:contest_id] || params[:id]) unless contest_id
+    redirect_back fallback_location: root_path, danger: "コンテストの取得に失敗しました#{params[:contest_id] || params[:id]}" and return if contest_id.nil? && @contest.nil?
+    if Vote.find_by(user_id: user_id || current_user.id, contest_id: contest_id || @contest.id)
+      redirect_to @contest, danger: "投票済みです" and return
     end
   end
 

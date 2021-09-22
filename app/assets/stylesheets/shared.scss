@@ -10,11 +10,16 @@ body {
   word-break: break-word;
 }
 
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
+a {
+  &:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
 
+  &:not([href]) {
+    cursor: pointer;
+  }
+}
 
 .app {
   &-container {
@@ -340,6 +345,10 @@ a:hover {
   $size_icon_yes_width: $size_icon * (3/7);
   $size_icon_yes_border: $size_icon * (5/56);
 
+  &-label {
+    cursor: pointer;
+  }
+
   &__window {
     display: none;
     height: 100vh;
@@ -418,6 +427,7 @@ a:hover {
         position: absolute;
         top: $size_icon * (-1/2);
         left: $size_icon * (-1/2);
+        cursor: pointer;
 
         &::before,
         &::after {
@@ -631,6 +641,7 @@ a:hover {
         height: 32px;
         margin-left: auto;
         padding: 8px;
+        cursor: pointer;
 
         &:hover {
           background-color: #5e5e5e;
@@ -893,16 +904,23 @@ select {
   background: #eee;
   -webkit-appearance: auto;
   appearance: auto;
+  cursor: pointer;
 }
 
-input[type='submit'] {
-  border: none;
-  background-color: #0d6efd;
-  color: $color_base;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 3px;
-  font-size: small;
+input {
+  &[type='submit'] {
+    border: none;
+    background-color: #0d6efd;
+    color: $color_base;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 3px;
+    font-size: small;
+  }
+
+  &[type='date'] {
+    cursor: pointer;
+  }
 }
 
 .arrow_more {

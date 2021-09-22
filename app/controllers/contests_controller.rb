@@ -26,9 +26,10 @@ class ContestsController < ApplicationController
   def create
     @contest ||= Contest.new(contest_params)
     @contest.user_id = current_user.id
-    if @contest.save && (@contest.create_limited_url(contest_params_limited_url))
-      flash[:success] = '正常にコンテストが作成されました'
-      redirect_to root_path
+    @contest.create_limited_url
+    if @contest.save
+      flash[:success] = 'コンテストを作成しました'
+      redirect_to @contest
     else
       render :new
     end
@@ -41,7 +42,7 @@ class ContestsController < ApplicationController
   def update
     @contest ||= Contest.find_by(id: params[:id])
     if @contest && @contest.update(contest_params)
-      redirect_to contest_path(@contest), success: 'コンテストが正常に変更されました'
+      redirect_to contest_path(@contest), success: 'コンテストを変更しました'
     else
       render :edit, danger: 'コンテストの変更に失敗しました'
     end
@@ -50,7 +51,7 @@ class ContestsController < ApplicationController
   def destroy
     @contest ||= Contest.find_by(id: params[:id])
     if @contest && @contest.destroy
-      flash[:success] = 'コンテストの削除に成功しました'
+      flash[:success] = 'コンテストを削除しました'
       redirect_to root_path
     else
       flash[:danger] = 'コンテストが削除できませんでした'

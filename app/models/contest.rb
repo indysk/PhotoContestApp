@@ -3,9 +3,12 @@ class Contest < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :votes, dependent: :destroy
 
-  scope :public_all, -> (time = Time.current){ where('( :time < `contests`.`entry_end_at` AND  `contests`.`visible_range_entry` = 0 ) OR ( `contests`.`entry_end_at` <= :time AND :time < `contests`.`vote_end_at` AND `contests`.`visible_range_vote` = 0 ) OR ( `contests`.`vote_end_at` <= :time AND ( `contests`.`visible_range_show` = 0 OR `contests`.`visible_range_result` = 0 ) )', {time: time}) }
+  scope :public_all, -> (time = Time.current){ where('( :time < `contests`.`entry_end_at` AND `contests`.`visible_range_entry` = 0 ) OR ( `contests`.`entry_end_at` <= :time AND :time < `contests`.`vote_end_at` AND `contests`.`visible_range_vote` = 0 ) OR ( `contests`.`vote_end_at` <= :time AND ( `contests`.`visible_range_show` = 0 OR `contests`.`visible_range_result` = 0 ) )', {time: time}) }
   scope :public_page, -> (page){ where(:"visible_range_#{page}" => 0)}
   scope :private_page, -> (page){ where(:"visible_range_#{page}" => 1)}
+  scope :find_vote, -> (contest_id, time = Time.current){ where('((`contests`.`id` = :id AND `contests`.`visible_range_vote` = 0) OR (`contests`.`limited_url_vote` = :id AND `contests`.`visible_range_vote` = 1)) AND (`contests`.`entry_end_at` <= :time AND :time < `contests`.`vote_end_at`)' , {id: contest_id, time: time}).limit(1) }
+  scope :find_show, -> (contest_id, time = Time.current){ where('((`contests`.`id` = :id AND `contests`.`visible_range_show` = 0) OR (`contests`.`limited_url_show` = :id AND `contests`.`visible_range_show` = 1)) AND (`contests`.`vote_end_at` <= :time)' , {id: contest_id, time: time}).limit(1) }
+  scope :find_result, -> (contest_id, time = Time.current){ where('((`contests`.`id` = :id AND `contests`.`visible_range_result` = 0) OR (`contests`.`limited_url_result` = :id AND `contests`.`visible_range_result` = 1)) AND (`contests`.`vote_end_at` <= :time)' , {id: contest_id, time: time}).limit(1) }
 
   scope :in_period_entry, -> (time = Time.current){ where(entry_end_at: time...Float::INFINITY) }
   scope :in_period_vote, -> (time = Time.current){ where(entry_end_at: -Float::INFINITY..time, vote_end_at: time...Float::INFINITY) }
@@ -20,6 +23,18 @@ class Contest < ApplicationRecord
 
   def self.find_contest_entry(contest_id)
     Contest.public_page('entry').find_by(id: contest_id) || Contest.find_by(limited_url_entry: contest_id)
+  end
+  def self.find_contest_vote(contest_id)
+    contest = Contest.find_vote(contest_id)
+    contest.present? ? contest[0] : nil
+  end
+  def self.find_contest_vote_or_entry(contest_id)
+    contest = Contest.find_vote(contest_id).or(find_show(contest_id)).limit(1)
+    contest.present? ? contest[0] : nil
+  end
+  def self.find_contest_result(contest_id)
+    contest = Contest.find_result(contest_id)
+    contest.present? ? contest[0] : nil
   end
 
   def vote_result
@@ -75,6 +90,14 @@ class Contest < ApplicationRecord
 
     result
   end
+
+  def create_limited_url
+    self.limited_url_entry = Url.random_id
+    self.limited_url_vote = Url.random_id
+    self.limited_url_show = Url.random_id
+    self.limited_url_result = Url.random_id
+  end
+
 
   def self.model_labels
     options = {
@@ -173,6 +196,9 @@ class Contest < ApplicationRecord
     now = Time.current
     return self.vote_start_at <= now && now < self.vote_end_at ? true : false
   end
+  def is_in_period_show?
+    return self.vote_end_at <= Time.current ? true : false
+  end
   def is_after_period_entry?
     return self.entry_end_at <= Time.current ? true : false
   end
@@ -180,7 +206,6 @@ class Contest < ApplicationRecord
     now = Time.current
     return self.entry_start_at <= now && now < self.entry_end_at ? true : false
   end
-
 
   def is_already_submitted?(current_user)
     self.photos.exists?(user: current_user)
@@ -190,9 +215,5 @@ class Contest < ApplicationRecord
   end
   def is_able_to_submit?(current_user)
     self.is_in_period_entry? && self.is_already_submitted?(current_user)
-  end
-
-  def find_contest
-
   end
 end
