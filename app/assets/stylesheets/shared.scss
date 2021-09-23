@@ -129,6 +129,10 @@ a {
   }
 }
 
+.form {
+  @include form_group;
+}
+
 .header {
   &__nav {
     &-title {
@@ -165,6 +169,10 @@ a {
         padding: 0 8px;
         display: block;
         line-height: 56px;
+
+        &:hover {
+          color: unset;
+        }
       }
     }
 

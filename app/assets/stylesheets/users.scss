@@ -228,3 +228,27 @@
 
   }
 }
+
+.session {
+  &-title {
+    @include title_h1;
+  }
+
+  &__form {
+    &-container {
+      & form {
+        padding-left: 16px;
+      }
+
+      & input {
+        width: fit-content;
+      }
+    }
+  }
+
+  &__remember_me {
+    &-container {
+      padding: 16px 0;
+    }
+  }
+}
