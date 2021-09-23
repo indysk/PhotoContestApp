@@ -228,3 +228,16 @@ $break_point_aside: 960px;
     color: #000;
   }
 }
+
+@mixin form_group() {
+  &-group {
+    display: flex;
+    flex-flow: column;
+    margin-top: 8px;
+  }
+
+  &-label {
+    width: 200px;
+    padding-bottom: 2px;
+  }
+}
