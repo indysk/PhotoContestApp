@@ -8,6 +8,9 @@
       </div>
 
       <div class="modal__photo__links-container">
+        <% if controller.controller_name == 'admin' %>
+          <%= render 'shared/modal_form', link_message: '[この作品を削除]', modal_message: "作品名：#{photo.name}を削除しますか？", link: admin_photo_path(@contest, photo), method: 'delete' %>
+        <% end %>
         <div class="modal__photo__links-icon_container js-modal-close" data-target="<%= "modal_photo_#{photo.id}" %>">
           <i class="fas fa-times modal__photo__links-icon_close"></i>
         </div>
@@ -27,7 +30,7 @@
           </div>
         </div>
 
-        <% if photo.contest.is_after_period_voting? %>
+        <% if photo.contest.is_after_period_voting? || controller.controller_name == 'admin' %>
         <div class="modal__photo__info-group photo">
           <div class="modal__photo__info-wrapper">
             <p class="modal__photo__info-p">作者：<%= photo.photographer %></p>

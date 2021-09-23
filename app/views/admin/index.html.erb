@@ -39,22 +39,11 @@
 
     <h3 class="admin__body-title">作品一覧</h3>
     <% if @photos.present? %>
-        <ul class="admin__body-img_container">
-          <%= render partial: 'photos/photo', collection: @photos %>
-        </ul>
+      <ul class="admin__body-img_container">
+        <%= render partial: 'photo', collection: @photos %>
+      </ul>
     <% else %>
       <div class="admin__body-no_image">作品が投稿されていません</div>
     <% end %>
-
-    <h3 class="admin__body-title">投票一覧</h3>
-    <% if @votes.present? %>
-        <ul class="admin__body-vote_container">
-          <%= render partial: 'vote', collection: @votes %>
-        </ul>
-    <% else %>
-      <div class="admin__body-no_vote">作品が投稿されていません</div>
-    <% end %>
   </div>
-
-
 </div>

@@ -1,3 +1,43 @@
-// Place all the styles related to the Admin controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'modules';
+
+.admin {
+  &-title {
+    @include title_h1;
+  }
+
+  &__body {
+    &-title {
+      @include title_h3;
+    }
+
+    &-img {
+      &_container {
+        padding-top: 8px;
+      }
+    }
+  }
+
+  &__image {
+    @include square_image(100% / 2, 100%);
+
+    &-container {
+      display: flex;
+      flex-flow: row;
+      width: 100%;
+    }
+
+    &-img_square {
+      width: 50%;
+    }
+
+    &__info {
+      @include info_layout;
+
+      &-container {
+        width: 50%;
+        padding: 0 8px;
+      }
+    }
+  }
+
+}

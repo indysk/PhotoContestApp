@@ -1,0 +1,22 @@
+<li class="admin__image-container">
+  <div class="admin__image-img_square">
+    <div class="admin__image-img_container">
+      <a class="admin__image-img_link js-modal-open" data-target="<%= "modal_photo_#{photo.id}" %>">
+        <%= image_tag photo.image.url, class: 'admin__image-img_image' %>
+      </a>
+    </div>
+  </div>
+
+  <div class="admin__image__info-container">
+    <div class="admin__image__info-group">
+      <p class="admin__image__info-label">作品応募数</p>
+      <p class="admin__image__info-p"><%= photo.name %></p>
+    </div>
+
+    <div class="admin__image__info-group">
+      <p class="admin__image__info-label">作品応募数</p>
+      <p class="admin__image__info-p"><%= photo.description %></p>
+    </div>
+  </div>
+</li>
+<%= render 'shared/modal_photo', photo: photo %>

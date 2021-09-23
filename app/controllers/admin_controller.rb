@@ -7,4 +7,8 @@ class AdminController < ApplicationController
     @photos ||= @contest.photos
     # @votes ||= @contest.votes if @contest.is_in_period_voting?
   end
+
+  def photo_delete
+    redirect_back fallback_location: root_path, danger: '開発中' and return
+  end
 end

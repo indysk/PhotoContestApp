@@ -630,6 +630,15 @@ a {
       grid-row: 1/2;
       grid-column: 2/3;
       text-align: right;
+      display: flex;
+      align-items: center;
+
+      & .modal-label {
+        &:hover {
+          color: unset;
+          opacity: .8;
+        }
+      }
     }
 
     &-icon {
