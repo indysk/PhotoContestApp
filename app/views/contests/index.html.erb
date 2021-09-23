@@ -11,7 +11,7 @@
     <div class="aside__item__body-container">
       <div class="aside__item__body-main">
         <% if user_signed_in? %>
-          <h4 class="aside__item__body-title">応募したコンテスト</h4>
+          <h4 class="aside__item__body-title">応募したコンテスト(最近の応募)</h4>
           <table class="aside__item__body-table">
             <thead>
               <tr>
@@ -19,12 +19,14 @@
                 <th>コンテスト名</th>
               </tr>
             </thead>
-            <% if @contests.present? %>
+            <% if @submited_contests.present? %>
               <tbody>
-                <%= render partial: "shared/aside_contest", collection: @contests, as: 'contest', locals: {labels: Contest.model_labels, select_options: Contest.select_options} %>
+                <%= render partial: "shared/aside_contest", collection: @submited_contests, as: 'contest', locals: {labels: Contest.model_labels, select_options: Contest.select_options} %>
               </tbody>
             <% else %>
-              応募したコンテストはありません
+              <tbody>
+                <tr><td>-</td><td>応募したコンテストはありません</tr></td>
+              </tbody>
             <% end %>
           </table>
 
@@ -48,12 +50,6 @@
   <% end %>
 </div>
 
-<%= will_paginate %>
-<ul class="contestlist__body-listcontainer">
-<% if @contests.present? %>
-  <%= render @contests, labels: Contest.model_labels, select_options: Contest.select_options %>
-<% else %>
-  <p>コンテストが見つかりません。</p>
-<% end %>
-</ul>
-<%= will_paginate %>
+<div class="contestlist__body-container" id="contestlist__photolist-container">
+  <%= render  "photos" %>
+</div>

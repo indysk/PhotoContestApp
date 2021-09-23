@@ -69,9 +69,14 @@
     &-container {
       display: flex;
       flex-wrap: wrap;
+      padding-top: 16px;
 
       & .photolist__item-container {
         width: calc(100% / 3);
+
+        @include mobile {
+          width: calc(100% / 2);
+        }
       }
 
       & .photolist__item-img_square::before {
@@ -133,7 +138,7 @@
         line-height: 160px;
         border-radius: 80px;
         background-color: #444;
-        opacity: .5;
+        opacity: .6;
         color: white;
         font-size: 1.8rem;
         transition: ease .2s;

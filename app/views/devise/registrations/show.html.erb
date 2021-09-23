@@ -13,8 +13,8 @@
           <p class="user__profile-name"><%= @user.name %></p>
           <%= link_to  "プロフィールを変更", edit_user_registration_path, class: 'user__profile-name_link' %>
         </div>
-        <p class="user__profile-howmany">応募した作品：<%= @photos.length %></p>
-        <p class="user__profile-howmany">主催したコンテスト：<%= @contests.length %></p>
+        <p class="user__profile-howmany">応募した作品：<%= @photos.total_count %></p>
+        <p class="user__profile-howmany">主催したコンテスト：<%= @contests.total_count %></p>
       </div>
     </div>
   </div>
@@ -22,14 +22,14 @@
   <div class="user__photos-container">
     <h3 class="user__photos-title">応募した作品</h3>
       <% if @photos.present? %>
-        <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+        <%= paginate @photos, param_name: "page_photos" %>
         <ul class="user__photoslist-container">
           <%= render partial: 'photos/photo', collection: @photos %>
         </ul>
-        <%= will_paginate @photos, previous_label: ' &lt 前へ', next_label: '次へ &gt', param_name: 'page_photos' %>
+        <%= paginate @photos, param_name: "page_photos" %>
       <% else %>
         <ul class="user__photoslist-container">
-          <p>作品を応募していません</p>
+          <p>作品が見つかりません</p>
         </ul>
       <% end %>
     </ul>

@@ -30,4 +30,13 @@ Rails.application.routes.draw do
   end
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  #限定公開URL制御++++++++++++++++++++++++++++++++++++++++
+  patch 'url', to: 'urls#update'
+  #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  #管理画面+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  get 'contests/:contest_id/admin', to: 'admin#index', as: 'admin'
+  delete 'contests/:contest_id/admin/photo/:id', to: 'admin#photo_delete', as: 'admin_photo'
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 end

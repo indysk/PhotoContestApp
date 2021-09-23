@@ -3,15 +3,33 @@ $(function() {
   //モーダルフォーム
   $('.js-modal-open').each(function(){
     $(this).on('click',function(){
-      $(this).next('#modal__window').fadeIn();
-      return false;
+      $('#' + this.dataset.target).fadeIn();
+      return true;
     });
   });
-  $('.js-modal-close').on('click',function(){
-    $('.js-modal').fadeOut();
-    return false;
+  $('.js-modal-close').each(function(){
+    $(this).on('click',function(){
+      $('#' + this.dataset.target).fadeOut();
+      return true;
+    });
   });
 
+
+  //補足情報アコーディオン
+  $('.js-body-accordion-open').each(function(){
+    $(this).on('click',function(){
+      $('#' + this.dataset.target).slideToggle(200);
+      $('#' + this.dataset.icon).toggleClass("accordion__title-icon_rotate");
+      return true;
+    });
+  });
+  $('.js-body-accordion-close').each(function(){
+    $(this).on('click',function(){
+      console.log('test')
+      $('#' + this.dataset.target).slideToggle(200);
+      return true;
+    });
+  });
 
 
   //headerアコーディオンメニュー用
@@ -44,6 +62,7 @@ $(function() {
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
 
+
   //user画像をプレビューに表示
   $('#userFileField').on('change', function() {
     var file = $(this)[0].files[0];
@@ -52,6 +71,7 @@ $(function() {
     img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
     img_container.children().first().attr('src',window.URL.createObjectURL(file));
   });
+
 
   //投票用input制御
   const max_points = Number($('#voting_points').attr('name'));
@@ -75,44 +95,105 @@ $(function() {
     });
   });
 
-  //Contest Formのdatetime入力補助
-  //d(日付)_1(募集)_a(開始)
-  const DOM_d_1_a = $('#contest_entry_start_at_date');
-  const DOM_d_1_b = $('#contest_entry_end_at_date');
-  const DOM_d_2_a = $('#contest_vote_start_at_date');
-  const DOM_d_2_b = $('#contest_vote_end_at_date');
-  const DOM_t_1_a = $('#contest_entry_start_at_time');
-  const DOM_t_1_b = $('#contest_entry_end_at_time');
-  const DOM_t_2_a = $('#contest_vote_start_at_time');
-  const DOM_t_2_b = $('#contest_vote_end_at_time');
-  const DOM_date = $('.contestCreate__form-input-date');
-  const DOM_time = $('.contestCreate__form-input-time');
 
-  let changed_1_b = false;
-  let changed_2_a = false;
-  let changed_2_b = false;
+  // //Contest Formのdatetime入力補助
+  // //d(日付)_1(募集)_a(開始)
+  // const DOM_d_1_a = $('#contest_entry_start_at_date');
+  // const DOM_d_1_b = $('#contest_entry_end_at_date');
+  // const DOM_d_2_a = $('#contest_vote_start_at_date');
+  // const DOM_d_2_b = $('#contest_vote_end_at_date');
+  // const DOM_t_1_a = $('#contest_entry_start_at_time');
+  // const DOM_t_1_b = $('#contest_entry_end_at_time');
+  // const DOM_t_2_a = $('#contest_vote_start_at_time');
+  // const DOM_t_2_b = $('#contest_vote_end_at_time');
+  // const DOM_date = $('.contestCreate__form-input-date');
+  // const DOM_time = $('.contestCreate__form-input-time');
 
-  //日付が変更された時
-  DOM_date.each(function(){
-    $(this).on('change',function(){
-      this_value = $(this).val();
-      this_date = new Date(this_value).getDate();
-      this_id = $(this).attr('id');
-      console.log(this_id);
+  // let changed_1_b = false;
+  // let changed_2_a = false;
+  // let changed_2_b = false;
 
-      if(this_id === 'contest_entry_start_at_date'){
-        console.log('test');
-        changed_1_b ? null : DOM_d_1_b.val(this_value);
-      }else if(this_id === 'contest_entry_end_at_date') {
-        changed_1_b = true;
-        changed_2_a ? null : DOM_d_2_a.val(this_value);
-        changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
-      }else if(this_id === 'contest_vote_start_at_date'){
-        changed_2_a = true;
-        changed_2_b ? null : DOM_d_2_b.val(this_value);
-      }else if(this_id === 'contest_vote_end_at_date'){
-        changed_2_b = true;
-      }
+  // //日付が変更された時
+  // DOM_date.each(function(){
+  //   $(this).on('change',function(){
+  //     this_value = $(this).val();
+  //     this_date = new Date(this_value).getDate();
+  //     this_id = $(this).attr('id');
+  //     console.log(this_id);
+
+  //     if(this_id === 'contest_entry_start_at_date'){
+  //       console.log('test');
+  //       changed_1_b ? null : DOM_d_1_b.val(this_value);
+  //     }else if(this_id === 'contest_entry_end_at_date') {
+  //       changed_1_b = true;
+  //       changed_2_a ? null : DOM_d_2_a.val(this_value);
+  //       changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
+  //     }else if(this_id === 'contest_vote_start_at_date'){
+  //       changed_2_a = true;
+  //       changed_2_b ? null : DOM_d_2_b.val(this_value);
+  //     }else if(this_id === 'contest_vote_end_at_date'){
+  //       changed_2_b = true;
+  //     }
+  //   });
+  // });
+
+
+  //URLのコピー処理
+  $('.js-url-copy').each(function(){
+    $(this).on('click',function(){
+      navigator.clipboard.writeText($(this).children('p').text());
     });
   });
+
+
+  //flashメッセージ表示制御
+  function flash_controller(){
+    //表示
+    if ($('#flash_message').text()) {
+      $('#flash_container').css('display', 'block');
+      setTimeout(() => {
+        $('#flash_container').css('opacity', '1');
+        $('#flash_container').css('top', '16px');
+      }, 1);
+      //閉じるボタン
+      $('.js-flash-close').each(function(){
+        $(this).on('click',function(){
+          $('#flash_container').css('opacity', '0');
+          setTimeout(() => {
+            $('#flash_container').css('display', 'none');
+          }, 400);
+        });
+      });
+      //自動非表示
+      setTimeout(() => {
+        $('#flash_container').css('opacity', '0');
+        $('#flash_container').css('top', '-40px');
+        setTimeout(() => {
+          $('#flash_container').css('display', 'none');
+        }, 400);
+      }, 4000);
+    }
+  }
+  let mutationObserver = new MutationObserver(function() { flash_controller() });
+  mutationObserver.observe( document.getElementById('flash_container'), { childList: true, subtree: true });
+  if ($('#flash_message').text()) { flash_controller() };
+
+
+  //pagination制御
+  const ajax_accept = 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01'
+  $(document).on('scroll', function(){
+    if($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
+      if($('#loading-target').length && $('#loading-target').css('display') !== 'none' ){
+        $.ajax({
+          type: 'GET',
+          dataType: 'script',
+          url: $('#loading-target').attr('href')
+        })
+        $('#loading-target').css('display', 'none');
+      }
+      if(!$('#loading-icon').length){
+        $('#loading-container').append('<div class="loading-icon" id="loading-icon"></div>')
+      }
+    }
+  })
 });

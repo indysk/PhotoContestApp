@@ -5,7 +5,7 @@
   <div class="votes__results-container">
     <div class="votes-title_container">
       <h1 class="votes-title">投票結果</h1>
-      <h2 class="votes-title_sub"><%= @contest.name %></h2>
+      <h2 class="votes-title_sub"><%= link_to @contest.name, @contest %></h2>
     </div>
 
     <% record = @result[:rank1] %>

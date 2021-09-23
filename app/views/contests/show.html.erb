@@ -14,7 +14,7 @@
     <div class="contest__header-links">
       <% if @contest.is_in_period_entry? %>
         <% if @contest.is_already_submitted?(current_user) %>
-          <div>作品を提出済み</div>
+          <div class="contest__header-link">作品を提出済み</div>
           <%= link_to  "[作品を編集する]", edit_contest_photo_path(@contest, Photo.find_by(contest: @contest, user: current_user)), class: 'contest__header-link' %>
         <% else %>
           <%= link_to  "[作品を提出する]", new_contest_photo_path(@contest), class: 'contest__header-link' %>
@@ -54,11 +54,11 @@
   <div class="contest__info-container">
     <div class="contest__info-group">
       <p class="contest__info-label"><%= labels[:entry_period] %></p>
-      <p class="contest__info-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %>～<%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+      <p class="contest__info-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
     </div>
     <div class="contest__info-group">
       <p class="contest__info-label"><%= labels[:vote_period] %></p>
-      <p class="contest__info-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %>～<%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
+      <p class="contest__info-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %> ～ <%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
     </div>
   </div>
 
@@ -102,10 +102,19 @@
     <h3 class="contest__info-title">管理者用</h3>
     <div class="contest__info-container">
       <div class="contest__info-group">
+        <%= render partial: 'copy_url', collection: @urls, as: 'url' %>
+      </div>
+      <div class="contest__info-group">
         <p class="contest__info-label">コンテストの設定</p>
         <p class="contest__info-p">
           <%= link_to  "[コンテストを編集]", edit_contest_path(@contest) %>
           <%= render 'shared/modal_form', link_message: '[このコンテストを削除]', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
+        </p>
+      </div>
+      <div class="contest__info-group">
+        <p class="contest__info-label">管理画面</p>
+        <p class="contest__info-p">
+          <%= link_to  "[管理画面]", admin_path(@contest) %>
         </p>
       </div>
     </div>

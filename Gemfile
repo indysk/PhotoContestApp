@@ -11,12 +11,13 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'unicorn'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 gem 'devise'
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'fog-aws'
+gem 'virtus'
+gem 'kaminari'
+gem 'rails-i18n', '~> 5.1'
 
 group :development, :test do
   gem 'faker'

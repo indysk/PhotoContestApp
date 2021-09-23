@@ -1,7 +1,6 @@
 @import 'modules';
 
 .contestlist {
-
   &__header {
     &-container {
       padding: 0;
@@ -41,8 +40,16 @@
   }
 
   &__body {
-    &-listcontainer {
+    &-container {
       padding: 16px 0;
+    }
+
+    &-listcontainer {
+
+      @include mobile {
+        width: 90%;
+        margin: auto;
+      }
     }
   }
 
@@ -238,6 +245,9 @@
   &__aside {
     &-link {
       text-decoration: underline;
+      color: #4b88d3;
+      padding-right: 8px;
+      font-size: 1rem;
     }
   }
 }
@@ -287,6 +297,10 @@
       text-align: right;
       padding: 4px 8px 0 0;
     }
+
+    &-link {
+      display: inline;
+    }
   }
 
   &__info {
@@ -304,11 +318,57 @@
     }
 
     &-label {
-      font-size: .8rem
+      font-size: .8rem;
     }
 
     &-p {
-      padding: 8px 8px 8px 0
+      padding: 8px 8px 8px 0;
+
+      &.copy_url {
+        align-items: center;
+        display: flex;
+      }
+    }
+
+    &-copy {
+      &_container {
+        min-width: 50%;
+        width: fit-content;
+        border: 1px #b7b7b7 solid;
+        border-radius: 8px;
+        position: relative;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        transition: ease .2s;
+        height: fit-content;
+
+        &:hover {
+          box-shadow: 0px 0px 0px 4px #e4e4e4;
+        }
+
+        &:active {
+          box-shadow: 0px 0px 0px 4px #afd3ff;
+        }
+      }
+
+      &_form {
+        padding-left: 8px;
+
+        & input[type='submit'] {
+          background-color: #6e6e6e;
+          font-weight: bold;
+          transition: ease .2s;
+
+          &:disabled {
+            background-color: #b8b8b8;
+          }
+        }
+      }
+
+      &_text {
+        padding-right: 16px;
+      }
     }
   }
 }
@@ -316,7 +376,6 @@
 .contestCreate {
   &-title {
     @include title_h1;
-
   }
 
   &__form {

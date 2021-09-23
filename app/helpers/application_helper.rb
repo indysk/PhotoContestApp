@@ -1,6 +1,8 @@
 module ApplicationHelper
   include ContestsHelper
   include PhotosHelper
+  include UrlsHelper
+  include VotesHelper
 
   def full_title(page_title = '')
     base_title = "Photo Contest"

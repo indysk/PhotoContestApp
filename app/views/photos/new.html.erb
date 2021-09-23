@@ -1,22 +1,56 @@
 <% provide(:title, '作品提出フォーム') %>
 <% provide(:aside_type, 'flex') %>
-<% content_for :aside do %>
 
+<% content_for :aside do %>
   <li class="aside__item-container">
       <div class="aside__item__header-container">
         <h3 class="aside__item__header-title">コンテストの情報</h3>
       </div>
       <div class="aside__item__body-container">
-        <div class="photoCreate__aside__contest-container">
-          <h4 class="photoCreate__aside__contest-name">コンテスト名：<%= link_to @contest.name, contest_path(@contest) %></h4>
-          <p class="photoCreate__aside__contest-p">説明：<%= @contest.description %></p>
+        <div class="aside__item__body-group">
+          <p class="aside__item__body-label">コンテスト名</p>
+          <p class="aside__item__body-p"><%= @contest.name %></p>
         </div>
 
+        <div class="aside__item__body-group">
+          <p class="aside__item__body-label">コンテストの説明</p>
+          <p class="aside__item__body-p"><%= @contest.description %></p>
+        </div>
+
+        <div class="aside__item__body-group">
+          <p class="aside__item__body-label">作品の応募期間</p>
+          <p class="aside__item__body-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %></p>
+          <p class="aside__item__body-p"> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+        </div>
       </div>
     </li>
-
 <% end %>
 
 <h1 class="photoCreate-title">作品の提出フォーム</h1>
+
+<div class="accordion-container photoCreate-accordion_contest_info">
+  <div class="accordion__title-container js-body-accordion-open" data-target="js_accordion_contest_info" data-icon="js_accordion_contest_info_icon">
+    <i class="fas fa-caret-down accordion__title-icon" id="js_accordion_contest_info_icon"></i>
+    <h4 class="accordion__title-content">コンテストの情報</h4>
+  </div>
+
+  <div id='js_accordion_contest_info' class="accordion__body-container">
+
+    <div class="accordion__body-group">
+      <p class="accordion__body-label">コンテスト名</p>
+      <p class="accordion__body-p"><%= @contest.name %></p>
+    </div>
+
+    <div class="accordion__body-group">
+      <p class="accordion__body-label">コンテストの説明</p>
+      <p class="accordion__body-p"><%= @contest.description %></p>
+    </div>
+
+    <div class="accordion__body-group">
+      <p class="accordion__body-label">作品の応募期間</p>
+      <p class="accordion__body-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+    </div>
+  </div>
+</div>
 
 <%= render  "form", photo: @photo, url: contest_photos_path(params[:contest_id]) %>

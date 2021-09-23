@@ -1,3 +1,6 @@
 <% flash.each do |key, value| %>
   <%= tag.div value, class: key, id: 'flash_message' %>
+  <div id="flash_close" class="js-flash-close" data-target="flash_container">
+    <i class="fas fa-times"></i>
+  </div>
 <% end %>

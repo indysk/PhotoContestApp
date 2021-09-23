@@ -29,8 +29,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     if (@user = User.find_by(id: params[:id]))
-      @photos = @user.photos.paginate(page: params[:page_photos])
-      @contests = @user.contests.paginate(page: params[:page_contests])
+      @photos = @user.photos.order('created_at ASC').page(params[:page_photos]).per(18)
+      @contests = @user.contests.order('created_at DESC').page(params[:page_contests]).per(18)
     else
       redirect_to root_path
     end
@@ -49,12 +49,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :image])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :image, :user_id])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image, :user_id])
     end
 
     # The path used after sign up.
@@ -73,5 +73,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_update_path_for(resource)
       user_path(current_user)
+    end
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:user_id, :name])
     end
 end

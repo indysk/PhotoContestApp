@@ -1,15 +1,19 @@
 class ContestsController < ApplicationController
+  before_action :check_logged_in, except: [:index, :show]
   before_action :check_correct_user_for_contest, only: [:edit, :update, :destory]
 
   def index
-    @contests = Contest.includes(:user).paginate(page: params[:page])
+    @contests = Contest.public_all.order('contests.created_at DESC').includes(:user).page(params[:page]).per(10)
+    @submited_contests = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').limit(5).select('contests.id, contests.name, contests.vote_end_at') if signed_in?
   end
 
   def show
     if (@contest = Contest.find_by(id: params[:id]))
-      @photos = @contest.photos.includes(:user).paginate(page: params[:page])
+      @photos = @contest.photos.includes(:user).order('id ASC')
       @options ||= Contest.select_options
+      @urls = Url.new().urls_for_view(@contest)
     else
+      flash[:danger] = 'コンテストは存在しません'
       redirect_to root_path
     end
   end
@@ -20,10 +24,12 @@ class ContestsController < ApplicationController
   end
 
   def create
-    @contest = Contest.new(contest_params)
+    @contest ||= Contest.new(contest_params)
     @contest.user_id = current_user.id
+    @contest.create_limited_url
     if @contest.save
-      redirect_to root_path
+      flash[:success] = 'コンテストを作成しました'
+      redirect_to @contest
     else
       render :new
     end
@@ -36,21 +42,25 @@ class ContestsController < ApplicationController
   def update
     @contest ||= Contest.find_by(id: params[:id])
     if @contest && @contest.update(contest_params)
-      redirect_to contest_path(@contest)
+      redirect_to contest_path(@contest), success: 'コンテストを変更しました'
     else
-      render :edit
+      render :edit, danger: 'コンテストの変更に失敗しました'
     end
   end
 
   def destroy
     @contest ||= Contest.find_by(id: params[:id])
     if @contest && @contest.destroy
-      flash[:success] = 'コンテストの削除に成功しました'
+      flash[:success] = 'コンテストを削除しました'
       redirect_to root_path
     else
       flash[:danger] = 'コンテストが削除できませんでした'
       redirect_to contest_path(params[:id])
     end
+  end
+
+  def page
+    index
   end
 
   private
@@ -80,4 +90,8 @@ class ContestsController < ApplicationController
 
       get.merge(tmp)
     end
-  end
+
+    def check_already_voted
+      super if Contest.find(params[:contest_id]).is_in_period_voting?
+    end
+end
