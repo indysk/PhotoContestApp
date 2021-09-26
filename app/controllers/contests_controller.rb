@@ -1,6 +1,6 @@
 class ContestsController < ApplicationController
   before_action :check_logged_in, except: [:index, :show]
-  before_action :check_correct_user_for_contest, only: [:edit, :update, :destory]
+  before_action :check_correct_user, only: [:edit, :update, :destory]
 
   def index
     @contests = Contest.public_all.order('contests.created_at DESC').includes(:user).page(params[:page]).per(10)
@@ -8,7 +8,7 @@ class ContestsController < ApplicationController
   end
 
   def show
-    if (@contest = Contest.find_by(id: params[:id]))
+    if @contest = Contest.find_by(id: params[:id])
       @photos = @contest.photos.includes(:user).order('id ASC')
       @options ||= Contest.select_options
       @urls = Url.new().urls_for_view(@contest)
@@ -60,6 +60,7 @@ class ContestsController < ApplicationController
   end
 
   def page
+    #contest#indexの無限スクロール
     index
   end
 
@@ -91,7 +92,10 @@ class ContestsController < ApplicationController
       get.merge(tmp)
     end
 
-    def check_already_voted
-      super if Contest.find(params[:contest_id]).is_in_period_voting?
+    def check_correct_user
+      @contest ||= Contest.find_by(id: params[:contest_id] || params[:id])
+      redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
+      @user = @contest.user
+      redirect_back fallback_location: root_path, danger: '現在のユーザはこのコンテストの作成者ではありません' and return unless correct_user?(@user)
     end
 end

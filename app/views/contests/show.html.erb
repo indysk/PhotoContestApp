@@ -12,24 +12,8 @@
     </div>
 
     <div class="contest__header-links">
-      <% if @contest.is_in_period_entry? %>
-        <% if @contest.is_already_submitted?(current_user) %>
-          <div class="contest__header-link">作品を提出済み</div>
-          <%= link_to  "[作品を編集する]", edit_contest_photo_path(@contest, Photo.find_by(contest: @contest, user: current_user)), class: 'contest__header-link' %>
-        <% else %>
-          <%= link_to  "[作品を提出する]", new_contest_photo_path(@contest), class: 'contest__header-link' %>
-        <% end %>
-
-      <% elsif @contest.is_in_period_voting? %>
-        <% if @contest.is_already_voted?(current_user) %>
-          <div class='contest__header-link'>投票済み</div>
-        <% else %>
-          <%= link_to  "[投票する]", contest_photos_path(@contest), class: 'contest__header-link' %>
-        <% end %>
-
-      <% elsif @contest.is_after_period_voting? %>
-        <%= link_to  "[作品一覧]", contest_photos_path(@contest), class: 'contest__header-link' %>
-        <%= link_to  "[投票結果]", contest_votes_path(@contest), class: 'contest__header-link' %>
+      <% content_tag_options_for_contest_links(@contest, 'contest__header-link').each do |link_options| %>
+        <%= content_tag(link_options[:tag], link_options[:content], link_options[:options]) %>
       <% end %>
     </div>
   </div>
@@ -107,16 +91,12 @@
       <div class="contest__info-group">
         <p class="contest__info-label">コンテストの設定</p>
         <p class="contest__info-p">
+          <%= link_to  "[管理画面]", admin_path(@contest) %>
           <%= link_to  "[コンテストを編集]", edit_contest_path(@contest) %>
           <%= render 'shared/modal_form', link_message: '[このコンテストを削除]', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
         </p>
       </div>
-      <div class="contest__info-group">
-        <p class="contest__info-label">管理画面</p>
-        <p class="contest__info-p">
-          <%= link_to  "[管理画面]", admin_path(@contest) %>
-        </p>
-      </div>
+
     </div>
   <% end %>
 

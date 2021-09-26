@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     #コンテストに紐付けられた写真
     resources :photos
     #コンテストに紐付けられた投票
-    resources :votes, only: [:index, :create, :destroy]
+    resources :votes, only: [:index, :new, :create, :destroy]
   end
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

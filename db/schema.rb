@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_16_030046) do
+ActiveRecord::Schema.define(version: 2021_09_26_214329) do
 
   create_table "contests", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2021_09_16_030046) do
     t.string "contest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photographer"
     t.text "description"
     t.string "camera"
     t.string "lens"

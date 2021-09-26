@@ -25,7 +25,6 @@ $(function() {
   });
   $('.js-body-accordion-close').each(function(){
     $(this).on('click',function(){
-      console.log('test')
       $('#' + this.dataset.target).slideToggle(200);
       return true;
     });
@@ -49,7 +48,6 @@ $(function() {
   $('#photoFileField').on('change', function() {
     var file = $(this)[0].files[0];
     EXIF.getData(file, function() {
-      (artist = EXIF.getTag(this, "Artist")) ? $('#form_photographer').val(artist) : null ;
       $('#form_camera').val(EXIF.getTag(this, "Model"));
       $('#form_lens').val(`${EXIF.getTag(this, "FocalLength")}mm`);
       $('#form_iso').val(EXIF.getTag(this, "ISOSpeedRatings"));
@@ -119,10 +117,8 @@ $(function() {
   //     this_value = $(this).val();
   //     this_date = new Date(this_value).getDate();
   //     this_id = $(this).attr('id');
-  //     console.log(this_id);
 
   //     if(this_id === 'contest_entry_start_at_date'){
-  //       console.log('test');
   //       changed_1_b ? null : DOM_d_1_b.val(this_value);
   //     }else if(this_id === 'contest_entry_end_at_date') {
   //       changed_1_b = true;
@@ -179,8 +175,7 @@ $(function() {
   if ($('#flash_message').text()) { flash_controller() };
 
 
-  //pagination制御
-  const ajax_accept = 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01'
+  //無限スクロール
   $(document).on('scroll', function(){
     if($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
       if($('#loading-target').length && $('#loading-target').css('display') !== 'none' ){

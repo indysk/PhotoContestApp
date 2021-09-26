@@ -80,7 +80,7 @@ class Url
   def self.print_limited_url(url_value, page)
     return '' if url_value == ''
     return new_contest_photo_url(url_value) if page == 'entry'
-    return contest_photos_url(url_value) if page == 'vote'
+    return new_contest_vote_url(url_value) if page == 'vote'
     return contest_photos_url(url_value) if page == 'show'
     return contest_votes_url(url_value) if page == 'result'
     return false

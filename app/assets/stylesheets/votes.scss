@@ -1,30 +1,7 @@
 @import 'modules';
 
 .votes {
-  &-title {
-    &_container {
-      display: flex;
-      flex-flow: column;
-      width: 100%;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-
-    text-align: center;
-    width: fit-content;
-    font-size: 1.4rem;
-    padding: 0 8%;
-    border-bottom: 1px black solid;
-
-    &_sub {
-      text-align: center;
-      opacity: .7;
-      font-size: 1rem;
-      padding: 8px;
-      width: auto;
-      word-break: break-all;
-    }
-  }
+  @include title_center_with_sub;
 
   &__results {
     &-container {
