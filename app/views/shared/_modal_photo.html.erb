@@ -30,10 +30,10 @@
           </div>
         </div>
 
-        <% if photo.contest.is_after_period_voting? || controller.controller_name == 'admin' %>
+        <% if controller.controller_name == 'admin' || photo.contest.is_after_period_voting? %>
         <div class="modal__photo__info-group photo">
           <div class="modal__photo__info-wrapper">
-            <% if true %>
+            <% if controller.controller_name == 'admin' || (controller.controller_name == 'votes' && [0, 1].include?(photo.contest.visible_setting_for_user_name)) || (controller.controller_name == 'photos' && [1].include?(photo.contest.visible_setting_for_user_name)) %>
               <p class="modal__photo__info-p">作者：<%= current_user.name %></p>
             <% end %>
             <p class="modal__photo__info-p">カメラ：<%= photo.camera %></p>

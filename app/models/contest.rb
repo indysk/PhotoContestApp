@@ -18,7 +18,7 @@ class Contest < ApplicationRecord
   scope :in_period_vote,     -> (time = Time.current){ where(entry_end_at:   -Float::INFINITY..time, vote_end_at:  time...Float::INFINITY) }
   scope :in_period_entering, -> (time = Time.current){ where(entry_start_at: -Float::INFINITY..time, entry_end_at: time...Float::INFINITY) }
   scope :in_period_voting,   -> (time = Time.current){ where(vote_start_at:  -Float::INFINITY..time, vote_end_at:  time...Float::INFINITY) }
-  scope :in_period_show,     -> (time = Time.current){ where(vote_start_at:  -Float::INFINITY..time, vote_end_at:  time...Float::INFINITY) }
+  scope :in_period_show,     -> (time = Time.current){ where(vote_end_at:    Float::INFINITY..time) }
   scope :in_period_result,   -> (time = Time.current){ where(vote_end_at:    Float::INFINITY..time) }
 
 

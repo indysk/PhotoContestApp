@@ -9,6 +9,8 @@ class Photo < ApplicationRecord
   attr_accessor :vote_points
   attr_accessor :vote_rank
 
+  scope :after_vote, -> (time = Time.current){ left_joins(:contest).where('`contests`.`vote_end_at` < ?', time) }
+
   # #===nameカラム============================================================
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
   validates :name,  presence: true,
