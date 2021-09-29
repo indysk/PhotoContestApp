@@ -1,5 +1,6 @@
 <% @form_options ||= Contest.form_options %>
 <div class="contestCreate__form-container">
+  <%= render  "shared/error_messages", model: contest %>
   <%= form_with model: contest, url: url, local: true, class:'contestCreate__form-body', autocapitalize: 'none' do |f| %>
     <h3 class="contestCreate__form-classification">コンテスト情報</h3>
     <div class="contestCreate__form-classificationContainer">
@@ -47,16 +48,23 @@
     <h3 class="contestCreate__form-classification">その他の設定</h3>
     <div class="contestCreate__form-classificationContainer">
       <div class="contestCreate__form-group row">
+        <%= f.label :num_of_submit_limit, '提出する作品数の制限', class: 'contestCreate__form-label' %>
+        <div>
+          <%= f.number_field :num_of_submit_limit, step: 1, min: 1, max: 99, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+          <span>つまで</span>
+        </div>
+      </div>
+      <div class="contestCreate__form-group row">
         <%= f.label :voting_points, '投票者の持ち点', class: 'contestCreate__form-label' %>
         <div>
-          <%= f.number_field :voting_points, step: 1, min: -1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+          <%= f.number_field :voting_points, step: 1, min: 1, max: 99, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
           <span>pt</span>
         </div>
       </div>
       <div class="contestCreate__form-group row">
         <%= f.label :num_of_views_in_result, '表示する順位', class: 'contestCreate__form-label' %>
         <div>
-          <%= f.number_field :num_of_views_in_result, step: 1, min: 1, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
+          <%= f.number_field :num_of_views_in_result, step: 1, min: 1, max: 99, class: 'contestCreate__form-input-num', autocomplete: 'off' %>
           <span>位まで</span>
         </div>
 

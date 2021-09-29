@@ -1,21 +1,21 @@
 FactoryBot.define do
   factory :user, class: User do
     name { 'username' }
-    email { 'user@example.com' }
+    user_id { 'user_id' }
     password { 'foobar' }
     password_confirmation { 'foobar' }
   end
 
   factory :other_user, class: User do
     name { 'other_username' }
-    email { 'other.user@example.com' }
+    user_id { 'other_user_id' }
     password { 'otherfoobar' }
     password_confirmation { 'otherfoobar' }
   end
 
   factory :japanese_user, class: User do
     name { '日本語ユーザ' }
-    email { 'japanese.user@example.com' }
+    user_id { 'japanese_user_id' }
     password { 'foobar' }
     password_confirmation { 'foobar' }
   end

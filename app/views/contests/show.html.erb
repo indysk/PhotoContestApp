@@ -49,6 +49,10 @@
   <h3 class="contest__info-title">投票の設定</h3>
   <div class="contest__info-container">
     <div class="contest__info-group">
+      <p class="contest__info-label"><%= labels[:num_of_submit_limit] %></p>
+      <p class="contest__info-p"><%= @contest.num_of_submit_limit %> つ</p>
+    </div>
+    <div class="contest__info-group">
       <p class="contest__info-label"><%= labels[:voting_points] %></p>
       <p class="contest__info-p"><%= @contest.voting_points %> pt</p>
     </div>

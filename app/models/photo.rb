@@ -9,13 +9,31 @@ class Photo < ApplicationRecord
   attr_accessor :vote_points
   attr_accessor :vote_rank
 
-  scope :after_vote, -> (time = Time.current){ left_joins(:contest).where('`contests`.`vote_end_at` < ?', time) }
+  scope :after_vote, -> (time = Time.current){ left_joins(:contest).where('`contests`.`vote_end_at` <= ?', time) }
 
-  # #===nameカラム============================================================
+  # #===nameカラム===========================================================
   before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
   validates :name,  presence: true,
                     length: { maximum: 255, allow_blank: true }
   # #========================================================================
+  # #===descriptionカラム====================================================
+  before_save { self.description = '' if self.description.nil? }
+  validates :description, presence: false,
+                          length: { maximum: 10000 }
+  # #========================================================================
+  # #===camera, lens, iso, aperture, shutter_speedカラム=====================
+  with_options presence: true, length: {maximum: 255} do
+    validates :camera
+    validates :lens
+    validates :iso
+    validates :aperture
+    validates :shutter_speed
+  end
+  # #========================================================================
+  # #===descriptionカラム====================================================
+  validates :image, presence: true
+  # #========================================================================
+
 
   def attach_default_image
     if !self.image.attached?

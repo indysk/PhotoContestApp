@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_214329) do
+ActiveRecord::Schema.define(version: 2021_09_29_174612) do
 
   create_table "contests", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_214329) do
     t.string "limited_url_vote", default: "", null: false
     t.string "limited_url_show", default: "", null: false
     t.string "limited_url_result", default: "", null: false
+    t.integer "num_of_submit_limit", default: 1, null: false
     t.index ["limited_url_entry"], name: "index_contests_on_limited_url_entry"
     t.index ["limited_url_result"], name: "index_contests_on_limited_url_result"
     t.index ["limited_url_show"], name: "index_contests_on_limited_url_show"

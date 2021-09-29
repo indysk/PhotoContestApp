@@ -1,4 +1,16 @@
 class Contest < ApplicationRecord
+  class ShouldBeLaterThanValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      if option[:or_equal] && !(option[:time] <= value)
+        record.errors[attribute] << (options[:message] || "の時刻エラーです")
+        return
+      end
+      if !(option[:time] < value)
+        record.errors[attribute] << (options[:message] || "の時刻エラーです")
+        return
+      end
+    end
+  end
   belongs_to :user
   has_many :photos, dependent: :destroy
   has_many :votes, dependent: :destroy
@@ -27,6 +39,114 @@ class Contest < ApplicationRecord
   validates :name,  presence: true,
                     length: { maximum: 255, allow_blank: true }
   # #========================================================================
+  # #===descriptionカラム====================================================
+  before_save { self.description = '' if self.description.nil? }
+  validates :description, presence: false,
+                          length: { maximum: 10000 }
+  # #========================================================================
+  # #===entry_start_atカラム=================================================
+  before_validation { self.entry_start_at = Time.current.yesterday unless self.entry_start_at.present? }
+  validates :entry_start_at,  presence: true
+  validate  :check_entry_start_at_later_than_current
+  # #========================================================================
+  # #===entry_end_atカラム==================================================
+  before_validation { self.entry_end_at = Time.current.yesterday unless self.entry_end_at.present? }
+  validates :entry_end_at,  presence: true
+  validate  :check_entry_end_at_later_than_entry_start_at
+  # #========================================================================
+  # #===vote_start_atカラム==================================================
+  before_validation { self.vote_start_at = Time.current.yesterday unless self.vote_start_at.present? }
+  validates :vote_start_at,  presence: true
+  validate  :check_vote_start_at_later_than_entry_end_at
+  # #========================================================================
+  # #===vote_end_atカラム====================================================
+  before_validation { self.vote_end_at = Time.current.yesterday unless self.vote_end_at.present? }
+  validates :vote_end_at,  presence: true
+  validate  :check_vote_end_at_later_than_vote_start_at
+  # #========================================================================
+  # #===visible_range_entryカラム============================================
+  validates :visible_range_entry, presence: true,
+                                  inclusion: {  in: [0, 1],
+                                                message: "は正しく選択してください" }
+  # #========================================================================
+  # #===visible_range_entryカラム============================================
+  validates :visible_range_vote,  presence: true,
+                                  inclusion: {  in: [0, 1],
+                                                message: "は正しく選択してください" }
+  # #========================================================================
+  # #===visible_range_entryカラム============================================
+  validates :visible_range_show,  presence: true,
+                                  inclusion: {  in: [0, 1],
+                                                message: "は正しく選択してください" }
+  # #========================================================================
+  # #===visible_range_entryカラム============================================
+  validates :visible_range_result,  presence: true,
+                                    inclusion: {  in: [0, 1],
+                                                  message: "は正しく選択してください" }
+  # #========================================================================
+  # #===voting_pointsカラム==================================================
+  validates :voting_points, presence: true,
+                            numericality: { only_integer: true,
+                                            greater_than_or_equal_to: 1,
+                                            less_than_or_equal_to: 99 }
+  # #========================================================================
+  # #===num_of_views_in_resultカラム==================================================
+  validates :num_of_views_in_result,  presence: true,
+                                      numericality: { only_integer: true,
+                                                      greater_than_or_equal_to: 1,
+                                                      less_than_or_equal_to: 99 }
+  # #========================================================================
+  # #===num_of_submit_limitカラム==================================================
+    validates :num_of_submit_limit, presence: true,
+                                    numericality: { only_integer: true,
+                                                    greater_than_or_equal_to: 1,
+                                                    less_than_or_equal_to: 99 }
+  # #========================================================================
+  # #===visible_range_entryカラム============================================
+  validates :visible_setting_for_user_name, presence: true,
+                                            inclusion: {  in: [0, 1, 2],
+                                                          message: "は正しく選択してください" }
+  # #========================================================================
+  # #===limited_url_entryカラム============================================
+  validates :limited_url_entry, presence: true,
+                                length: { minimum: 16,
+                                          maximum: 16,
+                                          allow_blank: true }
+  # #========================================================================
+  #===limited_url_voteカラム============================================
+  validates :limited_url_vote, presence: true,
+                                length: { minimum: 16,
+                                          maximum: 16,
+                                          allow_blank: true }
+  # #========================================================================
+  #===limited_url_showカラム============================================
+  validates :limited_url_show, presence: true,
+                                length: { minimum: 16,
+                                          maximum: 16,
+                                          allow_blank: true }
+  # #========================================================================
+  #===limited_url_resultカラム============================================
+  validates :limited_url_result, presence: true,
+                                length: { minimum: 16,
+                                          maximum: 16,
+                                          allow_blank: true }
+  # #========================================================================
+
+
+  def check_entry_start_at_later_than_current
+    errors.add(:entry_start_at, "は現在時刻より遅い時間を選択してください") unless Time.current <= self.entry_start_at
+  end
+  def check_entry_end_at_later_than_entry_start_at
+    errors.add(:entry_end_at, "は応募開始時刻より遅い時間を選択してください") unless self.entry_start_at < self.entry_end_at
+  end
+  def check_vote_start_at_later_than_entry_end_at
+    errors.add(:vote_start_at, "は応募終了時刻か応募終了時刻より遅い時間を選択してください") unless self.entry_end_at <= self.vote_start_at
+  end
+  def check_vote_end_at_later_than_vote_start_at
+    errors.add(:vote_end_at, "は投票開始時刻より遅い時間を選択してください") unless self.vote_start_at < self.vote_end_at
+  end
+
+
 
   def self.find_contest_entry(contest_id)
     contest = Contest.find_entry_by_id(contest_id)
@@ -125,6 +245,7 @@ class Contest < ApplicationRecord
       visible_setting_for_user_name: '応募者名の公開',
       voting_points: '投票者の持ち点',
       num_of_views_in_result: '表示する順位',
+      num_of_submit_limit: '作品の提出上限'
     }
   end
 
@@ -223,13 +344,13 @@ class Contest < ApplicationRecord
   def is_already_submitted?(user)
     self.photos.exists?(user: user)
   end
-  def is_already_submited?(user)
-    self.photos.exists?(user: user)
+  def is_submitted_limit_times?(user, num)
+    self.photos.where(user: user).limit(num).size >= num
   end
   def is_already_voted?(user)
     self.votes.exists?(user: user)
   end
   def is_able_to_submit?(user)
-    self.is_in_period_entry? && self.is_already_submitted?(user)
+    self.is_in_period_entry? && self.is_submitted_limit_times?(user, self.num_of_submit_limit)
   end
 end

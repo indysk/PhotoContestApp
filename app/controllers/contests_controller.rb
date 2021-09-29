@@ -72,8 +72,7 @@ class ContestsController < ApplicationController
         :entry_start_at_date, :entry_start_at_time, :entry_end_at_date, :entry_end_at_time,
         :vote_start_at_date, :vote_start_at_time, :vote_end_at_date, :vote_end_at_time,
         :visible_range_entry, :visible_range_vote, :visible_range_show, :visible_range_result,
-        :voting_points,
-        :num_of_views_in_result,
+        :voting_points, :num_of_submit_limit, :num_of_views_in_result,
         :visible_setting_for_user_name
       )
 

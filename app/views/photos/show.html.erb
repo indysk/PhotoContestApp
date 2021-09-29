@@ -25,8 +25,12 @@
     <% if correct_user?(@photo.user) %>
       <h3 class="photo__info-classification">作成者用リンク</h3>
       <div class="photo__info-classificationContainer">
-        <%= link_to  "この作品を編集", path_for_photo(@photo, 'edit') %>
-        <%= render 'shared/modal_form', link_message: 'この作品を削除', modal_message: "作品名：#{@photo.name}を削除しますか？", link: path_for_photo(@photo), method: 'delete' %>
+        <% if @photo.contest.is_after_period_voting? %>
+          <p>[この作品の編集、削除期間は過ぎています]</p>
+        <% else %>
+          <%= link_to  "この作品を編集", path_for_photo(@photo, 'edit') %>
+          <%= render 'shared/modal_form', link_message: 'この作品を削除', modal_message: "作品名：#{@photo.name}を削除しますか？", link: path_for_photo(@photo), method: 'delete' %>
+        <% end %>
       </div>
     <% end %>
   </div>

@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   before_action :check_logged_in, except: [:index, :show]
   before_action :check_correct_user, only: [:edit, :update, :destory]
   before_action :check_able_to_submit, only: [:new, :create]
+  before_action :check_able_to_edit, only: [:edit, :update, :destroy]
 
   def index
     @contest ||= Contest.find_contest_show(params[:contest_id])
@@ -15,7 +16,7 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = Photo.find_by(id: params[:id])
+    @photo = Photo.find_by(id: params[:id]).eager_load(:user, :contest)
     redirect_back fallback_location: root_path, danger: '作品の取得に失敗しました' and return unless @photo
   end
 
@@ -86,7 +87,7 @@ class PhotosController < ApplicationController
     def check_able_to_submit
       @contest ||= Contest.find_contest_entry(params[:contest_id])
       redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
-      redirect_back fallback_location: @contest, danger: '作品を提出済みです' and return unless @contest.is_already_submitted?(current_user)
+      redirect_back fallback_location: @contest, danger: '作品を提出済みです' and return unless @contest.is_submitted_limit_times?(current_user, self.num_of_submit_limit)
       redirect_back fallback_location: @contest, danger: '作品募集期間外です' and return unless @contest.is_in_period_entry?
     end
 
@@ -95,5 +96,12 @@ class PhotosController < ApplicationController
       redirect_back fallback_location: root_path, danger: '作品の取得に失敗しました' and return unless @photo
       @user = @photo.user
       redirect_back fallback_location: root_path, danger: '現在のユーザはこの作品の作成者ではありません' and return unless correct_user?(@user)
+    end
+
+    def check_able_to_edit
+      @contest ||= Contest.find_contest_entry(params[:contest_id])
+      @contest ||= Photo.find_by(id: params[:id]).contest unless @contest
+      redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
+      redirect_back fallback_location: @contest, danger: '投票開始時間を過ぎているので作品の編集はできません' and return if @contest.is_after_period_voting?
     end
 end

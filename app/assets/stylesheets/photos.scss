@@ -62,6 +62,10 @@
 .photo {
   &-container {
     padding: 0 10% 32px 10%;
+
+    @include mobile {
+      padding: 0;
+    }
   }
 
   &__img {
