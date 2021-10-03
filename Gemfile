@@ -18,9 +18,10 @@ gem 'fog-aws'
 gem 'virtus'
 gem 'kaminari'
 gem 'rails-i18n', '~> 5.1'
+gem 'faker'
+
 
 group :development, :test do
-  gem 'faker'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
 end
