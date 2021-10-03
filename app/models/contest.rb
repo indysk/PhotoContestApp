@@ -34,103 +34,103 @@ class Contest < ApplicationRecord
   scope :in_period_result,   -> (time = Time.current){ where(vote_end_at:    Float::INFINITY..time) }
 
 
-  # #===nameカラム============================================================
-  before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
-  validates :name,  presence: true,
-                    length: { maximum: 255, allow_blank: true }
-  # #========================================================================
-  # #===descriptionカラム====================================================
-  before_save { self.description = '' if self.description.nil? }
-  validates :description, presence: false,
-                          length: { maximum: 10000 }
-  # #========================================================================
-  # #===entry_start_atカラム=================================================
-  before_validation { self.entry_start_at = Time.current.yesterday unless self.entry_start_at.present? }
-  validates :entry_start_at,  presence: true
-  validate  :check_entry_start_at_later_than_current, on: :create
-  # #========================================================================
-  # #===entry_end_atカラム==================================================
-  before_validation { self.entry_end_at = Time.current.yesterday unless self.entry_end_at.present? }
-  validates :entry_end_at,  presence: true
-  validate  :check_entry_end_at_later_than_entry_start_at
-  # #========================================================================
-  # #===vote_start_atカラム==================================================
-  before_validation { self.vote_start_at = Time.current.yesterday unless self.vote_start_at.present? }
-  validates :vote_start_at,  presence: true
-  validate  :check_vote_start_at_later_than_entry_end_at
-  # #========================================================================
-  # #===vote_end_atカラム====================================================
-  before_validation { self.vote_end_at = Time.current.yesterday unless self.vote_end_at.present? }
-  validates :vote_end_at,  presence: true
-  validate  :check_vote_end_at_later_than_vote_start_at
-  # #========================================================================
-  # #===visible_range_entryカラム============================================
-  validates :visible_range_entry, presence: true,
-                                  inclusion: {  in: [0, 1],
-                                                message: "は正しく選択してください" }
-  # #========================================================================
-  # #===visible_range_entryカラム============================================
-  validates :visible_range_vote,  presence: true,
-                                  inclusion: {  in: [0, 1],
-                                                message: "は正しく選択してください" }
-  # #========================================================================
-  # #===visible_range_entryカラム============================================
-  validates :visible_range_show,  presence: true,
-                                  inclusion: {  in: [0, 1],
-                                                message: "は正しく選択してください" }
-  # #========================================================================
-  # #===visible_range_entryカラム============================================
-  validates :visible_range_result,  presence: true,
-                                    inclusion: {  in: [0, 1],
-                                                  message: "は正しく選択してください" }
-  # #========================================================================
-  # #===voting_pointsカラム==================================================
-  validates :voting_points, presence: true,
-                            numericality: { only_integer: true,
-                                            greater_than_or_equal_to: 1,
-                                            less_than_or_equal_to: 99 }
-  # #========================================================================
-  # #===num_of_views_in_resultカラム==================================================
-  validates :num_of_views_in_result,  presence: true,
-                                      numericality: { only_integer: true,
-                                                      greater_than_or_equal_to: 1,
-                                                      less_than_or_equal_to: 99 }
-  # #========================================================================
-  # #===num_of_submit_limitカラム==================================================
-    validates :num_of_submit_limit, presence: true,
-                                    numericality: { only_integer: true,
-                                                    greater_than_or_equal_to: 1,
-                                                    less_than_or_equal_to: 99 }
-  # #========================================================================
-  # #===visible_range_entryカラム============================================
-  validates :visible_setting_for_user_name, presence: true,
-                                            inclusion: {  in: [0, 1, 2],
-                                                          message: "は正しく選択してください" }
-  # #========================================================================
-  # #===limited_url_entryカラム============================================
-  validates :limited_url_entry, presence: true,
-                                length: { minimum: 16,
-                                          maximum: 16,
-                                          allow_blank: true }
-  # #========================================================================
-  #===limited_url_voteカラム============================================
-  validates :limited_url_vote, presence: true,
-                                length: { minimum: 16,
-                                          maximum: 16,
-                                          allow_blank: true }
-  # #========================================================================
-  #===limited_url_showカラム============================================
-  validates :limited_url_show, presence: true,
-                                length: { minimum: 16,
-                                          maximum: 16,
-                                          allow_blank: true }
-  # #========================================================================
-  #===limited_url_resultカラム============================================
-  validates :limited_url_result, presence: true,
-                                length: { minimum: 16,
-                                          maximum: 16,
-                                          allow_blank: true }
-  # #========================================================================
+  # # #===nameカラム============================================================
+  # before_save { self.name = name.gsub(/\A[[:space:]]+|[[:space:]]\z/, "") }
+  # validates :name,  presence: true,
+  #                   length: { maximum: 255, allow_blank: true }
+  # # #========================================================================
+  # # #===descriptionカラム====================================================
+  # before_save { self.description = '' if self.description.nil? }
+  # validates :description, presence: false,
+  #                         length: { maximum: 10000 }
+  # # #========================================================================
+  # # #===entry_start_atカラム=================================================
+  # before_validation { self.entry_start_at = Time.current.yesterday unless self.entry_start_at.present? }
+  # validates :entry_start_at,  presence: true
+  # validate  :check_entry_start_at_later_than_current, on: :create
+  # # #========================================================================
+  # # #===entry_end_atカラム==================================================
+  # before_validation { self.entry_end_at = Time.current.yesterday unless self.entry_end_at.present? }
+  # validates :entry_end_at,  presence: true
+  # validate  :check_entry_end_at_later_than_entry_start_at
+  # # #========================================================================
+  # # #===vote_start_atカラム==================================================
+  # before_validation { self.vote_start_at = Time.current.yesterday unless self.vote_start_at.present? }
+  # validates :vote_start_at,  presence: true
+  # validate  :check_vote_start_at_later_than_entry_end_at
+  # # #========================================================================
+  # # #===vote_end_atカラム====================================================
+  # before_validation { self.vote_end_at = Time.current.yesterday unless self.vote_end_at.present? }
+  # validates :vote_end_at,  presence: true
+  # validate  :check_vote_end_at_later_than_vote_start_at
+  # # #========================================================================
+  # # #===visible_range_entryカラム============================================
+  # validates :visible_range_entry, presence: true,
+  #                                 inclusion: {  in: [0, 1],
+  #                                               message: "は正しく選択してください" }
+  # # #========================================================================
+  # # #===visible_range_entryカラム============================================
+  # validates :visible_range_vote,  presence: true,
+  #                                 inclusion: {  in: [0, 1],
+  #                                               message: "は正しく選択してください" }
+  # # #========================================================================
+  # # #===visible_range_entryカラム============================================
+  # validates :visible_range_show,  presence: true,
+  #                                 inclusion: {  in: [0, 1],
+  #                                               message: "は正しく選択してください" }
+  # # #========================================================================
+  # # #===visible_range_entryカラム============================================
+  # validates :visible_range_result,  presence: true,
+  #                                   inclusion: {  in: [0, 1],
+  #                                                 message: "は正しく選択してください" }
+  # # #========================================================================
+  # # #===voting_pointsカラム==================================================
+  # validates :voting_points, presence: true,
+  #                           numericality: { only_integer: true,
+  #                                           greater_than_or_equal_to: 1,
+  #                                           less_than_or_equal_to: 99 }
+  # # #========================================================================
+  # # #===num_of_views_in_resultカラム==================================================
+  # validates :num_of_views_in_result,  presence: true,
+  #                                     numericality: { only_integer: true,
+  #                                                     greater_than_or_equal_to: 1,
+  #                                                     less_than_or_equal_to: 99 }
+  # # #========================================================================
+  # # #===num_of_submit_limitカラム==================================================
+  #   validates :num_of_submit_limit, presence: true,
+  #                                   numericality: { only_integer: true,
+  #                                                   greater_than_or_equal_to: 1,
+  #                                                   less_than_or_equal_to: 99 }
+  # # #========================================================================
+  # # #===visible_range_entryカラム============================================
+  # validates :visible_setting_for_user_name, presence: true,
+  #                                           inclusion: {  in: [0, 1, 2],
+  #                                                         message: "は正しく選択してください" }
+  # # #========================================================================
+  # # #===limited_url_entryカラム============================================
+  # validates :limited_url_entry, presence: true,
+  #                               length: { minimum: 16,
+  #                                         maximum: 16,
+  #                                         allow_blank: true }
+  # # #========================================================================
+  # #===limited_url_voteカラム============================================
+  # validates :limited_url_vote, presence: true,
+  #                               length: { minimum: 16,
+  #                                         maximum: 16,
+  #                                         allow_blank: true }
+  # # #========================================================================
+  # #===limited_url_showカラム============================================
+  # validates :limited_url_show, presence: true,
+  #                               length: { minimum: 16,
+  #                                         maximum: 16,
+  #                                         allow_blank: true }
+  # # #========================================================================
+  # #===limited_url_resultカラム============================================
+  # validates :limited_url_result, presence: true,
+  #                               length: { minimum: 16,
+  #                                         maximum: 16,
+  #                                         allow_blank: true }
+  # # #========================================================================
 
 
   def check_entry_start_at_later_than_current
