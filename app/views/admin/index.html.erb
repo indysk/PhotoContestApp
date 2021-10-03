@@ -2,7 +2,7 @@
 
 <% provide(:aside_type, "none") %>
 <% content_for :aside do %>
-<!--
+  <!--
   <li class="aside__item-container">
     <div class="aside__item__header-container">
       <h3>コンテストの情報</h3>
@@ -20,13 +20,21 @@
         </div>
         <div class="aside__item__body-group">
           <p class="aside__item__body-label">作品応募数</p>
-          <p class="aside__item__body-p"><%= @photos.size %></p>
+          <% if @photos.present? %>
+            <p class="aside__item__body-p"><%= @photos.size %></p>
+          <% else %>
+            <p class="aside__item__body-p">作品が投稿されていません</p>
+          <% end %>
         </div>
 
         <% if @contest.is_in_period_voting? %>
           <div class="aside__item__body-group">
             <p class="aside__item__body-label">投票人数</p>
-            <p class="aside__item__body-p"><%= @votes.size %></p>
+            <% if @votes.present? %>
+              <p class="aside__item__body-p"><%= @votes.size %></p>
+            <% else %>
+              <p class="aside__item__body-p">投票されていません</p>
+            <% end %>
           </div>
         <% end %>
       </div>
