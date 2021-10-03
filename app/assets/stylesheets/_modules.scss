@@ -86,7 +86,9 @@ $break_point_aside: 960px;
 }
 
 @mixin title_h1 {
-  width: 48%;
+  width: fit-content;
+  min-width: 48%;
+  max-width: 100%;
   padding: 4px 0 4px 0;
   margin-bottom: 24px;
   font-size: 1.2rem;

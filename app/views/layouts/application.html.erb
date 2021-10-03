@@ -3,6 +3,7 @@
 <%= render  "layouts/meta" %>
 <body>
   <%= render  "layouts/header" %>
+  <%= render  "shared/debug" if Rails.env.development? %>
   <div class="app-container">
 
     <main class="app__main-flex_container <%= "aside_#{content_for?(:aside_type) ? yield(:aside_type) : 'none'}" %>">

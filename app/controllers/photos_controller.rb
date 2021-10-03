@@ -16,7 +16,7 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = Photo.find_by(id: params[:id]).eager_load(:user, :contest)
+    @photo = Photo.eager_load(:user, :contest).find_by(id: params[:id])
     redirect_back fallback_location: root_path, danger: '作品の取得に失敗しました' and return unless @photo
   end
 
@@ -87,8 +87,7 @@ class PhotosController < ApplicationController
     def check_able_to_submit
       @contest ||= Contest.find_contest_entry(params[:contest_id])
       redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
-      redirect_back fallback_location: @contest, danger: '作品を提出済みです' and return unless @contest.is_submitted_limit_times?(current_user, self.num_of_submit_limit)
-      redirect_back fallback_location: @contest, danger: '作品募集期間外です' and return unless @contest.is_in_period_entry?
+      redirect_back fallback_location: @contest, danger: '作品を既に規定数提出したか、募集期間外です' and return unless @contest.is_able_to_submit?(current_user)
     end
 
     def check_correct_user
@@ -102,6 +101,6 @@ class PhotosController < ApplicationController
       @contest ||= Contest.find_contest_entry(params[:contest_id])
       @contest ||= Photo.find_by(id: params[:id]).contest unless @contest
       redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
-      redirect_back fallback_location: @contest, danger: '投票開始時間を過ぎているので作品の編集はできません' and return if @contest.is_after_period_voting?
+      redirect_back fallback_location: @contest, danger: '投票開始時刻を過ぎているので作品の編集はできません' and return if @contest.is_after_period_voting?
     end
 end

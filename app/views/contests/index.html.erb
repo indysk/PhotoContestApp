@@ -1,17 +1,13 @@
 <% provide(:aside_type, 'flex') %>
 <% content_for :aside do %>
-  <li class="aside__item-container">
-    <div class="aside__item__header-container">
-      <% if user_signed_in? %>
-        <h3><%= current_user.name %>でログイン中</h3>
-      <% else %>
-        <h3>ログインしていません</h3>
-      <% end %>
-    </div>
-    <div class="aside__item__body-container">
-      <div class="aside__item__body-main">
-        <% if user_signed_in? %>
-          <h4 class="aside__item__body-title">応募したコンテスト(最近の応募)</h4>
+  <% if user_signed_in? %>
+    <li class="aside__item-container">
+      <div class="aside__item__header-container">
+        <h3>応募したコンテスト(応募順)</h3>
+      </div>
+      <div class="aside__item__body-container">
+        <div class="aside__item__body-main">
+          <h4 class="aside__item__body-title"></h4>
           <table class="aside__item__body-table">
             <thead>
               <tr>
@@ -21,7 +17,7 @@
             </thead>
             <% if @submited_contests.present? %>
               <tbody>
-                <%= render partial: "shared/aside_contest", collection: @submited_contests, as: 'contest', locals: {labels: Contest.model_labels, select_options: Contest.select_options} %>
+                <%= render partial: "shared/aside_table_contest", collection: @submited_contests, as: 'contest' %>
               </tbody>
             <% else %>
               <tbody>
@@ -29,17 +25,51 @@
               </tbody>
             <% end %>
           </table>
+        </div>
+      </div>
+    </li>
 
-
-          </div>
-        <% else %>
+    <li class="aside__item-container">
+      <div class="aside__item__header-container">
+        <h3>応募した作品(応募順)</h3>
+      </div>
+      <div class="aside__item__body-container">
+        <div class="aside__item__body-main">
+          <h4 class="aside__item__body-title"></h4>
+          <table class="aside__item__body-table">
+            <thead>
+              <tr>
+                <th>投票終了日時</th>
+                <th>作品タイトル</th>
+              </tr>
+            </thead>
+            <% if @submited_photos.present? %>
+              <tbody>
+                <%= render partial: "shared/aside_table_photo", collection: @submited_photos, as: 'photo' %>
+              </tbody>
+            <% else %>
+              <tbody>
+                <tr><td>-</td><td>提出した作品はありません</tr></td>
+              </tbody>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </li>
+  <% else %>
+    <li class="aside__item-container">
+      <div class="aside__item__header-container">
+        <h3>ログインしていません</h3>
+      </div>
+      <div class="aside__item__body-container">
+        <div class="aside__item__body-main">
           <p class="contestlist__aside-p">下のリンクからログインまたは新規登録する。</p>
           <%= link_to '新規登録', new_user_registration_path, class: 'contestlist__aside-link' %>
           <%= link_to 'ログイン', new_user_session_path, class: 'contestlist__aside-link' %>
-        <% end %>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="contestlist__header-container">

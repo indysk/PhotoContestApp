@@ -47,7 +47,7 @@ class Contest < ApplicationRecord
   # #===entry_start_atカラム=================================================
   before_validation { self.entry_start_at = Time.current.yesterday unless self.entry_start_at.present? }
   validates :entry_start_at,  presence: true
-  validate  :check_entry_start_at_later_than_current
+  validate  :check_entry_start_at_later_than_current, on: :create
   # #========================================================================
   # #===entry_end_atカラム==================================================
   before_validation { self.entry_end_at = Time.current.yesterday unless self.entry_end_at.present? }
@@ -147,7 +147,6 @@ class Contest < ApplicationRecord
   end
 
 
-
   def self.find_contest_entry(contest_id)
     contest = Contest.find_entry_by_id(contest_id)
     contest.present? ? contest[0] : nil
@@ -219,14 +218,12 @@ class Contest < ApplicationRecord
 
     result
   end
-
   def create_limited_url
     self.limited_url_entry = Url.random_id
     self.limited_url_vote = Url.random_id
     self.limited_url_show = Url.random_id
     self.limited_url_result = Url.random_id
   end
-
   def self.model_labels
     options = {
       name: 'コンテスト名',
@@ -248,7 +245,6 @@ class Contest < ApplicationRecord
       num_of_submit_limit: '作品の提出上限'
     }
   end
-
   def initialize_for_form
     self.entry_start_at = Time.current
     self.entry_end_at = Time.current
@@ -262,7 +258,6 @@ class Contest < ApplicationRecord
     self.num_of_views_in_result = 3
     self.visible_setting_for_user_name = 0
   end
-
   def self.select_options
     options = {
       visible_range_entry:           [['一般に公開', 0], ['URLで限定公開', 1]],
@@ -272,7 +267,6 @@ class Contest < ApplicationRecord
       visible_setting_for_user_name: [['投票結果でのみ公開', 0], ['作品一覧と投票結果で公開', 1], ['公開しない', 2]]
     }
   end
-
   def self.form_options
     contest_labels = Contest.model_labels
     select_options = Contest.select_options
@@ -310,6 +304,7 @@ class Contest < ApplicationRecord
                                                 }}]
   end
 
+
   def excerpt_description(i = 50)
     description = self.description
     description.length > i ? description[0..i-1] + '...' : description
@@ -344,13 +339,13 @@ class Contest < ApplicationRecord
   def is_already_submitted?(user)
     self.photos.exists?(user: user)
   end
-  def is_submitted_limit_times?(user, num)
-    self.photos.where(user: user).limit(num).size >= num
+  def is_submitted_limit_times?(user, limit)
+    @debug = self.photos.where(user: user).limit(limit).size <= limit
   end
   def is_already_voted?(user)
     self.votes.exists?(user: user)
   end
   def is_able_to_submit?(user)
-    self.is_in_period_entry? && self.is_submitted_limit_times?(user, self.num_of_submit_limit)
+    @debug = self.is_in_period_entry? && self.is_submitted_limit_times?(user, self.num_of_submit_limit)
   end
 end
