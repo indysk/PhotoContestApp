@@ -15,6 +15,9 @@
       letter-spacing: 1px;
       width: 44%;
       border-bottom: $border_nomal;
+      @include mobile{
+        width: auto;
+      }
     }
 
     &-newlink {
@@ -45,7 +48,6 @@
     }
 
     &-listcontainer {
-
       @include mobile {
         width: 90%;
         margin: auto;
@@ -210,7 +212,7 @@
         @include mobile {
           border: none;
           padding: 0;
-          font-size: 8px;
+          font-size: 14px;
           opacity: .8;
         }
 
@@ -294,12 +296,35 @@
     }
 
     &-links {
-      text-align: right;
-      padding: 4px 8px 0 0;
+      text-align: center;
+      padding-top: 16px;
+      display: flex;
+      justify-content: center;
+
     }
 
     &-link {
-      display: inline;
+      display: block;
+      padding: 12px 18px;
+      font-size: 1.4rem;
+      background-color: #6b95ee;
+      border-radius: 8px;
+      color: #ffffff;
+      margin-right: 16px;
+      &.inactive{
+        background-color: #a6a7aa;
+      }
+      &:hover{
+        color: #fff;
+        background-color: #3776f9;
+        text-decoration: none;
+        &.inactive{
+          background-color: #a6a7aa;
+        }
+      }
+      &:last-child{
+        margin-right: 0;
+      }
     }
   }
 
