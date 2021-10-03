@@ -15,6 +15,9 @@
       letter-spacing: 1px;
       width: 44%;
       border-bottom: $border_nomal;
+      @include mobile{
+        width: auto;
+      }
     }
 
     &-newlink {
@@ -45,7 +48,6 @@
     }
 
     &-listcontainer {
-
       @include mobile {
         width: 90%;
         margin: auto;
@@ -210,7 +212,7 @@
         @include mobile {
           border: none;
           padding: 0;
-          font-size: 8px;
+          font-size: 14px;
           opacity: .8;
         }
 
