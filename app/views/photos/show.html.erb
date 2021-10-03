@@ -8,26 +8,29 @@
   <div class="photo__info-container">
     <h3 class="photo__info-classification">作品情報</h3>
     <div class="photo__info-classificationContainer">
-      <p class="photo__info-p">投稿者：<%= link_to @photo.user.name, user_path(@photo.user) %></h3>
-      <p class="photo__info-p">コンテスト名：<%= link_to @photo.contest.name, @photo.contest %></h3>
-      <p class="photo__info-p">タイトル：<%= link_to @photo.name, path_for_photo(@photo) %></h3>
-      <p class="photo__info-p">説明：<%= @photo.description %></h3>
+      <p class="photo__info-p">コンテスト名：<%= link_to @photo.contest.name, @photo.contest %></p>
+      <p class="photo__info-p">タイトル：<%= link_to @photo.name, path_for_photo(@photo) %></p>
+      <p class="photo__info-p">説明：<%= @photo.description %></p>
     </div>
 
     <h3 class="photo__info-classification">写真情報</h3>
     <div class="photo__info-classificationContainer">
-      <p class="photo__info-p">カメラ：<%= @photo.camera %></h3>
-      <p class="photo__info-p">レンズ：<%= @photo.lens %></h3>
-      <p class="photo__info-p">ISO：<%= @photo.iso %></h3>
-      <p class="photo__info-p">絞り：<%= @photo.aperture %></h3>
-      <p class="photo__info-p">シャッター速度：<%= @photo.shutter_speed %></h3>
+      <p class="photo__info-p">カメラ：<%= @photo.camera %></p>
+      <p class="photo__info-p">レンズ：<%= @photo.lens %></p>
+      <p class="photo__info-p">ISO：<%= @photo.iso %></p>
+      <p class="photo__info-p">絞り：<%= @photo.aperture %></p>
+      <p class="photo__info-p">シャッター速度：<%= @photo.shutter_speed %></p>
     </div>
 
     <% if correct_user?(@photo.user) %>
       <h3 class="photo__info-classification">作成者用リンク</h3>
       <div class="photo__info-classificationContainer">
-        <%= link_to  "この作品を編集", path_for_photo(@photo, 'edit') %>
-        <%= render 'shared/modal_form', link_message: 'この作品を削除', modal_message: "作品名：#{@photo.name}を削除しますか？", link: path_for_photo(@photo), method: 'delete' %>
+        <% if @photo.contest.is_after_period_voting? %>
+          <p>[この作品の編集、削除期間は過ぎています]</p>
+        <% else %>
+          <%= link_to  "この作品を編集", path_for_photo(@photo, 'edit') %>
+          <%= render 'shared/modal_form', link_message: 'この作品を削除', modal_message: "作品名：#{@photo.name}を削除しますか？", link: path_for_photo(@photo), method: 'delete' %>
+        <% end %>
       </div>
     <% end %>
   </div>

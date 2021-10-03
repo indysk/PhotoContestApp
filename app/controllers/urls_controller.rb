@@ -1,6 +1,8 @@
 class UrlsController < ApplicationController
-  def update
+  before_action :check_logged_in, only: [:update]
+  before_action :check_correct_user, only: [:update]
 
+  def update
     url_model = Url.new
     url_model.get_url_params(url_params)
     redirect_to root_path and return unless correct_user?(url_model.contest.user)

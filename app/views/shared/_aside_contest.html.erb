@@ -1,7 +1,0 @@
-<tr>
-  <td>
-    <p class="aside__item__body-table_date"><%= print_date_with_wday(contest.vote_end_at) %></p>
-    <p class="aside__item__body-table_time"><%= print_time_for_form(contest.vote_end_at) %></p>
-  </td>
-  <td><%= link_to contest.name, contest_path(contest), class: 'aside__contest-name' %></td>
-</tr>

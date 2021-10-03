@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= link_to contest_path(photo.contest) do %>
+      <p class="aside__item__body-table_date"><%= print_date_with_wday(photo.contest.vote_end_at) %></p>
+      <p class="aside__item__body-table_time"><%= print_time_for_form(photo.contest.vote_end_at) %></p>
+    <% end %>
+  </td>
+  <td><%= link_to photo.name, contest_photo_path(photo.contest, photo), class: 'aside__item__body-table_name' %></td>
+</tr>

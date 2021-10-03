@@ -1,21 +1,22 @@
 <% provide(:title, "#{@contest.name}の管理画面[作品]") %>
 
-<% provide(:aside_type, "flex") %>
+<% provide(:aside_type, "none") %>
 <% content_for :aside do %>
+<!--
   <li class="aside__item-container">
     <div class="aside__item__header-container">
       <h3>コンテストの情報</h3>
     </div>
     <div class="aside__item__body-container">
       <input type="hidden" name="<%= @contest.voting_points %>" id="voting_points">
-      <div class="photos__aside__vote-container">
+      <div class="aside__item__body-container">
         <div class="aside__item__body-group">
           <p class="aside__item__body-label">応募期間</p>
-          <p class="aside__item__body-p">><%= @contest.entry_start_at.to_s(:datetime_jp) %> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
+          <p class="aside__item__body-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %><br> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
         </div>
         <div class="aside__item__body-group">
           <p class="aside__item__body-label">投票期間</p>
-          <p class="aside__item__body-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %> ～ <%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
+          <p class="aside__item__body-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %><br> ～ <%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
         </div>
         <div class="aside__item__body-group">
           <p class="aside__item__body-label">作品応募数</p>
@@ -31,6 +32,7 @@
       </div>
     </div>
   </li>
+  -->
 <% end %>
 
 <div class="admin-container">

@@ -18,7 +18,7 @@
   }
 
   &__image {
-    @include square_image(100% / 2, 100%);
+    @include square_image(100%, 100%);
 
     &-container {
       display: flex;
@@ -27,14 +27,14 @@
     }
 
     &-img_square {
-      width: 50%;
+      width: 30%;
     }
 
     &__info {
       @include info_layout;
 
       &-container {
-        width: 50%;
+        width: 70%;
         padding: 0 8px;
       }
     }

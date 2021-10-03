@@ -1,14 +1,15 @@
 class ContestsController < ApplicationController
   before_action :check_logged_in, except: [:index, :show]
-  before_action :check_correct_user_for_contest, only: [:edit, :update, :destory]
+  before_action :check_correct_user, only: [:edit, :update, :destory]
 
   def index
     @contests = Contest.public_all.order('contests.created_at DESC').includes(:user).page(params[:page]).per(10)
     @submited_contests = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').limit(5).select('contests.id, contests.name, contests.vote_end_at') if signed_in?
+    @submited_photos = Photo.where(user: current_user).order('created_at DESC').limit(5).select('id, name, contest_id') if signed_in?
   end
 
   def show
-    if (@contest = Contest.find_by(id: params[:id]))
+    if @contest = Contest.find_by(id: params[:id])
       @photos = @contest.photos.includes(:user).order('id ASC')
       @options ||= Contest.select_options
       @urls = Url.new().urls_for_view(@contest)
@@ -60,6 +61,7 @@ class ContestsController < ApplicationController
   end
 
   def page
+    #contest#indexの無限スクロール
     index
   end
 
@@ -71,8 +73,7 @@ class ContestsController < ApplicationController
         :entry_start_at_date, :entry_start_at_time, :entry_end_at_date, :entry_end_at_time,
         :vote_start_at_date, :vote_start_at_time, :vote_end_at_date, :vote_end_at_time,
         :visible_range_entry, :visible_range_vote, :visible_range_show, :visible_range_result,
-        :voting_points,
-        :num_of_views_in_result,
+        :voting_points, :num_of_submit_limit, :num_of_views_in_result,
         :visible_setting_for_user_name
       )
 
@@ -91,7 +92,10 @@ class ContestsController < ApplicationController
       get.merge(tmp)
     end
 
-    def check_already_voted
-      super if Contest.find(params[:contest_id]).is_in_period_voting?
+    def check_correct_user
+      @contest ||= Contest.find_by(id: params[:contest_id] || params[:id])
+      redirect_back fallback_location: root_path, danger: 'コンテストの取得に失敗しました' and return unless @contest
+      @user = @contest.user
+      redirect_back fallback_location: root_path, danger: '現在のユーザはこのコンテストの作成者ではありません' and return unless correct_user?(@user)
     end
 end

@@ -1,0 +1,44 @@
+<% provide(:title, "投票ページ #{@contest.name}") %>
+
+<% provide(:aside_type, "fixed vote") %>
+<% content_for :aside do %>
+  <li class="aside__item-container">
+    <div class="aside__item__header-container">
+      <h3>投票</h3>
+    </div>
+    <div class="aside__item__body-container">
+      <input type="hidden" name="<%= @contest.voting_points %>" id="voting_points">
+      <div class="photos__aside__vote-container">
+        <div class="photos__aside__vote__points-container">
+          <p class="photos__aside__vote__points-label">持ち点</p>
+          <span class="photos__aside__vote__points-value" id="now-voting-points"><%= @contest.voting_points %></span>
+          <p class="photos__aside__vote__points-unit">pt</p>
+        </div>
+        <%= submit_tag '投票する', class: 'photos__aside__vote-submit', id: 'vote-submit', form: 'photos__body-form' %>
+      </div>
+    </div>
+  </li>
+<% end %>
+
+<div class="photos-container">
+  <div class="photos-title_container">
+    <h1 class="photos-title">投票ページ</h1>
+    <p class="photos-title_sub"><%= @contest.name %></p>
+  </div>
+  <div class="photos__body-container">
+    <% if @photos.present? %>
+      <%= form_with model: @vote, url: url_for_votes_form(@contest), local: true, id: 'photos__body-form' do |f| %>
+
+        <% if @contest.visible_range_vote == 1 %>
+          <%= f.hidden_field :limited_url_vote, value: @contest.limited_url_vote %>
+        <% end %>
+        <ul class="photos__body-img_container">
+          <%= render partial: 'photos/photo', collection: @photos, locals: { f: f, contest: @contest } %>
+        </ul>
+
+      <% end %>
+    <% else %>
+      <div class="photos__body-no_image">作品が投稿されていません</div>
+    <% end %>
+  </div>
+</div>

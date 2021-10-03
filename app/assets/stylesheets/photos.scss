@@ -62,6 +62,10 @@
 .photo {
   &-container {
     padding: 0 10% 32px 10%;
+
+    @include mobile {
+      padding: 0;
+    }
   }
 
   &__img {
@@ -164,11 +168,7 @@
 }
 
 .photos {
-  &-title {
-    font-size: 1.4rem;
-    color: #444;
-    font-weight: bold;
-  }
+  @include title_center_with_sub;
 
   &__body {
     &-title {
@@ -185,7 +185,11 @@
         flex-wrap: wrap;
 
         & .photolist__item-container {
-          width: calc(100% / 2);
+          width: calc(100% / 3);
+
+          @include mobile {
+            width: calc(100% / 2);
+          }
         }
 
         & .photolist__item-img_square::before {
@@ -210,11 +214,6 @@
 
   &__aside {
     &__vote {
-      &-container {
-        display: flex;
-        justify-content: space-between;
-      }
-
       &__points {
         &-container {
           display: flex;
@@ -233,8 +232,6 @@
             color: #dc3545;
           }
         }
-
-        &-unit {}
       }
 
       &-submit {
