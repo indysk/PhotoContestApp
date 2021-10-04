@@ -18,7 +18,7 @@ test:
 
 production:
   <<: *default
-  database: <%= Rails.application.credentials.RDS[:database] %>
-  host: <%= Rails.application.credentials.RDS[:host] %>
-  username: <%= Rails.application.credentials.RDS[:username] %>
-  password: <%= Rails.application.credentials.RDS[:password] %>
+  database: <%= Rails.application.credentials.RDS_photocon[:database] %>
+  host: <%= Rails.application.credentials.RDS_photocon[:host] %>
+  username: <%= Rails.application.credentials.RDS_photocon[:username] %>
+  password: <%= Rails.application.credentials.RDS_photocon[:password] %>
