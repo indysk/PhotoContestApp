@@ -34,7 +34,7 @@
         <div class="modal__photo__info-group photo">
           <div class="modal__photo__info-wrapper">
             <% if controller.controller_name == 'admin' || (controller.controller_name == 'votes' && [0, 1].include?(photo.contest.visible_setting_for_user_name)) || (controller.controller_name == 'photos' && [1].include?(photo.contest.visible_setting_for_user_name)) %>
-              <p class="modal__photo__info-p">作者：<%= current_user.name %></p>
+              <p class="modal__photo__info-p">作者：<%= photo.name %></p>
             <% end %>
             <p class="modal__photo__info-p">カメラ：<%= photo.camera %></p>
             <p class="modal__photo__info-p">レンズ：<%= photo.lens %></p>

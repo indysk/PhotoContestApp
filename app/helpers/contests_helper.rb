@@ -52,22 +52,22 @@ module ContestsHelper
     if contest.is_after_period_voting?
       if contest.visible_range_result.to_s == '1' && contest.visible_range_show.to_s == '1'
         [
-          {tag: 'div', content: '作品一覧(非公開)', options: {class: "#{current_class} show_result_invisible inactive"}, value: 4.5 },
+          {tag: 'div', content: '作品一覧(非公開)', options: {class: "#{current_class} show_result_invisible inactive photo_list"}, value: 4.5 },
           {tag: 'div', content: '投票結果(非公開)', options: {class: "#{current_class} show_result_invisible inactive"}, value: 4 }
         ]
       elsif contest.visible_range_result.to_s == '1' && contest.visible_range_show.to_s == '0'
         [
-          {tag: 'a', content: '作品一覧', options: {href: contest_photos_path(contest), class: "#{current_class} vote_finish"}, value: 4.5 },
+          {tag: 'a', content: '作品一覧', options: {href: contest_photos_path(contest), class: "#{current_class} photo_list"}, value: 4.5 },
           {tag: 'div', content: '投票結果(非公開)', options: {class: "#{current_class} show_result_invisible inactive"}, value: 4 }
         ]
       elsif contest.visible_range_result.to_s == '0' && contest.visible_range_show.to_s == '1'
         [
-          {tag: 'div', content: '作品一覧(非公開)', options: {class: "#{current_class} show_result_invisible inactive"}, value: 4.5 },
+          {tag: 'div', content: '作品一覧(非公開)', options: {class: "#{current_class} show_result_invisible inactive photo_list"}, value: 4.5 },
           {tag: 'a', content: '投票結果', options: {href: contest_votes_path(contest), class: "#{current_class} vote_finish"}, value: 4 }
         ]
       else
         [
-          {tag: 'a', content: '作品一覧', options: {href: contest_photos_path(contest), class: "#{current_class} vote_finish"}, value: 4.5 },
+          {tag: 'a', content: '作品一覧', options: {href: contest_photos_path(contest), class: "#{current_class} photo_list"}, value: 4.5 },
           {tag: 'a', content: '投票結果', options: {href: contest_votes_path(contest), class: "#{current_class} vote_finish"}, value: 4 }
         ]
       end
