@@ -3,7 +3,7 @@ class Vote < ApplicationRecord
   belongs_to :photo
   belongs_to :user
 
-  def create_votes(para, contest, user)
+  def self.create_votes(para, contest, user)
     vote = contest.votes.build(user: user)
     votes = []
     flag = true
@@ -21,8 +21,9 @@ class Vote < ApplicationRecord
     end
     unless flag
       votes.each {|vote| Vote.find(vote).destroy}
-      redirect_back fallback_location: root_path, danger: "投票に失敗しました" and return
+      return false
     end
+    return true
   end
 
 
