@@ -7,7 +7,7 @@ unless Rails.env.development? || Rails.env.test?
       region: 'ap-northeast-1'
     }
 
-    config.fog_directory = 'photocontest-s3'
+    config.fog_directory = Rails.application.credentials.S3_photocon[:bucket]
     config.cache_storage = :fog
     config.fog_public = false
   end
