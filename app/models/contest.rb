@@ -260,11 +260,11 @@ class Contest < ApplicationRecord
   end
   def self.select_options
     options = {
-      visible_range_entry:           [['一般に公開', 0], ['URLで限定公開', 1]],
-      visible_range_vote:            [['一般に公開', 0], ['URLで限定公開', 1]],
-      visible_range_show:            [['一般に公開', 0], ['URLで限定公開', 1]],
-      visible_range_result:          [['一般に公開', 0], ['URLで限定公開', 1]],
-      visible_setting_for_user_name: [['投票結果でのみ公開', 0], ['作品一覧と投票結果で公開', 1], ['公開しない', 2]]
+      visible_range_entry:           [[t('contest.select.visible_range_entry.0'), 0], [t('contest.select.visible_range_entry.1'), 1]],
+      visible_range_vote:            [[t('contest.select.visible_range_vote.0'), 0], [t('contest.select.visible_range_vote.1'), 1]],
+      visible_range_show:            [[t('contest.select.visible_range_show.0'), 0], [t('contest.select.visible_range_show.1'), 1]],
+      visible_range_result:          [[t('contest.select.visible_range_result.0'), 0], [t('contest.select.visible_range_result.1'), 1]],
+      visible_setting_for_user_name: [[t('contest.visible_setting_for_user_name.0'), 0], [t('contest.visible_setting_for_user_name.1'), 1], [t('contest.visible_setting_for_user_name.2'), 2]]
     }
   end
   def self.form_options
@@ -340,12 +340,12 @@ class Contest < ApplicationRecord
     self.photos.exists?(user: user)
   end
   def is_submitted_limit_times?(user, limit)
-    @debug = self.photos.where(user: user).limit(limit).size <= limit
+    self.photos.where(user: user).limit(limit).size >= limit
   end
   def is_already_voted?(user)
     self.votes.exists?(user: user)
   end
   def is_able_to_submit?(user)
-    @debug = self.is_in_period_entry? && self.is_submitted_limit_times?(user, self.num_of_submit_limit)
+    self.is_in_period_entry? && !self.is_submitted_limit_times?(user, self.num_of_submit_limit)
   end
 end

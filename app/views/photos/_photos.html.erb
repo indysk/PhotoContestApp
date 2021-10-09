@@ -1,0 +1,11 @@
+<% if @photos.present? %>
+  <%= paginate @photos, param_name: "page_photos" %>
+  <ul class="user__photoslist-container">
+    <%= render partial: 'photos/photo', collection: @photos %>
+  </ul>
+  <%= paginate @photos, param_name: "page_photos" %>
+<% else %>
+  <ul class="user__photoslist-container">
+    <p>作品が見つかりません</p>
+  </ul>
+<% end %>

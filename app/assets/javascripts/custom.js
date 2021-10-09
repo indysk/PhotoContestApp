@@ -1,14 +1,14 @@
-$(function() {
+$(function () {
 
   //モーダルフォーム
-  $('.js-modal-open').each(function(){
-    $(this).on('click',function(){
+  $('.js-modal-open').each(function () {
+    $(this).on('click', function () {
       $('#' + this.dataset.target).fadeIn();
       return true;
     });
   });
-  $('.js-modal-close').each(function(){
-    $(this).on('click',function(){
+  $('.js-modal-close').each(function () {
+    $(this).on('click', function () {
       $('#' + this.dataset.target).fadeOut();
       return true;
     });
@@ -16,15 +16,15 @@ $(function() {
 
 
   //補足情報アコーディオン
-  $('.js-body-accordion-open').each(function(){
-    $(this).on('click',function(){
+  $('.js-body-accordion-open').each(function () {
+    $(this).on('click', function () {
       $('#' + this.dataset.target).slideToggle(200);
       $('#' + this.dataset.icon).toggleClass("accordion__title-icon_rotate");
       return true;
     });
   });
-  $('.js-body-accordion-close').each(function(){
-    $(this).on('click',function(){
+  $('.js-body-accordion-close').each(function () {
+    $(this).on('click', function () {
       $('#' + this.dataset.target).slideToggle(200);
       return true;
     });
@@ -32,61 +32,106 @@ $(function() {
 
 
   //headerアコーディオンメニュー用
-  $('.js-AccordionMenu').click(function(){
+  $('.js-AccordionMenu').click(function () {
     $(this).next('.header__nav-accordionmenu-window').slideToggle(200);
     $(this).toggleClass("accordionmenu_open");
   });
-  $(document).on('click touchstart', function(event) {
-    if (!($(event.target).closest('.header__nav-accordionmenu-window').length || $(event.target).closest('.header__nav-accordionmenu-container').length) && $('.header__nav-accordionmenu-window').css('display') == 'block'){
+  $(document).on('click touchstart', function (event) {
+    if (!($(event.target).closest('.header__nav-accordionmenu-window').length || $(event.target).closest('.header__nav-accordionmenu-container').length) && $('.header__nav-accordionmenu-window').css('display') == 'block') {
       $('.js-AccordionMenu').next('.header__nav-accordionmenu-window').slideToggle(200);
       $('.js-AccordionMenu').toggleClass("accordionmenu_open");
     }
   });
 
 
-  //作品応募フォーム、exif取り出し
-  $('#photoFileField').on('change', function() {
-    var file = $(this)[0].files[0];
-    EXIF.getData(file, function() {
+  // ファイルサイズ制限
+  const isInFileSizeLimit = (element, file, size = 1) => {
+    const sizeLimit = 1024 * 1024 * size;　// 制限サイズ
+    if (file.size > sizeLimit) {
+      alert(`ファイルサイズは${size}MB以下にしてください`);
+      element.value = '';
+      return false;
+    }
+    return true;
+  }
+  //正方形にリサイズ
+  const onImageChange = (file, size) => {
+    var TRIM_SIZE = size;
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = canvas.height = TRIM_SIZE;
+    canvas.id = 'canvas-photo';
+    var img = new Image();
+    img.src = window.URL.createObjectURL(file)
+    // imgは読み込んだ後でないとwidth,heightが0
+    img.onload = function () {
+      // 横長か縦長かで場合分けして描画位置を調整
+      var width, height, xOffset, yOffset;
+      if (img.width > img.height) {
+        height = TRIM_SIZE;
+        width = img.width * (TRIM_SIZE / img.height);
+        xOffset = -(width - TRIM_SIZE) / 2;
+        yOffset = 0;
+      } else {
+        width = TRIM_SIZE;
+        height = img.height * (TRIM_SIZE / img.width);
+        yOffset = -(height - TRIM_SIZE) / 2;
+        xOffset = 0;
+      }
+      ctx.drawImage(img, xOffset, yOffset, width, height);
+    };
+    return canvas;
+  }
+  //EXIF書き出し
+  const writeExifFrom = (file) => {
+    EXIF.getData(file, function () {
       $('#form_camera').val(EXIF.getTag(this, "Model"));
       $('#form_lens').val(`${EXIF.getTag(this, "FocalLength")}mm`);
       $('#form_iso').val(EXIF.getTag(this, "ISOSpeedRatings"));
       $('#form_aperture').val(Number(EXIF.getTag(this, "FNumber")).toFixed(1));
       $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
     });
-    // img要素に表示
-    img_container = $('.photoCreate__form-preview-imgcontainer');
-    img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
-    img_container.children().first().attr('src',window.URL.createObjectURL(file));
+  }
+  // img要素に表示
+  const displayImgContainer = (file, target) => {
+    target.css('display') == 'none' ? target.css('display', 'block') : null;
+    target.children().first().attr('src', window.URL.createObjectURL(file));
+  }
+
+
+  //作品応募フォーム、exif取り出し
+  $('#photoFileField').on('change', function () {
+    var file = $(this)[0].files[0];
+    if (!isInFileSizeLimit(this, file, 50)) return;
+    writeExifFrom(file);
+    displayImgContainer(file, $('.photoCreate__form-preview-imgcontainer'));
   });
 
 
   //user画像をプレビューに表示
-  $('#userFileField').on('change', function() {
+  $('#userFileField').on('change', function () {
     var file = $(this)[0].files[0];
-    // img要素に表示
-    img_container = $('.userEdit__form-preview_imgcontainer');
-    img_container.css('display') == 'none' ? img_container.css('display', 'block') : null ;
-    img_container.children().first().attr('src',window.URL.createObjectURL(file));
+    if (!isInFileSizeLimit(this, file, 50)) return;
+    displayImgContainer(file, $('.userEdit__form-preview_imgcontainer'));
   });
 
 
   //投票用input制御
   const max_points = Number($('#voting_points').attr('name'));
   const result_DOM = $('#now-voting-points');
-  $('.photolist__item-vote_input').each(function(){
-    $(this).on('change',function(){
+  $('.photolist__item-vote_input').each(function () {
+    $(this).on('change', function () {
       var sum_points = 0;
-      $('.photolist__item-vote_input').each(function(){
+      $('.photolist__item-vote_input').each(function () {
         sum_points += Number($(this).val());
       })
       var diff = max_points - sum_points
       result_DOM.text(diff);
       const vote_submit_DOM = $("#vote-submit");
-      if(diff >= 0){
+      if (diff >= 0) {
         vote_submit_DOM.prop("disabled", false);
         result_DOM.removeClass("danger");
-      }else{
+      } else {
         vote_submit_DOM.prop("disabled", true);
         result_DOM.addClass("danger");
       }
@@ -135,15 +180,15 @@ $(function() {
 
 
   //URLのコピー処理
-  $('.js-url-copy').each(function(){
-    $(this).on('click',function(){
+  $('.js-url-copy').each(function () {
+    $(this).on('click', function () {
       navigator.clipboard.writeText($(this).children('p').text());
     });
   });
 
 
   //flashメッセージ表示制御
-  function flash_controller(){
+  function flash_controller() {
     //表示
     if ($('#flash_message').text()) {
       $('#flash_container').css('display', 'block');
@@ -152,8 +197,8 @@ $(function() {
         $('#flash_container').css('top', '16px');
       }, 1);
       //閉じるボタン
-      $('.js-flash-close').each(function(){
-        $(this).on('click',function(){
+      $('.js-flash-close').each(function () {
+        $(this).on('click', function () {
           $('#flash_container').css('opacity', '0');
           setTimeout(() => {
             $('#flash_container').css('display', 'none');
@@ -170,15 +215,15 @@ $(function() {
       }, 4000);
     }
   }
-  let mutationObserver = new MutationObserver(function() { flash_controller() });
-  mutationObserver.observe( document.getElementById('flash_container'), { childList: true, subtree: true });
+  let mutationObserver = new MutationObserver(function () { flash_controller() });
+  mutationObserver.observe(document.getElementById('flash_container'), { childList: true, subtree: true });
   if ($('#flash_message').text()) { flash_controller() };
 
 
   //無限スクロール
-  $(document).on('scroll', function(){
-    if($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
-      if($('#loading-target').length && $('#loading-target').css('display') !== 'none' ){
+  $(document).on('scroll', function () {
+    if ($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
+      if ($('#loading-target').length && $('#loading-target').css('display') !== 'none') {
         $.ajax({
           type: 'GET',
           dataType: 'script',
@@ -186,9 +231,41 @@ $(function() {
         })
         $('#loading-target').css('display', 'none');
       }
-      if(!$('#loading-icon').length){
+      if (!$('#loading-icon').length) {
         $('#loading-container').append('<div class="loading-icon" id="loading-icon"></div>')
       }
     }
   })
+
+
+  //任意のタブにURLからリンクするための設定
+  function GethashID (hashIDName){
+    if(hashIDName){
+      //タブ設定
+      $('.tab-links li').find('a').each(function() { //タブ内のaタグ全てを取得
+        var idName = $(this).attr('href'); //タブ内のaタグのリンク名（例）#lunchの値を取得
+        if(idName == hashIDName){ //リンク元の指定されたURLのハッシュタグ（例）http://example.com/#lunch←この#の値とタブ内のリンク名（例）#lunchが同じかをチェック
+          var parentElm = $(this).parent(); //タブ内のaタグの親要素（li）を取得
+          $('.tab-links li').removeClass("active"); //タブ内のliについているactiveクラスを取り除き
+          $(parentElm).addClass("active"); //リンク元の指定されたURLのハッシュタグとタブ内のリンク名が同じであれば、liにactiveクラスを追加
+          //表示させるエリア設定
+          $(".tab-body").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
+          $(hashIDName).addClass("is-active"); //表示させたいエリアのタブリンク名をクリックしたら、表示エリアにis-activeクラスを追加
+        }
+      });
+    }
+  }
+  //タブをクリックしたら
+  $('.tab-links a').on('click', function() {
+    var idName = $(this).attr('href'); //タブ内のリンク名を取得
+    GethashID (idName);//設定したタブの読み込みと
+    return false;//aタグを無効にする
+  });
+  // 上記の動きをページが読み込まれたらすぐに動かす
+  $(window).on('load', function () {
+      $('.tab-links li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
+      $('.tab-body:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+    var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
+    GethashID (hashName);//設定したタブの読み込み
+  });
 });

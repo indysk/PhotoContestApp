@@ -14,7 +14,7 @@
             </div>
             <div class="header__nav-accordionmenu-window" style="display: none;">
               <div class="header__nav-accordionmenu-contents">
-                  <%= link_to  "プロフィールを見る", user_path(current_user), class: 'header__nav-accordionmenu-item' %>
+                  <%= link_to  "ユーザページ", user_path(current_user), class: 'header__nav-accordionmenu-item' %>
                   <%= link_to  "プロフィールを編集", edit_user_registration_path(current_user), class: 'header__nav-accordionmenu-item' %>
                   <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'header__nav-accordionmenu-item' %>
               </div>

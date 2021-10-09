@@ -9,7 +9,7 @@
       <% end %>
       <div class="photoCreate__form-group photoCreate__form-preview-group">
         <%= f.label :image, @labels[:image], class: 'photoCreate__form-label' %>
-        <%= f.file_field :image, id: 'photoFileField', class:'photoCreate__form-input' %>
+        <%= f.file_field :image, id: 'photoFileField', class:'photoCreate__form-input', accept: 'image/jpg, image/jpeg, image/png' %>
       </div>
 
       <div class="photoCreate__form-group">

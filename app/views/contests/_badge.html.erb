@@ -1,6 +1,6 @@
 <% if contest.is_in_period_entry? %>
   <% if contest.is_already_submitted?(current_user) %>
-    <%= link_to  "作品提出済み", edit_contest_photo_path(contest, Photo.find_by(contest: contest, user: current_user)), class: 'contestlist__item__header-badge' %>
+    <%= link_to  "作品提出済みcontests/_badge", edit_contest_photo_path(contest, Photo.find_by(contest: contest, user: current_user)), class: 'contestlist__item__header-badge' %>
   <% else %>
     <%= link_to  "作品募集中", new_contest_photo_path(contest), class: 'contestlist__item__header-badge' %>
   <% end %>
