@@ -15,6 +15,10 @@ ja:
         display_entries: '%{entry_name}の%{first}-%{last}件を表示中 / 合計%{total}件'
 
   #===表示文字一元管理=====================================================================
+  contests:
+    index:
+      contests_new: 最新のコンテスト
+      contest_create: 新しいコンテストを作る
   contest:
     item:
       entry_period: "募集期間"
@@ -63,3 +67,20 @@ ja:
         '0': 投票結果でのみ公開
         '1': 作品一覧と投票結果で公開
         '2': 公開しない
+  aside:
+    title:
+      contest_submited: 応募したコンテスト(応募順)
+      photo_submited: 応募した作品(応募順)
+    table:
+      date_vote_end: 投票終了日時
+      contest_title: コンテスト名
+      photo_title: 作品名
+      no_contests: 応募したコンテストはありません
+      no_photos: 提出した作品はありません
+    user:
+      no_login: ログインしていません
+      guide_login_page: 下のリンクからログインまたは新規登録する。
+
+  user:
+    signup: 新規登録
+    login: ログイン

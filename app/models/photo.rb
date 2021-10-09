@@ -9,6 +9,7 @@ class Photo < ApplicationRecord
   attr_accessor :vote_points
   attr_accessor :vote_rank
 
+  scope :public_all, -> (time = Time.current){ left_joins(:contest).after_vote.where('`contests`.`visible_range_show` <= 0 OR `contests`.`visible_range_result` <= 0') }
   scope :after_vote, -> (time = Time.current){ left_joins(:contest).where('`contests`.`vote_end_at` <= ?', time) }
 
   # #===nameカラム===========================================================

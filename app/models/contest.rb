@@ -15,17 +15,20 @@ class Contest < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  #公開されているコンテストすべて
   scope :public_all, -> (time = Time.current){ where('( :time < `contests`.`entry_end_at` AND `contests`.`visible_range_entry` = 0 ) OR ( `contests`.`entry_end_at` <= :time AND :time < `contests`.`vote_end_at` AND `contests`.`visible_range_vote` = 0 ) OR ( `contests`.`vote_end_at` <= :time AND ( `contests`.`visible_range_show` = 0 OR `contests`.`visible_range_result` = 0 ) )', {time: time}) }
+
+  #公開非公開を明示
   scope :public_page, -> (page){ where(:"visible_range_#{page}" => 0)}
   scope :private_page, -> (page){ where(:"visible_range_#{page}" => 1)}
 
-
+  #公開非公開どちらも含めてidで検索
   scope :find_entry_by_id,  -> (contest_id){ where('(`contests`.`id` = :id AND `contests`.`visible_range_entry`  = 0) OR (`contests`.`limited_url_entry`  = :id AND `contests`.`visible_range_entry`  = 1)', {id: contest_id}).limit(1) }
   scope :find_vote_by_id,   -> (contest_id){ where('(`contests`.`id` = :id AND `contests`.`visible_range_vote`   = 0) OR (`contests`.`limited_url_vote`   = :id AND `contests`.`visible_range_vote`   = 1)', {id: contest_id}).limit(1) }
   scope :find_show_by_id,   -> (contest_id){ where('(`contests`.`id` = :id AND `contests`.`visible_range_show`   = 0) OR (`contests`.`limited_url_show`   = :id AND `contests`.`visible_range_show`   = 1)', {id: contest_id}).limit(1) }
   scope :find_result_by_id, -> (contest_id){ where('(`contests`.`id` = :id AND `contests`.`visible_range_result` = 0) OR (`contests`.`limited_url_result` = :id AND `contests`.`visible_range_result` = 1)', {id: contest_id}).limit(1) }
 
-
+  #時期を指定
   scope :in_period_entry,    -> (time = Time.current){ where(entry_end_at:   time...Float::INFINITY) }
   scope :in_period_vote,     -> (time = Time.current){ where(entry_end_at:   -Float::INFINITY..time, vote_end_at:  time...Float::INFINITY) }
   scope :in_period_entering, -> (time = Time.current){ where(entry_start_at: -Float::INFINITY..time, entry_end_at: time...Float::INFINITY) }
@@ -260,11 +263,11 @@ class Contest < ApplicationRecord
   end
   def self.select_options
     options = {
-      visible_range_entry:           [[t('contest.select.visible_range_entry.0'), 0], [t('contest.select.visible_range_entry.1'), 1]],
-      visible_range_vote:            [[t('contest.select.visible_range_vote.0'), 0], [t('contest.select.visible_range_vote.1'), 1]],
-      visible_range_show:            [[t('contest.select.visible_range_show.0'), 0], [t('contest.select.visible_range_show.1'), 1]],
-      visible_range_result:          [[t('contest.select.visible_range_result.0'), 0], [t('contest.select.visible_range_result.1'), 1]],
-      visible_setting_for_user_name: [[t('contest.visible_setting_for_user_name.0'), 0], [t('contest.visible_setting_for_user_name.1'), 1], [t('contest.visible_setting_for_user_name.2'), 2]]
+      visible_range_entry:           [[I18n.t('contest.select.visible_range_entry.0'), 0], [I18n.t('contest.select.visible_range_entry.1'), 1]],
+      visible_range_vote:            [[I18n.t('contest.select.visible_range_vote.0'), 0], [I18n.t('contest.select.visible_range_vote.1'), 1]],
+      visible_range_show:            [[I18n.t('contest.select.visible_range_show.0'), 0], [I18n.t('contest.select.visible_range_show.1'), 1]],
+      visible_range_result:          [[I18n.t('contest.select.visible_range_result.0'), 0], [I18n.t('contest.select.visible_range_result.1'), 1]],
+      visible_setting_for_user_name: [[I18n.t('contest.select.visible_setting_for_user_name.0'), 0], [I18n.t('contest.select.visible_setting_for_user_name.1'), 1], [I18n.t('contest.select.visible_setting_for_user_name.2'), 2]]
     }
   end
   def self.form_options
