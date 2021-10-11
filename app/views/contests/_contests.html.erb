@@ -1,0 +1,12 @@
+<ul class="contests-container">
+  <% if contests.present? %>
+    <%= render partial: 'contests/contest', collection: contests %>
+  <% end %>
+</ul>
+<% if contests.last_page? || contests.out_of_range? %>
+  <p>検索結果は以上です</p>
+<% else %>
+  <div id="loading-container" class="loading-container">
+    <%= link_to_next_page contests, 'もっと見る', remote: true, id: 'loading-target' %>
+  </div>
+<% end %>

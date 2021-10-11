@@ -1,0 +1,23 @@
+<% content_tag_options_for_contest_links(contest, 'contest__header-link').each do |link_options| %>
+  <% if link_options[:tag] == 'menu' %>
+    <%= content_tag(:div, link_options[:options]) do %>
+      <%= link_options[:content] %>
+
+      <div id="menu_photos" class="menu">
+        <% if @user_photos.present? %>
+          <ul>
+            <% @user_photos.each do |photo| %>
+              <li><%= link_to photo.name, edit_contest_photo_path(contest, photo) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>作品の取得に失敗しました</p>
+        <% end %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <%= content_tag(link_options[:tag], link_options[:content], link_options[:options]) %>
+  <% end %>
+
+<% end %>

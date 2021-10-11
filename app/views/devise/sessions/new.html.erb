@@ -22,6 +22,12 @@
       </div>
     <% end %>
 
-    <%= f.submit "ログインする" %>
+    <%= f.submit t('user.login') %>
+    <p>または<%= link_to t('user.signup'), new_user_registration_path %></p>
+
+
   <% end %>
+
+
+
 </div>

@@ -3,7 +3,7 @@
   <% if user_signed_in? %>
     <li class="aside__item-container">
       <div class="aside__item__header-container">
-        <h3>応募したコンテスト(応募順)</h3>
+        <h3><%= t 'aside.title.contest_submited' %></h3>
       </div>
       <div class="aside__item__body-container">
         <div class="aside__item__body-main">
@@ -11,8 +11,8 @@
           <table class="aside__item__body-table">
             <thead>
               <tr>
-                <th>投票終了日時</th>
-                <th>コンテスト名</th>
+                <th><%= t 'aside.table.date_vote_end' %></th>
+                <th><%= t 'aside.table.contest_title' %></th>
               </tr>
             </thead>
             <% if @submited_contests.present? %>
@@ -21,7 +21,7 @@
               </tbody>
             <% else %>
               <tbody>
-                <tr><td>-</td><td>応募したコンテストはありません</tr></td>
+                <tr><td>-</td><td><%= t 'aside.table.no_contests' %></tr></td>
               </tbody>
             <% end %>
           </table>
@@ -31,7 +31,7 @@
 
     <li class="aside__item-container">
       <div class="aside__item__header-container">
-        <h3>応募した作品(応募順)</h3>
+        <h3><%= t 'aside.title.photo_submited' %></h3>
       </div>
       <div class="aside__item__body-container">
         <div class="aside__item__body-main">
@@ -39,8 +39,8 @@
           <table class="aside__item__body-table">
             <thead>
               <tr>
-                <th>投票終了日時</th>
-                <th>作品タイトル</th>
+                <th><%= t 'aside.table.date_vote_end' %></th>
+                <th><%= t 'aside.table.photo_title' %></th>
               </tr>
             </thead>
             <% if @submited_photos.present? %>
@@ -49,7 +49,7 @@
               </tbody>
             <% else %>
               <tbody>
-                <tr><td>-</td><td>提出した作品はありません</tr></td>
+                <tr><td>-</td><td><%= t 'aside.table.no_photos' %></tr></td>
               </tbody>
             <% end %>
           </table>
@@ -59,13 +59,13 @@
   <% else %>
     <li class="aside__item-container">
       <div class="aside__item__header-container">
-        <h3>ログインしていません</h3>
+        <h3><%= t 'aside.user.no_login' %></h3>
       </div>
       <div class="aside__item__body-container">
         <div class="aside__item__body-main">
-          <p class="contestlist__aside-p">下のリンクからログインまたは新規登録する。</p>
-          <%= link_to '新規登録', new_user_registration_path, class: 'contestlist__aside-link' %>
-          <%= link_to 'ログイン', new_user_session_path, class: 'contestlist__aside-link' %>
+          <p class="contestlist__aside-p"><%= t 'aside.user.guide_login_page' %></p>
+          <%= link_to t('user.signup'), new_user_registration_path, class: 'contestlist__aside-link' %>
+          <%= link_to t('user.login'), new_user_session_path, class: 'contestlist__aside-link' %>
         </div>
       </div>
     </li>
@@ -73,13 +73,13 @@
 <% end %>
 
 <div class="contestlist__header-container">
-  <h2 class="contestlist__header-title">最新のコンテスト</h2>
+  <h2 class="contestlist__header-title"><%= t '.contests_new' %></h2>
   <%= link_to new_contest_path, class: 'contestlist__header-newlink' do %>
     <i class="contestlist__header-newlink-icon fas fa-plus-circle"></i>
-    <p class="contestlist__header-newlink-value">新しいコンテストを作る</p>
+    <p class="contestlist__header-newlink-value"><%= t '.contest_create' %></p>
   <% end %>
 </div>
 
 <div class="contestlist__body-container" id="contestlist__photolist-container">
-  <%= render  "photos" %>
+  <%= render  "contests", contests: @contests %>
 </div>

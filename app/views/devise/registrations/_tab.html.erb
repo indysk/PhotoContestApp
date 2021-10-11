@@ -1,0 +1,14 @@
+<div class="tab-container">
+  <ul class="tab-links">
+    <li><a href="#photos">応募した作品</a></li>
+    <li><a href="#contests">作成したコンテスト</a></li>
+  </ul>
+
+  <div id="photos" class="tab-body">
+    <%= render  "photos/photos" %>
+  </div>
+
+  <div id="contests" class="tab-body">
+    <%= render  "contests/contests", contests: @contests %>
+  </div>
+</div>

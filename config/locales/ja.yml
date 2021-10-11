@@ -1,4 +1,5 @@
 ja:
+  #===kaminari===========================================================================
   views:
     pagination:
       previous: "&lt; 前へ"
@@ -12,3 +13,98 @@ ja:
         display_entries: '%{entry_name}の1-%{count}件を表示中 / 合計%{count}件'
       more_pages:
         display_entries: '%{entry_name}の%{first}-%{last}件を表示中 / 合計%{total}件'
+
+  #===表示文字一元管理=====================================================================
+  contests:
+    item:
+      name: コンテスト名
+      creater: 作成者
+      description: コンテストの説明
+      description: コンテストの説明
+      entry_period: 募集期間
+      entry_start_at: 作品の募集開始日時
+      entry_end_at: 作品の募集終了日時
+      vote_period: 投票期間
+      vote_start_at: 投票の募集開始日時
+      vote_end_at: 投票の募集終了日時
+      visible_range_entry: 応募ページの公開範囲
+      visible_range_vote: 投票ページの公開範囲
+      visible_range_show: 作品一覧の公開範囲
+      visible_range_result: 投票結果の公開範囲
+      visible_setting_for_user_name: 応募者名の公開
+      voting_points: 投票者の持ち点
+      num_of_views_in_result: 表示する順位
+      num_of_submit_limit: 作品の提出上限
+
+    index:
+      contests_new: 最新のコンテスト
+      contest_create: 新しいコンテストを作る
+
+    show:
+      info: コンテスト情報
+      period: 作品募集と投票の期間
+      vote_setting: 投票の設定
+      visible_range_setting: 公開範囲の設定
+      admin_area: 管理者用
+
+    badge:
+      show_result_invisible: 非公開
+      vote_finish: 投票終了
+      already_voted: 投票済み
+      vote_invisible: 非公開
+      vote_period: 投票期間中
+      vote_preparing: 投票準備中
+      already_entered: 作品提出済み
+      entry_invisible: 非公開
+      entry_period: 作品募集中
+      entry_preparing: 準備中
+
+    links:
+      result: 投票結果
+      result_invisible: 投票結果(非公開)
+      show: 作品一覧
+      show_invisible: 作品一覧(非公開)
+      vote: 投票する
+      vote_invisible: 投票ページ(非公開)
+      vote_prepering: 投票ページ(準備中)
+      already_voted: 投票済み
+      entry: 作品を提出する
+      entry_invisible: 作品提出ページ(非公開)
+      entry_preparing: コンテスト準備中
+      already_entered: 提出済み[作品を編集する]
+    select:
+      visible_range_entry:
+        '0': 一般に公開
+        '1': URLで限定公開
+      visible_range_vote:
+        '0': 一般に公開
+        '1': URLで限定公開
+      visible_range_show:
+        '0': 一般に公開
+        '1': URLで限定公開
+      visible_range_result:
+        '0': 一般に公開
+        '1': URLで限定公開
+      visible_setting_for_user_name:
+        '0': 投票結果でのみ公開
+        '1': 作品一覧と投票結果で公開
+        '2': 公開しない
+
+
+  aside:
+    title:
+      contest_submited: 応募したコンテスト(応募順)
+      photo_submited: 応募した作品(応募順)
+    table:
+      date_vote_end: 投票終了日時
+      contest_title: コンテスト名
+      photo_title: 作品名
+      no_contests: 応募したコンテストはありません
+      no_photos: 提出した作品はありません
+    user:
+      no_login: ログインしていません
+      guide_login_page: 下のリンクからログインまたは新規登録する。
+
+  user:
+    signup: 新規登録
+    login: ログイン

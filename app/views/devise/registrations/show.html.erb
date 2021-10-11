@@ -20,19 +20,7 @@
   </div>
 
   <div class="user__photos-container">
-    <h3 class="user__photos-title">応募した作品</h3>
-      <% if @photos.present? %>
-        <%= paginate @photos, param_name: "page_photos" %>
-        <ul class="user__photoslist-container">
-          <%= render partial: 'photos/photo', collection: @photos %>
-        </ul>
-        <%= paginate @photos, param_name: "page_photos" %>
-      <% else %>
-        <ul class="user__photoslist-container">
-          <p>作品が見つかりません</p>
-        </ul>
-      <% end %>
-    </ul>
+    <%= render 'tab' %>
   </div>
 
 </div>
