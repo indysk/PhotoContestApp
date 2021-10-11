@@ -11,6 +11,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 gem 'devise'
 gem 'jquery-rails'
 gem 'carrierwave'
