@@ -1,93 +1,85 @@
 <% provide(:title, @contest.name) %>
 <% provide(:aside_type,'none')%>
 <% provide(:aside,'none')%>
-<% labels = Contest.model_labels %>
 <div class="contest-container">
 
   <div class="contest__header-container">
     <div class="contest__header-content">
       <h1 class="contest__header-title"><%= @contest.name %></h1>
-      <% badge_options = content_tag_options_for_contest_badge(@contest, 'contest__header-badge') %>
-      <%= content_tag(badge_options[:tag], badge_options[:content], badge_options[:options]) %>
+      <%= render 'contests/badge', contest: @contest %>
     </div>
 
     <div class="contest__header-links">
-      <% content_tag_options_for_contest_links(@contest, 'contest__header-link').each do |link_options| %>
-        <%= content_tag(link_options[:tag], link_options[:content], link_options[:options]) %>
-      <% end %>
+      <%= render 'contests/links', contest: @contest %>
     </div>
   </div>
 
-
-
-
-
-  <h3 class="contest__info-title">コンテスト情報</h3>
+  <h3 class="contest__info-title"><%= t '.info' %></h3>
   <div class="contest__info-container">
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:organizer] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.creater' %></p>
       <p class="contest__info-p"><%= link_to @contest.user.name, user_path(@contest.user) %></p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:description] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.description' %></p>
       <p class="contest__info-p"><%= @contest.description %></p>
     </div>
   </div>
 
-  <h3 class="contest__info-title">作品募集と投票の期間</h3>
+  <h3 class="contest__info-title"><%= t '.period' %></h3>
   <div class="contest__info-container">
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:entry_period] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.entry_period' %></p>
       <p class="contest__info-p"><%= @contest.entry_start_at.to_s(:datetime_jp) %> ～ <%= @contest.entry_end_at.to_s(:datetime_jp) %></p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:vote_period] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.vote_period' %></p>
       <p class="contest__info-p"><%=  @contest.vote_start_at.to_s(:datetime_jp) %> ～ <%= @contest.vote_end_at.to_s(:datetime_jp) %></p>
     </div>
   </div>
 
-  <h3 class="contest__info-title">投票の設定</h3>
+  <h3 class="contest__info-title"><%= t '.vote_setting' %></h3>
   <div class="contest__info-container">
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:num_of_submit_limit] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.num_of_submit_limit' %></p>
       <p class="contest__info-p"><%= @contest.num_of_submit_limit %> つ</p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:voting_points] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.voting_points' %></p>
       <p class="contest__info-p"><%= @contest.voting_points %> pt</p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:num_of_views_in_result] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.num_of_views_in_result' %></p>
       <p class="contest__info-p"><%= @contest.num_of_views_in_result %> 位まで</p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:visible_setting_for_user_name] %></p>
-      <p class="contest__info-p"><%= @options[:visible_setting_for_user_name][@contest.visible_setting_for_user_name][0] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.visible_setting_for_user_name' %></p>
+      <p class="contest__info-p"><%= t "contests.select.visible_setting_for_user_name.#{@contest.visible_setting_for_user_name}" %></p>
     </div>
   </div>
 
-  <h3 class="contest__info-title">公開範囲の設定</h3>
+  <h3 class="contest__info-title"><%= t '.visible_range_setting' %></h3>
   <div class="contest__info-container">
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:visible_range_entry] %></p>
-      <p class="contest__info-p"><%= @options[:visible_range_entry][@contest.visible_range_entry][0] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.visible_range_entry' %></p>
+      <p class="contest__info-p"><%= t "contests.select.visible_setting_for_user_name.#{@contest.visible_range_entry}" %></p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:visible_range_vote] %></p>
-      <p class="contest__info-p"><%= @options[:visible_range_vote][@contest.visible_range_vote][0] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.visible_range_vote' %></p>
+      <p class="contest__info-p"><%= t "contests.select.visible_setting_for_user_name.#{@contest.visible_range_vote}" %></p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:visible_range_show] %></p>
-      <p class="contest__info-p"><%= @options[:visible_range_show][@contest.visible_range_show][0] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.visible_range_show' %></p>
+      <p class="contest__info-p"><%= t "contests.select.visible_setting_for_user_name.#{@contest.visible_range_show}" %></p>
     </div>
     <div class="contest__info-group">
-      <p class="contest__info-label"><%= labels[:visible_range_result] %></p>
-      <p class="contest__info-p"><%= @options[:visible_range_result][@contest.visible_range_result][0] %></p>
+      <p class="contest__info-label"><%= t 'contests.item.visible_range_result' %></p>
+      <p class="contest__info-p"><%= t "contests.select.visible_setting_for_user_name.#{@contest.visible_range_result}" %></p>
     </div>
   </div>
 
   <% if correct_user?(@contest.user) %>
-    <h3 class="contest__info-title">管理者用</h3>
+    <h3 class="contest__info-title"><%= t '.admin_area' %></h3>
     <div class="contest__info-container">
       <div class="contest__info-group">
         <%= render partial: 'copy_url', collection: @urls, as: 'url' %>
@@ -100,9 +92,6 @@
           <%= render 'shared/modal_form', link_message: '[このコンテストを削除]', modal_message: "コンテスト名：#{@contest.name}を削除しますか？", link: contest_path(@contest), method: 'delete' %>
         </p>
       </div>
-
     </div>
   <% end %>
-
-
 </div>

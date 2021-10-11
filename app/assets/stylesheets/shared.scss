@@ -982,6 +982,34 @@ nav.pagination {
   }
 }
 
+.menu {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  transform: translateX(100%);
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  & ul li a {
+    border: 1px #444 solid;
+    color: #444;
+    font-size: 1rem;
+    display: block;
+    padding: 8px 16px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.js-menu {
+  position: relative;
+  cursor: pointer;
+}
 
 .loading {
   &-container {

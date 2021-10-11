@@ -263,9 +263,26 @@ $(function () {
   });
   // 上記の動きをページが読み込まれたらすぐに動かす
   $(window).on('load', function () {
-      $('.tab-links li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
-      $('.tab-body:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+    $('.tab-links li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
+    $('.tab-body:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
     var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
     GethashID (hashName);//設定したタブの読み込み
+  });
+
+
+  //メニュー用
+  $('.js-menu').on('click', function() {
+    $('#' + this.dataset.menutarget).toggleClass("active");
+  });
+  $('.js-menu').mouseover(function() {
+    $(this).css('opacity', '.8');
+	}).mouseout(function() {
+    $(this).css('opacity', '1');
+	});
+  $('.menu.active').mouseover(function(e) {
+    $(this).css('background-color', '#eee');
+    e.stopPropagation();
+  }).mouseout(function(e) {
+    e.stopPropagation();
   });
 });

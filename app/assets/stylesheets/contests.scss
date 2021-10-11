@@ -15,7 +15,8 @@
       letter-spacing: 1px;
       width: 44%;
       border-bottom: $border_nomal;
-      @include mobile{
+
+      @include mobile {
         width: auto;
       }
     }
@@ -312,31 +313,43 @@
       border-radius: 8px;
       color: #ffffff;
       margin-right: 16px;
-      &.inactive{
+
+      &.inactive {
         background-color: #a6a7aa;
         border: 1px #a6a7aa solid;
       }
-      &:hover{
+
+      &:hover {
         color: #fff;
         background-color: #3776f9;
         text-decoration: none;
-        &.inactive{
+
+        &.inactive {
           background-color: #a6a7aa;
         }
+
+        &.js-menu {
+          background-color: #6b95ee;
+        }
       }
-      &:last-child{
+
+      &:last-child {
         margin-right: 0;
       }
-      &.photo_list{
+
+      &.photo_list {
         background-color: #fff;
         color: #6b95ee;
-        &.inactive{
+
+        &.inactive {
           color: #a6a7aa;
         }
-        &:hover{
+
+        &:hover {
           color: #6b95ee;
           background-color: unset;
-          &.inactive{
+
+          &.inactive {
             color: #a6a7aa;
           }
         }

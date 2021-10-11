@@ -10,8 +10,7 @@ class ContestsController < ApplicationController
 
   def show
     if @contest = Contest.find_by(id: params[:id])
-      @photos = @contest.photos.includes(:user).order('id ASC')
-      @options ||= Contest.select_options
+      @user_photos = @contest.photos.where(user: current_user)
       @urls = Url.new().urls_for_view(@contest)
     else
       flash[:danger] = 'コンテストは存在しません'

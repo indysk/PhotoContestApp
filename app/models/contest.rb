@@ -263,11 +263,11 @@ class Contest < ApplicationRecord
   end
   def self.select_options
     options = {
-      visible_range_entry:           [[I18n.t('contest.select.visible_range_entry.0'), 0], [I18n.t('contest.select.visible_range_entry.1'), 1]],
-      visible_range_vote:            [[I18n.t('contest.select.visible_range_vote.0'), 0], [I18n.t('contest.select.visible_range_vote.1'), 1]],
-      visible_range_show:            [[I18n.t('contest.select.visible_range_show.0'), 0], [I18n.t('contest.select.visible_range_show.1'), 1]],
-      visible_range_result:          [[I18n.t('contest.select.visible_range_result.0'), 0], [I18n.t('contest.select.visible_range_result.1'), 1]],
-      visible_setting_for_user_name: [[I18n.t('contest.select.visible_setting_for_user_name.0'), 0], [I18n.t('contest.select.visible_setting_for_user_name.1'), 1], [I18n.t('contest.select.visible_setting_for_user_name.2'), 2]]
+      visible_range_entry:           [[I18n.t('contests.select.visible_range_entry.0'), 0], [I18n.t('contests.select.visible_range_entry.1'), 1]],
+      visible_range_vote:            [[I18n.t('contests.select.visible_range_vote.0'), 0], [I18n.t('contests.select.visible_range_vote.1'), 1]],
+      visible_range_show:            [[I18n.t('contests.select.visible_range_show.0'), 0], [I18n.t('contests.select.visible_range_show.1'), 1]],
+      visible_range_result:          [[I18n.t('contests.select.visible_range_result.0'), 0], [I18n.t('contests.select.visible_range_result.1'), 1]],
+      visible_setting_for_user_name: [[I18n.t('contests.select.visible_setting_for_user_name.0'), 0], [I18n.t('contests.select.visible_setting_for_user_name.1'), 1], [I18n.t('contests.select.visible_setting_for_user_name.2'), 2]]
     }
   end
   def self.form_options

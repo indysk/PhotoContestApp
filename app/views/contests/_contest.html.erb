@@ -4,7 +4,7 @@
 
     <% unless controller_name == 'registrations' && action_name == 'show' %>
       <%= link_to user_path(contest.user), class: 'contests__item__header-creater-link' do %>
-        <p class="contests__item__header-creater-label"><%= t 'contest.item.creater' %></p>
+        <p class="contests__item__header-creater-label"><%= t 'contests.item.creater' %></p>
         <%= image_tag contest.user.image.url, class: 'contests__item__header-creater-img' %>
         <p class="contests__item__header-creater-name"><%= contest.user.name %></p>
       <% end %>
@@ -16,9 +16,9 @@
 
   <%= link_to contest_path(contest), class: 'contests__item__body-container' do %>
     <div class="contests__item__body-main">
-      <p class="contests__item__body-main-p <%= 'need' if badge_options[:value] < 2 %>"><%= t 'contest.item.entry_period' %>：<%= print_datetime_with_wday(contest.entry_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.entry_end_at) %></p>
-      <p class="contests__item__body-main-p <%= 'need' if badge_options[:value] >= 2 %>"><%= t 'contest.item.vote_period' %>：<%= print_datetime_with_wday(contest.vote_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.vote_end_at) %></p>
-      <p class="contests__item__body-main-p"><%= t 'contest.item.visible_setting_for_user_name' %>：<%= t("contest.select.visible_setting_for_user_name.#{contest.visible_setting_for_user_name}") %></p>
+      <p class="contests__item__body-main-p <%= 'need' if badge_options[:value] < 2 %>"><%= t 'contests.item.entry_period' %>：<%= print_datetime_with_wday(contest.entry_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.entry_end_at) %></p>
+      <p class="contests__item__body-main-p <%= 'need' if badge_options[:value] >= 2 %>"><%= t 'contests.item.vote_period' %>：<%= print_datetime_with_wday(contest.vote_start_at) %> <i class="fas fa-caret-right"></i> <%= print_datetime_with_wday(contest.vote_end_at) %></p>
+      <p class="contests__item__body-main-p"><%= t 'contests.item.visible_setting_for_user_name' %>：<%= t("contests.select.visible_setting_for_user_name.#{contest.visible_setting_for_user_name}") %></p>
     </div>
     <div class="contests__item__body-sub">
       <div class="contests__item__body-sub-p"><%= contest.excerpt_description(100) %></div>

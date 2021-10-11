@@ -16,15 +16,36 @@ ja:
 
   #===表示文字一元管理=====================================================================
   contests:
+    item:
+      name: コンテスト名
+      creater: 作成者
+      description: コンテストの説明
+      description: コンテストの説明
+      entry_period: 募集期間
+      entry_start_at: 作品の募集開始日時
+      entry_end_at: 作品の募集終了日時
+      vote_period: 投票期間
+      vote_start_at: 投票の募集開始日時
+      vote_end_at: 投票の募集終了日時
+      visible_range_entry: 応募ページの公開範囲
+      visible_range_vote: 投票ページの公開範囲
+      visible_range_show: 作品一覧の公開範囲
+      visible_range_result: 投票結果の公開範囲
+      visible_setting_for_user_name: 応募者名の公開
+      voting_points: 投票者の持ち点
+      num_of_views_in_result: 表示する順位
+      num_of_submit_limit: 作品の提出上限
+
     index:
       contests_new: 最新のコンテスト
       contest_create: 新しいコンテストを作る
-  contest:
-    item:
-      entry_period: "募集期間"
-      vote_period: "投票期間"
-      creater: "作成者"
-      visible_setting_for_user_name: "応募者名の公開"
+
+    show:
+      info: コンテスト情報
+      period: 作品募集と投票の期間
+      vote_setting: 投票の設定
+      visible_range_setting: 公開範囲の設定
+      admin_area: 管理者用
 
     badge:
       show_result_invisible: 非公開
@@ -37,6 +58,7 @@ ja:
       entry_invisible: 非公開
       entry_period: 作品募集中
       entry_preparing: 準備中
+
     links:
       result: 投票結果
       result_invisible: 投票結果(非公開)
@@ -67,6 +89,8 @@ ja:
         '0': 投票結果でのみ公開
         '1': 作品一覧と投票結果で公開
         '2': 公開しない
+
+
   aside:
     title:
       contest_submited: 応募したコンテスト(応募順)
