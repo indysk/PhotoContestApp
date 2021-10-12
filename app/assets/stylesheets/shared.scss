@@ -237,9 +237,9 @@ a {
       }
 
       &-item {
-        font-size: 0.8rem;
+        font-size: 1rem;
         border-bottom: 1px solid black;
-        padding: 4px 8px;
+        padding: 8px 8px;
 
         &:last-child {
           border-bottom: none;
@@ -368,10 +368,12 @@ a {
   }
 
   &__bg {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     height: 100vh;
     position: absolute;
     width: 100%;
+    opacity: 0;
+    transition: cubic-bezier(1, 0.05, 0.6, 0.91) 0.2s;
   }
 
   &__content {
@@ -380,10 +382,11 @@ a {
 
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    transform: translate(-50%, -100%);
+    opacity: 0;
+    transition: cubic-bezier(0.21, 1.01, 0.74, 0.99) 0.2s;
 
-    background-color: $color_main;
 
     &-title {
       width: 100%;
@@ -407,12 +410,15 @@ a {
       justify-content: center;
       align-items: center;
 
-      color: $color_base;
+      background-color: #e6e6e6;
+      color: #434343;
       word-break: break-all;
     }
   }
 
   &__icon {
+    $color_yes: #6f96ff;
+    $color_no: #ff7575;
 
     &-list {
       padding: 3vw 0;
@@ -437,6 +443,10 @@ a {
         left: $size_icon * (-1/2);
         cursor: pointer;
 
+        &:hover {
+          opacity: .6;
+        }
+
         &::before,
         &::after {
           content: '';
@@ -450,7 +460,7 @@ a {
           left: $size_icon * (9/14);
           height: $size_icon * (5/7);
           width: $size_icon * (5/7);
-          background-color: $color_main;
+          background-color: $color_no;
         }
 
         &::after {
@@ -458,7 +468,7 @@ a {
           left: $size_icon * (1/2);
           height: $size_icon;
           width: $size_icon;
-          border: 3px solid $color_main;
+          border: 3px solid $color_no;
         }
       }
     }
@@ -466,11 +476,11 @@ a {
     &-yes {
       &-link {
         &::before {
-          background-color: $color_main;
+          background-color: $color_yes;
         }
 
         &::after {
-          border: 3px solid $color_main;
+          border: 3px solid $color_yes;
         }
       }
 
@@ -984,13 +994,22 @@ nav.pagination {
 
 .menu {
   position: absolute;
-  top: 0;
-  right: -6px;
-  transform: translateX(100%);
   display: none;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  bottom: 0;
+  transform: translateY(calc(100% + 8px));
+  background-color: #fff;
+  opacity: .9;
+  width: unset;
 
   &.active {
     display: block;
+  }
+
+  & ul li {
+    padding-bottom: 4px;
   }
 
   & ul li a {
@@ -1004,12 +1023,28 @@ nav.pagination {
       text-decoration: none;
     }
   }
+
 }
 
 .js-menu {
   position: relative;
   cursor: pointer;
 }
+
+.notice {
+  & h4 {
+    padding: 16px;
+    border-left: 4px solid #fd6c6c;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  & p {
+    padding-top: 16px;
+    line-height: 1.6rem;
+  }
+}
+
 
 .loading {
   &-container {

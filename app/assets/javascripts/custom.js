@@ -3,13 +3,37 @@ $(function () {
   //モーダルフォーム
   $('.js-modal-open').each(function () {
     $(this).on('click', function () {
-      $('#' + this.dataset.target).fadeIn();
+      const target = $('#' + this.dataset.target);
+      const content = target.children('.modal__content');
+      const bg = target.children('.modal__bg');
+
+      target.css('display', 'block');
+      setTimeout(() => {
+        bg.css('opacity', '1');
+        content.css('top', '50%');
+        content.css('opacity', '1');
+        content.css('transform', 'translate(-50%, -50%)');
+      }, 1);
+      setTimeout(() => {
+        content.css('transition', 'cubic-bezier(1, 0.05, 0.6, 0.91) 0.2s')
+      }, 200);
       return true;
     });
   });
   $('.js-modal-close').each(function () {
     $(this).on('click', function () {
-      $('#' + this.dataset.target).fadeOut();
+      const target = $('#' + this.dataset.target);
+      const content = target.children('.modal__content');
+      const bg = target.children('.modal__bg');
+
+      setTimeout(() => {
+        target.css('display', 'none');
+        content.css('transition', '')
+      }, 200);
+      bg.css('opacity', '');
+      content.css('top', '');
+      content.css('opacity', '');
+      content.css('transform', '');
       return true;
     });
   });

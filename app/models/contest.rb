@@ -308,6 +308,10 @@ class Contest < ApplicationRecord
   end
 
 
+  def excerpt_name(i = 15)
+    name = self.name
+    name.length > i ? name[0..i-1] + '...' : name
+  end
   def excerpt_description(i = 50)
     description = self.description
     description.length > i ? description[0..i-1] + '...' : description

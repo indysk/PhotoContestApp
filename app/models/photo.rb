@@ -36,6 +36,11 @@ class Photo < ApplicationRecord
   # #========================================================================
 
 
+  def excerpt_name(i = 15)
+    name = self.name
+    name.length > i ? name[0..i-1] + '...' : name
+  end
+
   def attach_default_image
     if !self.image.attached?
       self.image.attach(io: File.open('app/assets/images/cat_S.jpg'), filename: 'cat_S.jpg', content_type: 'image/jpeg')

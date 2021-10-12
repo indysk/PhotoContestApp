@@ -20,6 +20,7 @@ gem 'virtus'
 gem 'kaminari'
 gem 'rails-i18n', '~> 5.1'
 gem 'faker'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'rspec-rails'
