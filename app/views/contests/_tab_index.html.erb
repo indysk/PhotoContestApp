@@ -1,0 +1,14 @@
+<div class="tab-container">
+  <ul class="tab-links">
+    <li><a href="#contests_new"><%= t '.contests_new' %></a></li>
+    <li><a href="#contests_submited"><%= t '.contests_submited' %></a></li>
+  </ul>
+
+  <div id="contests_new" class="tab-body">
+    <%= render  "contests", contests: @contests %>
+  </div>
+
+  <div id="contests_submited" class="tab-body">
+    <%= render  "contests", contests: @contests_submited %>
+  </div>
+</div>
