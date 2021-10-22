@@ -1,7 +1,18 @@
+<%
+
+# タブを追加する手順
+# 1. .tab-linksに項目を追加
+#   <li><a href="#contests_new">最新のコンテスト</a></li>
+# 2. .tabにタブを追加
+#   <div id="contests_submited" class="tab">
+#     <%= render "contests/tab", contests: @contests_submited, target: 'contests_submited' % >
+#   </div>
+
+%>
 <div class="tab-container">
   <ul class="tab-links">
-    <li><a href="#contests_new"><%= t '.contests_new' %></a></li>
-    <li><a href="#contests_submited"><%= t '.contests_submited' %></a></li>
+    <li><a href="#contests_new"><%= t 'contests.index.contests_new' %></a></li>
+    <li><a href="#contests_submited"><%= t 'contests.index.contests_submited' %></a></li>
   </ul>
 
   <div id="contests_new" class="tab">

@@ -256,33 +256,25 @@ $(function () {
         //トリガーそれぞれについて調べる
         //タブに対応するための処理．アクティブなタブのみ処理を行うようにする．
         $('.js-loading-trigger').each(function(){
+
           //タブがアクティブであるか
-          //トリガー要素の親がタブコンテナなので，コンテナのdisplayを調べる
+          //トリガー要素の親の親がタブなので，そのdisplayからタブがアクティブであるか調べる
           var parent = $(this).parent().parent()
+          //タブが存在するか，タブがアクティブであるか
           if(parent.hasClass('tab') && parent.css('display') == 'block'){
+            //ajax通信
             $.ajax({
               type: 'GET',
               dataType: 'script',
-              url: $().attr('href'),
-              data: {
-                target: this.dataset.target
-              }
+              url: $(this).attr('href'),
             })
-            $(this).css('display', 'none');
+            if (!$('.loading-container').length) {
+              console.log('test');
+              $(this).after('<div class="loading-container"><div class="loading-icon"></div></div>');
+            }
+            $(this).remove();
           }
         })
-      }
-
-      if ($('#loading-target').length && $('#loading-target').css('display') !== 'none') {
-        $.ajax({
-          type: 'GET',
-          dataType: 'script',
-          url: $('#loading-target').attr('href')
-        })
-        $('#loading-target').css('display', 'none');
-      }
-      if (!$('#loading-icon').length) {
-        $('#loading-container').append('<div class="loading-icon" id="loading-icon"></div>')
       }
     }
   })
@@ -299,7 +291,7 @@ $(function () {
           $('.tab-links li').removeClass("active"); //タブ内のliについているactiveクラスを取り除き
           $(parentElm).addClass("active"); //リンク元の指定されたURLのハッシュタグとタブ内のリンク名が同じであれば、liにactiveクラスを追加
           //表示させるエリア設定
-          $(".tab-body").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
+          $(".tab").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
           $(hashIDName).addClass("is-active"); //表示させたいエリアのタブリンク名をクリックしたら、表示エリアにis-activeクラスを追加
         }
       });
@@ -314,7 +306,7 @@ $(function () {
   // 上記の動きをページが読み込まれたらすぐに動かす
   $(window).on('load', function () {
     $('.tab-links li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
-    $('.tab-body:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+    $('.tab:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
     var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
     GethashID (hashName);//設定したタブの読み込み
   });

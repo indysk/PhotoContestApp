@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   #コンテスト+++++++++++++++++++++++++++++++++++++++++++++++++++++
   #index無限スクロール
-  get 'contests/more/:target', to: 'contests/index_ajax'
+  get 'contests/more', to: 'contests#index_ajax', as: 'contests_index_ajax'
   resources :contests, except: [:index] do
     #コンテストに紐付けられた写真
     resources :photos
