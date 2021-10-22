@@ -1,4 +1,4 @@
-$('#loading-container-<%= @target %>').remove();
+$('#tab-body-<%= @target %> .loading-container').remove();
 <% if @contests %>
   $("#tab-body-<%= @target %>").append("<%= j(render  "contests_ajax", contests: @contests, target: @target) %>");
 <% else %>

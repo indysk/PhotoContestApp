@@ -4,7 +4,7 @@ class ContestsController < ApplicationController
 
   def index
     @contests = Contest.public_all.order('contests.created_at DESC').includes(:user).page(params[:page]).per(10)
-    @contests_submited = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').page(params[:page]).per(10).select('contests.id, contests.name, contests.vote_end_at') if signed_in?
+    @contests_submited = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').includes(:user).page(params[:page]).per(10) if signed_in?
     @submited_photos = Photo.where(user: current_user).order('created_at DESC').limit(5).select('id, name, contest_id') if signed_in?
   end
 
@@ -64,7 +64,7 @@ class ContestsController < ApplicationController
       @contests = Contest.public_all.order('contests.created_at DESC').includes(:user).page(params[:page]).per(10)
       @target = 'contests'
     elsif params[:target] == 'contests_submited'
-      @contests = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').page(params[:page]).per(10).select('contests.id, contests.name, contests.vote_end_at') if signed_in?
+      @contests = Contest.joins(:photos).where('photos.user_id = ?', current_user.id).order('photos.created_at DESC').page(params[:page]).per(10) if signed_in?
       @target = 'contests_submited'
     end
   end
