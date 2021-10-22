@@ -1,6 +1,0 @@
-$('#loading-container').remove();
-<% if @contests %>
-  $("#contestlist__photolist-container").append("<%= j(render 'photos') %>");
-<% else %>
-  $("#contestlist__photolist-container").append($('<div>', { text:'コンテストは見つかりませんでした' }));
-<% end %>

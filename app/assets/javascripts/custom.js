@@ -245,8 +245,34 @@ $(function () {
 
 
   //無限スクロール
+  //ページスクロールをするとajax通信をする
+  //タブになっている要素にも適用できる
   $(document).on('scroll', function () {
+    //ページ下部であるか
     if ($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
+      //トリガーが存在するか確認する
+      //次に読み込むものがないとき，トリガーは出力されない
+      if ($('.js-loading-trigger').length){
+        //トリガーそれぞれについて調べる
+        //タブに対応するための処理．アクティブなタブのみ処理を行うようにする．
+        $('.js-loading-trigger').each(function(){
+          //タブがアクティブであるか
+          //トリガー要素の親がタブコンテナなので，コンテナのdisplayを調べる
+          var parent = $(this).parent().parent()
+          if(parent.hasClass('tab') && parent.css('display') == 'block'){
+            $.ajax({
+              type: 'GET',
+              dataType: 'script',
+              url: $().attr('href'),
+              data: {
+                target: this.dataset.target
+              }
+            })
+            $(this).css('display', 'none');
+          }
+        })
+      }
+
       if ($('#loading-target').length && $('#loading-target').css('display') !== 'none') {
         $.ajax({
           type: 'GET',

@@ -37,7 +37,9 @@ ja:
       num_of_submit_limit: 作品の提出上限
 
     index:
+      title: コンテスト一覧
       contests_new: 最新のコンテスト
+      contests_submited: 応募したコンテスト
       contest_create: 新しいコンテストを作る
 
     show:
