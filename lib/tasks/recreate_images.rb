@@ -1,3 +1,4 @@
+# rails runner lib/tasks/recreate_images.rb
 Photo.all.each do |model|
   begin
     p model.id
