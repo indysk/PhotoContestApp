@@ -1,6 +1,6 @@
 $(function () {
 
-  //モーダルフォーム
+    //モーダルフォーム
   $('.js-modal-open').each(function () {
     $(this).on('click', function () {
       const target = $('#' + this.dataset.target);
@@ -35,6 +35,21 @@ $(function () {
       content.css('opacity', '');
       content.css('transform', '');
       return true;
+    });
+  });
+
+
+  //作品のオリジナルデータをモーダルフォームを開いてから読み込み
+  // １．リンク(サムネイル)をクリック
+  // ２．クリックした要素のdata属性からオリジナルデータのリンク，オリジナルデータを反映させたい要素のIDを取得
+  // ３．反映
+  $('.js-load-photo').each(function () {
+    $(this).on('click', function () {
+      const photoURL = this.dataset.photo_url;
+      const photoTarget = this.dataset.photo_target;
+      console.log(photoURL);
+      console.log(photoTarget);
+      $("#" + photoTarget).attr('src', photoURL);
     });
   });
 
@@ -162,47 +177,6 @@ $(function () {
     });
   });
 
-
-  // //Contest Formのdatetime入力補助
-  // //d(日付)_1(募集)_a(開始)
-  // const DOM_d_1_a = $('#contest_entry_start_at_date');
-  // const DOM_d_1_b = $('#contest_entry_end_at_date');
-  // const DOM_d_2_a = $('#contest_vote_start_at_date');
-  // const DOM_d_2_b = $('#contest_vote_end_at_date');
-  // const DOM_t_1_a = $('#contest_entry_start_at_time');
-  // const DOM_t_1_b = $('#contest_entry_end_at_time');
-  // const DOM_t_2_a = $('#contest_vote_start_at_time');
-  // const DOM_t_2_b = $('#contest_vote_end_at_time');
-  // const DOM_date = $('.contestCreate__form-input-date');
-  // const DOM_time = $('.contestCreate__form-input-time');
-
-  // let changed_1_b = false;
-  // let changed_2_a = false;
-  // let changed_2_b = false;
-
-  // //日付が変更された時
-  // DOM_date.each(function(){
-  //   $(this).on('change',function(){
-  //     this_value = $(this).val();
-  //     this_date = new Date(this_value).getDate();
-  //     this_id = $(this).attr('id');
-
-  //     if(this_id === 'contest_entry_start_at_date'){
-  //       changed_1_b ? null : DOM_d_1_b.val(this_value);
-  //     }else if(this_id === 'contest_entry_end_at_date') {
-  //       changed_1_b = true;
-  //       changed_2_a ? null : DOM_d_2_a.val(this_value);
-  //       changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
-  //     }else if(this_id === 'contest_vote_start_at_date'){
-  //       changed_2_a = true;
-  //       changed_2_b ? null : DOM_d_2_b.val(this_value);
-  //     }else if(this_id === 'contest_vote_end_at_date'){
-  //       changed_2_b = true;
-  //     }
-  //   });
-  // });
-
-
   //URLのコピー処理
   $('.js-url-copy').each(function () {
     $(this).on('click', function () {
@@ -260,8 +234,8 @@ $(function () {
           //タブがアクティブであるか
           //トリガー要素の親の親がタブなので，そのdisplayからタブがアクティブであるか調べる
           var parent = $(this).parent().parent()
-          //タブが存在するか，タブがアクティブであるか
-          if(parent.hasClass('tab') && parent.css('display') == 'block'){
+          //タブではない，またはタブがであり，タブがアクティブであるか
+          if(!parent.hasClass('tab') || (parent.hasClass('tab') && parent.css('display') == 'block')){
             //ajax通信
             $.ajax({
               type: 'GET',
