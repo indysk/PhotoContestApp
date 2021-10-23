@@ -288,11 +288,21 @@
       border-radius: 4px;
       transition: ease .2s;
 
+      &.inactive {
+        background-color: #a6a7aa;
+        cursor: default;
+      }
+
       &:hover {
         color: white;
         box-shadow: #00000033 0px 2px 4px;
         text-decoration: none;
         background-color: #5f5e5e;
+
+        &.inactive {
+          background-color: #a6a7aa;
+          box-shadow: none;
+        }
       }
     }
 
@@ -317,6 +327,7 @@
       &.inactive {
         background-color: #a6a7aa;
         border: 1px #a6a7aa solid;
+        cursor: default;
       }
 
       &:hover {
@@ -337,7 +348,7 @@
         margin-right: 0;
       }
 
-      &.photo_list {
+      &.opposite {
         background-color: #fff;
         color: #6b95ee;
 
@@ -384,6 +395,24 @@
       }
     }
 
+    &-urlbox {
+      min-width: 50%;
+      width: fit-content;
+      border: 1px #b7b7b7 solid;
+      border-radius: 8px;
+      position: relative;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      transition: ease .2s;
+      height: fit-content;
+    }
+
+    // https環境でのみ仕様可のため放置
+    // <button class="contest__info-copy_container js-url-copy">
+    //   <p class="contest__info-copy_text" id="contest__info-copy_text-<%= url.page %>"><%= url.url_value %></p>
+    //   <i class="far fa-copy contest__info-copy_icon"></i>
+    // </button>
     &-copy {
       &_container {
         min-width: 50%;

@@ -3,7 +3,7 @@
   <% if user_signed_in? %>
     <li class="aside__item-container">
       <div class="aside__item__header-container">
-        <h3><%= t 'aside.title.contest_submited' %></h3>
+        <h3><%= t 'aside.title.contest_index' %></h3>
       </div>
       <div class="aside__item__body-container">
         <div class="aside__item__body-main">
@@ -15,9 +15,9 @@
                 <th><%= t 'aside.table.contest_title' %></th>
               </tr>
             </thead>
-            <% if @submited_contests.present? %>
+            <% if @contests_submited.present? %>
               <tbody>
-                <%= render partial: "shared/aside_table_contest", collection: @submited_contests, as: 'contest' %>
+                <%= render partial: "shared/aside_table_contest", collection: @contests_submited, as: 'contest' %>
               </tbody>
             <% else %>
               <tbody>
@@ -73,13 +73,13 @@
 <% end %>
 
 <div class="contestlist__header-container">
-  <h2 class="contestlist__header-title"><%= t '.contests_new' %></h2>
+  <h2 class="contestlist__header-title"><%= t '.title' %></h2>
   <%= link_to new_contest_path, class: 'contestlist__header-newlink' do %>
     <i class="contestlist__header-newlink-icon fas fa-plus-circle"></i>
     <p class="contestlist__header-newlink-value"><%= t '.contest_create' %></p>
   <% end %>
 </div>
 
-<div class="contestlist__body-container" id="contestlist__photolist-container">
-  <%= render  "contests", contests: @contests %>
+<div class="contestlist__body-container">
+  <%= render 'contests/tab_container' %>
 </div>

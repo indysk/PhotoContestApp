@@ -37,7 +37,9 @@ ja:
       num_of_submit_limit: 作品の提出上限
 
     index:
+      title: コンテスト一覧
       contests_new: 最新のコンテスト
+      contests_submited: 応募したコンテスト
       contest_create: 新しいコンテストを作る
 
     show:
@@ -69,9 +71,11 @@ ja:
       vote_prepering: 投票ページ(準備中)
       already_voted: 投票済み
       entry: 作品を提出する
-      entry_invisible: 作品提出ページ(非公開)
+      entry_invisible: 作品応募ページ(非公開)
       entry_preparing: コンテスト準備中
-      already_entered: 提出済み[作品を編集する]
+      entry_edit: 作品を編集する
+      entry_continue: 続けて応募する
+      entry_unable: 応募上限に達しました
     select:
       visible_range_entry:
         '0': 一般に公開

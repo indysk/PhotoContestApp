@@ -1,16 +1,53 @@
 $(function () {
 
-  //モーダルフォーム
+    //モーダルフォーム
   $('.js-modal-open').each(function () {
     $(this).on('click', function () {
-      $('#' + this.dataset.target).fadeIn();
+      const target = $('#' + this.dataset.target);
+      const content = target.children('.modal__content');
+      const bg = target.children('.modal__bg');
+
+      target.css('display', 'block');
+      setTimeout(() => {
+        bg.css('opacity', '1');
+        content.css('top', '50%');
+        content.css('opacity', '1');
+        content.css('transform', 'translate(-50%, -50%)');
+      }, 1);
+      setTimeout(() => {
+        content.css('transition', 'cubic-bezier(1, 0.05, 0.6, 0.91) 0.2s')
+      }, 200);
       return true;
     });
   });
   $('.js-modal-close').each(function () {
     $(this).on('click', function () {
-      $('#' + this.dataset.target).fadeOut();
+      const target = $('#' + this.dataset.target);
+      const content = target.children('.modal__content');
+      const bg = target.children('.modal__bg');
+
+      setTimeout(() => {
+        target.css('display', 'none');
+        content.css('transition', '')
+      }, 200);
+      bg.css('opacity', '');
+      content.css('top', '');
+      content.css('opacity', '');
+      content.css('transform', '');
       return true;
+    });
+  });
+
+
+  //作品のオリジナルデータをモーダルフォームを開いてから読み込み
+  // １．リンク(サムネイル)をクリック
+  // ２．クリックした要素のdata属性からオリジナルデータのリンク，オリジナルデータを反映させたい要素のIDを取得
+  // ３．反映
+  $('.js-load-photo').each(function () {
+    $(this).on('click', function () {
+      const photoURL = this.dataset.photo_url;
+      const photoTarget = this.dataset.photo_target;
+      $("#" + photoTarget).attr('src', photoURL);
     });
   });
 
@@ -45,7 +82,7 @@ $(function () {
 
 
   // ファイルサイズ制限
-  const isInFileSizeLimit = (element, file, size = 1) => {
+  function isInFileSizeLimit(element, file, size = 1){
     const sizeLimit = 1024 * 1024 * size;　// 制限サイズ
     if (file.size > sizeLimit) {
       alert(`ファイルサイズは${size}MB以下にしてください`);
@@ -54,51 +91,32 @@ $(function () {
     }
     return true;
   }
-  //正方形にリサイズ
-  const onImageChange = (file, size) => {
-    var TRIM_SIZE = size;
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    canvas.width = canvas.height = TRIM_SIZE;
-    canvas.id = 'canvas-photo';
-    var img = new Image();
-    img.src = window.URL.createObjectURL(file)
-    // imgは読み込んだ後でないとwidth,heightが0
-    img.onload = function () {
-      // 横長か縦長かで場合分けして描画位置を調整
-      var width, height, xOffset, yOffset;
-      if (img.width > img.height) {
-        height = TRIM_SIZE;
-        width = img.width * (TRIM_SIZE / img.height);
-        xOffset = -(width - TRIM_SIZE) / 2;
-        yOffset = 0;
-      } else {
-        width = TRIM_SIZE;
-        height = img.height * (TRIM_SIZE / img.width);
-        yOffset = -(height - TRIM_SIZE) / 2;
-        xOffset = 0;
-      }
-      ctx.drawImage(img, xOffset, yOffset, width, height);
-    };
-    return canvas;
-  }
   //EXIF書き出し
-  const writeExifFrom = (file) => {
+  function writeExifFrom(file){
     EXIF.getData(file, function () {
+      function printShutterSpeed(element){
+        var ss = EXIF.getTag(element, "ExposureTime");
+        if ( ss >= 1 ){
+          return `${ss}`
+        }else if(ss['numerator'] == 1){
+          return `1/${ss['denominator']}`
+        }else{
+          return `${ss}`
+        }
+      }
       $('#form_camera').val(EXIF.getTag(this, "Model"));
       $('#form_lens').val(`${EXIF.getTag(this, "FocalLength")}mm`);
       $('#form_iso').val(EXIF.getTag(this, "ISOSpeedRatings"));
       $('#form_aperture').val(Number(EXIF.getTag(this, "FNumber")).toFixed(1));
-      $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
+      // $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
+      $('#shutter_speed').val(printShutterSpeed(this));
     });
   }
   // img要素に表示
-  const displayImgContainer = (file, target) => {
+  function displayImgContainer(file, target){
     target.css('display') == 'none' ? target.css('display', 'block') : null;
     target.children().first().attr('src', window.URL.createObjectURL(file));
   }
-
-
   //作品応募フォーム、exif取り出し
   $('#photoFileField').on('change', function () {
     var file = $(this)[0].files[0];
@@ -137,47 +155,6 @@ $(function () {
       }
     });
   });
-
-
-  // //Contest Formのdatetime入力補助
-  // //d(日付)_1(募集)_a(開始)
-  // const DOM_d_1_a = $('#contest_entry_start_at_date');
-  // const DOM_d_1_b = $('#contest_entry_end_at_date');
-  // const DOM_d_2_a = $('#contest_vote_start_at_date');
-  // const DOM_d_2_b = $('#contest_vote_end_at_date');
-  // const DOM_t_1_a = $('#contest_entry_start_at_time');
-  // const DOM_t_1_b = $('#contest_entry_end_at_time');
-  // const DOM_t_2_a = $('#contest_vote_start_at_time');
-  // const DOM_t_2_b = $('#contest_vote_end_at_time');
-  // const DOM_date = $('.contestCreate__form-input-date');
-  // const DOM_time = $('.contestCreate__form-input-time');
-
-  // let changed_1_b = false;
-  // let changed_2_a = false;
-  // let changed_2_b = false;
-
-  // //日付が変更された時
-  // DOM_date.each(function(){
-  //   $(this).on('change',function(){
-  //     this_value = $(this).val();
-  //     this_date = new Date(this_value).getDate();
-  //     this_id = $(this).attr('id');
-
-  //     if(this_id === 'contest_entry_start_at_date'){
-  //       changed_1_b ? null : DOM_d_1_b.val(this_value);
-  //     }else if(this_id === 'contest_entry_end_at_date') {
-  //       changed_1_b = true;
-  //       changed_2_a ? null : DOM_d_2_a.val(this_value);
-  //       changed_2_b || changed_2_a ? null : DOM_d_2_b.val(this_value);
-  //     }else if(this_id === 'contest_vote_start_at_date'){
-  //       changed_2_a = true;
-  //       changed_2_b ? null : DOM_d_2_b.val(this_value);
-  //     }else if(this_id === 'contest_vote_end_at_date'){
-  //       changed_2_b = true;
-  //     }
-  //   });
-  // });
-
 
   //URLのコピー処理
   $('.js-url-copy').each(function () {
@@ -221,18 +198,35 @@ $(function () {
 
 
   //無限スクロール
+  //ページスクロールをするとajax通信をする
+  //タブになっている要素にも適用できる
   $(document).on('scroll', function () {
+    //ページ下部であるか
     if ($(window).height() + $(document).scrollTop() > $(document).height() - 200) {
-      if ($('#loading-target').length && $('#loading-target').css('display') !== 'none') {
-        $.ajax({
-          type: 'GET',
-          dataType: 'script',
-          url: $('#loading-target').attr('href')
+      //トリガーが存在するか確認する
+      //次に読み込むものがないとき，トリガーは出力されない
+      if ($('.js-loading-trigger').length){
+        //トリガーそれぞれについて調べる
+        //タブに対応するための処理．アクティブなタブのみ処理を行うようにする．
+        $('.js-loading-trigger').each(function(){
+
+          //タブがアクティブであるか
+          //トリガー要素の親の親がタブなので，そのdisplayからタブがアクティブであるか調べる
+          var parent = $(this).parent().parent()
+          //タブではない，またはタブがであり，タブがアクティブであるか
+          if(!parent.hasClass('tab') || (parent.hasClass('tab') && parent.css('display') == 'block')){
+            //ajax通信
+            $.ajax({
+              type: 'GET',
+              dataType: 'script',
+              url: $(this).attr('href'),
+            })
+            if (!$('.loading-container').length) {
+              $(this).after('<div class="loading-container"><div class="loading-icon"></div></div>');
+            }
+            $(this).remove();
+          }
         })
-        $('#loading-target').css('display', 'none');
-      }
-      if (!$('#loading-icon').length) {
-        $('#loading-container').append('<div class="loading-icon" id="loading-icon"></div>')
       }
     }
   })
@@ -249,7 +243,7 @@ $(function () {
           $('.tab-links li').removeClass("active"); //タブ内のliについているactiveクラスを取り除き
           $(parentElm).addClass("active"); //リンク元の指定されたURLのハッシュタグとタブ内のリンク名が同じであれば、liにactiveクラスを追加
           //表示させるエリア設定
-          $(".tab-body").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
+          $(".tab").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
           $(hashIDName).addClass("is-active"); //表示させたいエリアのタブリンク名をクリックしたら、表示エリアにis-activeクラスを追加
         }
       });
@@ -264,7 +258,7 @@ $(function () {
   // 上記の動きをページが読み込まれたらすぐに動かす
   $(window).on('load', function () {
     $('.tab-links li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
-    $('.tab-body:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+    $('.tab:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
     var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
     GethashID (hashName);//設定したタブの読み込み
   });

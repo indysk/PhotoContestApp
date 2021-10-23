@@ -1,0 +1,6 @@
+$('#tab-body-<%= @target %> .loading-container').remove();
+<% if @contests %>
+  $("#tab-body-<%= @target %>").append("<%= j(render  "contests_ajax", contests: @contests, target: @target) %>");
+<% else %>
+  $("#tab-body-<%= @target %>").append($('<div>', { text:'コンテストは見つかりませんでした' }));
+<% end %>

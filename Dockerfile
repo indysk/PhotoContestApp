@@ -4,7 +4,8 @@ RUN apt-get update -qq && \
   apt-get install -y build-essential \
   nodejs \
   vim \
-  mariadb-client
+  mariadb-client \
+  imagemagick
 
 WORKDIR /app
 
