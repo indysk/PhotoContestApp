@@ -47,8 +47,6 @@ $(function () {
     $(this).on('click', function () {
       const photoURL = this.dataset.photo_url;
       const photoTarget = this.dataset.photo_target;
-      console.log(photoURL);
-      console.log(photoTarget);
       $("#" + photoTarget).attr('src', photoURL);
     });
   });
@@ -84,7 +82,7 @@ $(function () {
 
 
   // ファイルサイズ制限
-  const isInFileSizeLimit = (element, file, size = 1) => {
+  function isInFileSizeLimit(element, file, size = 1){
     const sizeLimit = 1024 * 1024 * size;　// 制限サイズ
     if (file.size > sizeLimit) {
       alert(`ファイルサイズは${size}MB以下にしてください`);
@@ -93,51 +91,32 @@ $(function () {
     }
     return true;
   }
-  //正方形にリサイズ
-  const onImageChange = (file, size) => {
-    var TRIM_SIZE = size;
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    canvas.width = canvas.height = TRIM_SIZE;
-    canvas.id = 'canvas-photo';
-    var img = new Image();
-    img.src = window.URL.createObjectURL(file)
-    // imgは読み込んだ後でないとwidth,heightが0
-    img.onload = function () {
-      // 横長か縦長かで場合分けして描画位置を調整
-      var width, height, xOffset, yOffset;
-      if (img.width > img.height) {
-        height = TRIM_SIZE;
-        width = img.width * (TRIM_SIZE / img.height);
-        xOffset = -(width - TRIM_SIZE) / 2;
-        yOffset = 0;
-      } else {
-        width = TRIM_SIZE;
-        height = img.height * (TRIM_SIZE / img.width);
-        yOffset = -(height - TRIM_SIZE) / 2;
-        xOffset = 0;
-      }
-      ctx.drawImage(img, xOffset, yOffset, width, height);
-    };
-    return canvas;
-  }
   //EXIF書き出し
-  const writeExifFrom = (file) => {
+  function writeExifFrom(file){
     EXIF.getData(file, function () {
+      function printShutterSpeed(element){
+        var ss = EXIF.getTag(element, "ExposureTime");
+        if ( ss >= 1 ){
+          return `${ss}`
+        }else if(ss['numerator'] == 1){
+          return `1/${ss['denominator']}`
+        }else{
+          return `${ss}`
+        }
+      }
       $('#form_camera').val(EXIF.getTag(this, "Model"));
       $('#form_lens').val(`${EXIF.getTag(this, "FocalLength")}mm`);
       $('#form_iso').val(EXIF.getTag(this, "ISOSpeedRatings"));
       $('#form_aperture').val(Number(EXIF.getTag(this, "FNumber")).toFixed(1));
-      $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
+      // $('#shutter_speed').val(`1/${Math.round(1 / EXIF.getTag(this, "ExposureTime"))}`);
+      $('#shutter_speed').val(printShutterSpeed(this));
     });
   }
   // img要素に表示
-  const displayImgContainer = (file, target) => {
+  function displayImgContainer(file, target){
     target.css('display') == 'none' ? target.css('display', 'block') : null;
     target.children().first().attr('src', window.URL.createObjectURL(file));
   }
-
-
   //作品応募フォーム、exif取り出し
   $('#photoFileField').on('change', function () {
     var file = $(this)[0].files[0];
@@ -243,7 +222,6 @@ $(function () {
               url: $(this).attr('href'),
             })
             if (!$('.loading-container').length) {
-              console.log('test');
               $(this).after('<div class="loading-container"><div class="loading-icon"></div></div>');
             }
             $(this).remove();
