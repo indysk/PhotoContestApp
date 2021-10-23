@@ -2,8 +2,8 @@
 
   <div class="votes__item-img_square">
     <div class="votes__item-img_container">
-      <a class="votes__item-img_link js-modal-open" data-target="<%= "modal_photo_#{photo.id}" %>">
-        <%= image_tag photo.image.url, class: 'votes__item-img_image' %>
+      <a class="votes__item-img_link js-modal-open js-load-photo" data-photo_url="<%= photo.image.url %>" data-photo_target="<%= "js-photo-target-#{photo.id}" %>" data-target="<%= "modal_photo_#{photo.id}" %>">
+        <%= image_tag photo.image.thumb.url, class: 'votes__item-img_image' %>
       </a>
     </div>
   </div>
@@ -11,7 +11,7 @@
   <div class="votes__item-info_container">
     <div class="votes__item-info_rank"><%= '第' if photo.vote_rank == 1 %><%= photo.vote_rank %>位</div>
     <div class="votes__item-info_title">
-      <a class="js-modal-open" data-target="<%= "modal_photo_#{photo.id}" %>"><%= photo.name %></a>
+      <a class="js-modal-open js-load-photo" data-photo_url="<%= photo.image.url %>" data-photo_target="<%= "js-photo-target-#{photo.id}" %>" data-target="<%= "modal_photo_#{photo.id}" %>"><%= photo.name %></a>
     </div>
     <div class="votes__item-info_points"><%= photo.vote_points %> pt</div>
   </div>

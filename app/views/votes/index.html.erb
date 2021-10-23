@@ -12,13 +12,13 @@
     <% type = record.length == 1 ? 'one' : record.length.even? ? 'even' : 'odd' %>
     <ul class="votes__results__rank-group rank1 <%= type %>">
       <% record.each do |photo| %>
-        <%= render  "photo", photo: photo %>
+        <%= render  "votes/photo", photo: photo %>
       <% end %>
     </ul>
 
     <ul class="votes__results__rank-group">
       <% @result[:else].each do |photo| %>
-        <%= render  "photo", photo: photo %>
+        <%= render  "votes/photo", photo: photo %>
       <% end %>
     </ul>
   </div>
