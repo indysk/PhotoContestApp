@@ -4,7 +4,6 @@
       <li class="header__nav-li"><%= link_to  "PhotoContest", root_path, class: 'header__nav-title' %></li>
       <% if user_signed_in? %>
         <li class="header__nav-li">
-          <%= link_to 'このアプリについて', aboutus_path, class: 'header__nav-li-item inactive-mobile' %>
           <%= render 'layouts/header_accordion' %>
         </li>
       <% else %>
