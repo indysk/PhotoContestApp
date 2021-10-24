@@ -210,6 +210,11 @@
         outline: 0;
         box-shadow: 0 0 0 0.2rem #007bff40;
       }
+
+      @include mobile() {
+        width: 100%;
+        padding: 16px 0;
+      }
     }
 
     &-body {
