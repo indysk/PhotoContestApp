@@ -4,26 +4,13 @@
       <li class="header__nav-li"><%= link_to  "PhotoContest", root_path, class: 'header__nav-title' %></li>
       <% if user_signed_in? %>
         <li class="header__nav-li">
-          <div class="header__nav-accordionmenu-container">
-            <div class="header__nav-accordionmenu-label js-AccordionMenu">
-              <div class="header__nav-accordionmenu-value">
-                <%= image_tag current_user.image.url, class: 'header__nav-accordionmenu-value-img' %>
-                <p class="header__nav-accordionmenu-value-name"><%= current_user.name %></p>
-              </div>
-              <i class="header__nav-accordionmenu-icon fas fa-chevron-down"></i>
-            </div>
-            <div class="header__nav-accordionmenu-window" style="display: none;">
-              <div class="header__nav-accordionmenu-contents">
-                  <%= link_to  "ユーザページ", user_path(current_user), class: 'header__nav-accordionmenu-item' %>
-                  <%= link_to  "プロフィールを編集", edit_user_registration_path(current_user), class: 'header__nav-accordionmenu-item' %>
-                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'header__nav-accordionmenu-item' %>
-              </div>
-            </div>
-          </div>
+          <%= link_to 'このアプリについて', aboutus_path, class: 'header__nav-li-item inactive-mobile' %>
+          <%= render 'layouts/header_accordion' %>
         </li>
       <% else %>
         <li class="header__nav-li">
           <div class="header__nav-li_container">
+            <%= link_to 'このアプリについて', aboutus_path, class: 'header__nav-li-item inactive-mobile' %>
             <%= link_to '新規登録', new_user_registration_path, class: 'header__nav-li-item' %>
             <%= link_to 'ログイン', new_user_session_path, class: 'header__nav-li-item' %>
           </div>

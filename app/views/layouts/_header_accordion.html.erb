@@ -1,0 +1,16 @@
+<div class="header__nav-accordionmenu-container">
+  <div class="header__nav-accordionmenu-label js-AccordionMenu">
+    <div class="header__nav-accordionmenu-value">
+      <%= image_tag current_user.image.url, class: 'header__nav-accordionmenu-value-img' %>
+      <p class="header__nav-accordionmenu-value-name"><%= current_user.name %></p>
+    </div>
+    <i class="header__nav-accordionmenu-icon fas fa-chevron-down"></i>
+  </div>
+  <div class="header__nav-accordionmenu-window" style="display: none;">
+    <div class="header__nav-accordionmenu-contents">
+      <%= link_to  "ユーザページ", user_path(current_user), class: 'header__nav-accordionmenu-item' %>
+      <%= link_to  "プロフィールを編集", edit_user_registration_path(current_user), class: 'header__nav-accordionmenu-item' %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'header__nav-accordionmenu-item' %>
+    </div>
+  </div>
+</div>

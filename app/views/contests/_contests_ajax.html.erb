@@ -5,11 +5,11 @@
     <% end %>
   </ul>
   <% if contests.last_page? || contests.out_of_range? %>
-    <p>検索結果は以上です</p>
+    <p class="nomore">検索結果は以上です</p>
   <% else %>
     <%= link_to 'もっと見る', contests_index_ajax_path('target' => target, 'page' => contests.next_page), remote: true, class: 'js-loading-trigger', data: {target: target} %>
   <% end %>
 
 <% else %>
-  <p>検索結果は以上です</p>
+  <p class="nomore">検索結果は以上です</p>
 <% end %>

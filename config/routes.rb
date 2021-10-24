@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   #管理画面+++++++++++++++++++++++++++++++++++++++++++++++++++++++
   get 'contests/:contest_id/admin', to: 'admin#index', as: 'admin'
   delete 'contests/:contest_id/admin/photo/:id', to: 'admin#photo_delete', as: 'admin_photo'
-  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  #静的ページ+++++++++++++++++++++++++++++++++++++++++++++++++++++
+  get 'aboutus', to: 'static_pages#aboutus'
+  #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 end

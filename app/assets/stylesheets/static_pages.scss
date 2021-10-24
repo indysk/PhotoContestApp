@@ -1,0 +1,50 @@
+@import 'modules';
+
+.title {
+  @include title_h1;
+}
+
+.group {
+  &-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-left: 4px #fcb152 solid;
+    line-height: 2.4rem;
+    padding-left: 8px;
+  }
+
+  &-body {
+    padding: 0 0 24px 8px;
+  }
+
+  &-p {
+    line-height: 1.6rem;
+    padding-bottom: 8px;
+  }
+
+  &-link {
+    color: #4082ff;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &-botton {
+    &-center {
+      display: block;
+      padding: 8px 16px;
+      background-color: cornflowerblue;
+      width: fit-content;
+      border-radius: 8px;
+      color: white;
+      margin: 16px auto;
+
+      &:hover {
+        text-decoration: none;
+        color: white;
+        opacity: .8;
+      }
+    }
+  }
+}
