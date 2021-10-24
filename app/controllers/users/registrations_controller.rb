@@ -31,10 +31,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if (@user = User.find_by(id: params[:id]))
       if correct_user?(@user)
         @photos = @user.photos.order('created_at').page(params[:page_photos]).per(18)
-        @contests = @user.contests.order('created_at').page(params[:page_contests]).per(18)
+        @contests = @user.contests.order('created_at').page(params[:page_contests]).per(10)
       else
         @photos = @user.photos.public_all.order('created_at').page(params[:page_photos]).per(18)
-        @contests = @user.contests.public_all.order('created_at').page(params[:page_photos]).per(18)
+        @contests = @user.contests.public_all.order('created_at').page(params[:page_photos]).per(10)
       end
     else
       redirect_to root_path

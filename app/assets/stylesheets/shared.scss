@@ -722,6 +722,10 @@ nav.pagination {
   display: flex;
   justify-content: flex-start;
 
+  #contests & {
+    padding: 16px 0;
+  }
+
   & .first,
   & .last {
     display: none;
@@ -1181,6 +1185,7 @@ nav.pagination {
     display: none;
     max-width: 960px;
     margin: auto;
+    z-index: 100;
   }
 
   &_close {

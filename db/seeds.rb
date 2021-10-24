@@ -17,10 +17,9 @@ user_Ken = User.create!(
 now = Time.current
 #0:募集前、1:募集中、2:募集後投票前、3:投票中、4:投票後
 
-
 #募集前+++++++++++++++++++++++++++++++++++++++++++++++
 #Tom作成
-contest_Tom_0 = Contest.create!(
+contest_Tom_0 = Contest.new(
   name: 'コンテスト_Tom_募集前',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_募集前。の説明',
@@ -34,10 +33,14 @@ contest_Tom_0 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
-)
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
+).save!(validate: false)
 #Ken作成
-contest_Tom_0 = Contest.create!(
+contest_Tom_0 = Contest.new(
   name: 'コンテスト_Ken_募集前',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_募集前。の説明',
@@ -51,14 +54,20 @@ contest_Tom_0 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_0.save!(validate: false)
+
 
 
 
 #募集中+++++++++++++++++++++++++++++++++++++++++++++++
 #Tom作成、応募者0人
-contest_Tom_1 = Contest.create!(
+contest_Tom_1 = Contest.new(
   name: 'コンテスト_Tom_募集中_応募0',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_募集中。の説明',
@@ -72,10 +81,16 @@ contest_Tom_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_1.save!(validate: false)
+
 #Tom作成、応募者10人
-contest_Tom_1_1 = Contest.create!(
+contest_Tom_1_1 = Contest.new(
   name: 'コンテスト_Tom_募集中_応募10',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_募集中。の説明',
@@ -89,9 +104,15 @@ contest_Tom_1_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
-contest_Ken_1 = Contest.create!(
+contest_Tom_1_1.save!(validate: false)
+
+contest_Ken_1 = Contest.new(
   name: 'コンテスト_Ken_募集中_応募0',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_募集中。の説明',
@@ -105,10 +126,16 @@ contest_Ken_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_1.save!(validate: false)
+
 #Tom作成、応募者10人
-contest_Ken_1_1 = Contest.create!(
+contest_Ken_1_1 = Contest.new(
   name: 'コンテスト_Ken_募集中_応募10',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_募集中。の説明',
@@ -122,13 +149,19 @@ contest_Ken_1_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_1_1.save!(validate: false)
+
 
 
 #募集後投票前+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #Tom作成、応募0人
-contest_Tom_2 = Contest.create!(
+contest_Tom_2 = Contest.new(
   name: 'コンテスト_Tom_募集後投票前_応募0',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_募集後投票前。の説明',
@@ -142,10 +175,16 @@ contest_Tom_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_2.save!(validate: false)
+
 #Tom作成、応募10人
-contest_Tom_2_1 = Contest.create!(
+contest_Tom_2_1 = Contest.new(
   name: 'コンテスト_Tom_募集後投票前_応募10',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_募集後投票前。の説明',
@@ -159,10 +198,16 @@ contest_Tom_2_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_2_1.save!(validate: false)
+
 #Ken作成、応募0人
-contest_Ken_2 = Contest.create!(
+contest_Ken_2 = Contest.new(
   name: 'コンテスト_Ken_募集後投票前_応募0',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_募集後投票前。の説明',
@@ -176,10 +221,16 @@ contest_Ken_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_2.save!(validate: false)
+
 #Tom作成、応募10人
-contest_Ken_2_1 = Contest.create!(
+contest_Ken_2_1 = Contest.new(
   name: 'コンテスト_Ken_募集後投票前_応募10',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_募集後投票前。の説明',
@@ -193,14 +244,20 @@ contest_Ken_2_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_2_1.save!(validate: false)
+
 
 
 
 #投票中++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #Tom作成、応募0人
-contest_Tom_3 = Contest.create!(
+contest_Tom_3 = Contest.new(
   name: 'コンテスト_Tom_投票中応募0',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票中応募0。の説明',
@@ -214,10 +271,16 @@ contest_Tom_3 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_3.save!(validate: false)
+
 #Tom作成、応募10人、投票0人
-contest_Tom_3_1 = Contest.create!(
+contest_Tom_3_1 = Contest.new(
   name: 'コンテスト_Tom_投票中_応募10_投票0人',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票中_応募10_投票0人。の説明',
@@ -231,10 +294,16 @@ contest_Tom_3_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_3_1.save!(validate: false)
+
 #Tom作成、応募10人、投票10人
-contest_Tom_3_2 = Contest.create!(
+contest_Tom_3_2 = Contest.new(
   name: 'コンテスト_Tom_投票中_応募10_投票10人',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票中_応募10_投票10人。の説明',
@@ -248,10 +317,16 @@ contest_Tom_3_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_3_2.save!(validate: false)
+
 #Ken作成、応募0人
-contest_Ken_3 = Contest.create!(
+contest_Ken_3 = Contest.new(
   name: 'コンテスト_Ken_投票中応募0',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票中応募0。の説明',
@@ -265,10 +340,16 @@ contest_Ken_3 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_3.save!(validate: false)
+
 #Ken作成、応募10人、投票0人
-contest_Ken_3_1 = Contest.create!(
+contest_Ken_3_1 = Contest.new(
   name: 'コンテスト_Ken_投票中_応募10_投票0人',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票中_応募10_投票0人。の説明',
@@ -282,10 +363,16 @@ contest_Ken_3_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_3_1.save!(validate: false)
+
 #Ken作成、応募10人、投票10人
-contest_Ken_3_2 = Contest.create!(
+contest_Ken_3_2 = Contest.new(
   name: 'コンテスト_Ken_投票中_応募10_投票10人',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票中_応募10_投票10人。の説明',
@@ -299,15 +386,21 @@ contest_Ken_3_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_3_2.save!(validate: false)
+
 
 
 
 
 #投票後+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #Tom作成、応募0
-contest_Tom_4 = Contest.create!(
+contest_Tom_4 = Contest.new(
   name: 'コンテスト_Tom_投票後_応募0',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票後_応募0。の説明',
@@ -321,10 +414,16 @@ contest_Tom_4 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_4.save!(validate: false)
+
 #Tom作成、応募10、投票0
-contest_Tom_4_1 = Contest.create!(
+contest_Tom_4_1 = Contest.new(
   name: 'コンテスト_Tom_投票後_応募10_投票0',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票後_応募10_投票0。の説明',
@@ -338,10 +437,16 @@ contest_Tom_4_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_4_1.save!(validate: false)
+
 #Tom作成、応募10、投票10
-contest_Tom_4_2 = Contest.create!(
+contest_Tom_4_2 = Contest.new(
   name: 'コンテスト_Tom_投票後_応募10_投票10',
   user_id: user_Tom.id,
   description: 'コンテスト_Tom_投票後_応募10_投票10。の説明',
@@ -355,10 +460,16 @@ contest_Tom_4_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Tom_4_2.save!(validate: false)
+
 #Ken作成、応募0
-contest_Ken_4 = Contest.create!(
+contest_Ken_4 = Contest.new(
   name: 'コンテスト_Ken_投票後_応募0',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票後_応募0。の説明',
@@ -372,10 +483,16 @@ contest_Ken_4 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_4.save!(validate: false)
+
 #Ken作成、応募10、投票0
-contest_Ken_4_1 = Contest.create!(
+contest_Ken_4_1 = Contest.new(
   name: 'コンテスト_Ken_投票後_応募10_投票0',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票後_応募10_投票0。の説明',
@@ -389,10 +506,16 @@ contest_Ken_4_1 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_4_1.save!(validate: false)
+
 #Ken作成、応募10、投票10
-contest_Ken_4_2 = Contest.create!(
+contest_Ken_4_2 = Contest.new(
   name: 'コンテスト_Ken_投票後_応募10_投票10',
   user_id: user_Ken.id,
   description: 'コンテスト_Ken_投票後_応募10_投票10。の説明',
@@ -406,8 +529,14 @@ contest_Ken_4_2 = Contest.create!(
   visible_range_result: 0,
   voting_points: 3,
   num_of_views_in_result: 3,
-  visible_setting_for_user_name: 0
+  visible_setting_for_user_name: 0,
+  limited_url_entry: SecureRandom.alphanumeric(16),
+  limited_url_vote: SecureRandom.alphanumeric(16),
+  limited_url_show: SecureRandom.alphanumeric(16),
+  limited_url_result: SecureRandom.alphanumeric(16),
 )
+contest_Ken_4_2.save!(validate: false)
+
 
 
 
