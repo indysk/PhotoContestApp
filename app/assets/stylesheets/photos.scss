@@ -214,6 +214,11 @@
 
   &__aside {
     &__vote {
+      &-container {
+        display: flex;
+        justify-content: space-around;
+      }
+
       &__points {
         &-container {
           display: flex;
