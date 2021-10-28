@@ -4,6 +4,9 @@
 『Photo Contest』
 写真コンテストを手軽に行うためのアプリケーションです。
 ユーザ登録をし、コンテストの作成や、作品の投稿、投票を行うことができます。
+![2021-10-28 19_49_16-Window](https://user-images.githubusercontent.com/87873292/139241445-fdac94ff-d45c-4c47-afd3-b27be65ef063.png)
+![2021-10-28 18_26_53-Window](https://user-images.githubusercontent.com/87873292/139228374-68a37f3c-6c0d-4406-a28a-d8e2a311baae.png)
+
 
 ## 2. 使用技術
 - Docker/Docker Compose
