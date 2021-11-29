@@ -1,5 +1,5 @@
 class ContestsController < ApplicationController
-  before_action :check_logged_in, except: [:index, :show]
+  before_action :check_logged_in, except: [:index, :show, :index_ajax]
   before_action :check_correct_user, only: [:edit, :update, :destory]
 
   def index

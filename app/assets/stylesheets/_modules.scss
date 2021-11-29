@@ -1,5 +1,5 @@
 $color_base: #FFF;
-$color_main: #6593A6;
+$color_main: #252525;
 $color_accent: #F2CF63;
 $color_font: #58595B;
 $color_font_hard: #3d3d3f;
@@ -93,7 +93,7 @@ $break_point_aside: 960px;
   margin-bottom: 24px;
   font-size: 1.2rem;
   letter-spacing: 1px;
-  border-bottom: 1px #6593A6 solid;
+  border-bottom: 1px $color_main solid;
   word-break: break-all;
 
   @include mobile {
@@ -269,4 +269,43 @@ $break_point_aside: 960px;
     width: 200px;
     padding-bottom: 2px;
   }
+}
+
+@mixin badge_colors() {
+  &:hover {
+    opacity: .8;
+  }
+
+  &.inactive {
+    background-color: #a6a7aa;
+  }
+
+  &.entry_preparing {
+    background-color: #bacdb5;
+  }
+
+  &.entry_period {
+    background-color: #73c15e;
+  }
+
+  &.already_entered {
+    background-color: #506f48;
+  }
+
+  &.vote_preparing {
+    background-color: #c5b6b6;
+  }
+
+  &.vote_period {
+    background-color: #cb6060;
+  }
+
+  &.already_voted {
+    background-color: #8b4a4a;
+  }
+
+  &.vote_finish {
+    background-color: #ed9d32;
+  }
+
 }

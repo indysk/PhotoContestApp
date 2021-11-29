@@ -34,12 +34,18 @@
       }
 
       &-icon {
-        transition: ease .2s;
+        transition: ease .1s;
+      }
+
+      &:hover {
+        background-color: $color_main;
+        color: #fff;
       }
 
       &:hover &-icon {
-        transform: rotate(45deg);
+        color: #fff;
       }
+
     }
   }
 
@@ -279,30 +285,22 @@
     }
 
     &-badge {
+      @include badge_colors;
       width: fit-content;
       margin: 8px auto 0 auto;
       display: block;
-      background-color: #444;
       color: white;
       padding: 4px 16px;
       border-radius: 4px;
       transition: ease .2s;
 
       &.inactive {
-        background-color: #a6a7aa;
         cursor: default;
       }
 
       &:hover {
         color: white;
-        box-shadow: #00000033 0px 2px 4px;
         text-decoration: none;
-        background-color: #5f5e5e;
-
-        &.inactive {
-          background-color: #a6a7aa;
-          box-shadow: none;
-        }
       }
     }
 

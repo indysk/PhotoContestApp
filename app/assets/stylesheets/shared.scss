@@ -224,7 +224,8 @@ a {
         &-img {
           width: 1.2rem;
           height: 1.2rem;
-          border-radius: .6rem;
+          border-radius: 50%;
+          box-shadow: #d4d4d4 0 0 0px 2px;
         }
 
         &-name {
@@ -284,10 +285,11 @@ a {
 
     &__header {
       &-container {
-        background-color: #f7f7f7;
+        background-color: #393939;
         padding: 16px;
         border-bottom: 1px #ddd solid;
         position: relative;
+        color: #fff;
       }
 
       &-title {
@@ -871,7 +873,7 @@ nav.pagination {
 
     &__header {
       &-container {
-        background-color: #f7f7f7;
+        background-color: #fff;
         padding: 16px;
         border-bottom: 1px #ddd solid;
         border-top-left-radius: 4px;
@@ -890,7 +892,10 @@ nav.pagination {
 
       &-title {
         color: #000;
+        font-weight: bold;
         word-break: break-all;
+        display: inline-block;
+        max-width: calc(100% - 200px);
 
         @include mobile {
           grid-row: 2/3;
@@ -936,21 +941,25 @@ nav.pagination {
       }
 
       &-badge {
+        @include badge_colors;
         display: inline;
         position: absolute;
         right: 16px;
+        top: 50%;
+        transform: translate(0, -50%);
         font-size: 0.8rem;
         font-weight: bold;
         color: white;
-        background-color: #6c757d;
+        background-color: $color_main;
         transition: ease .2s;
-        padding: 2px 4px;
+        padding: 6px 8px;
         border-radius: 4px;
+
 
         &:hover {
           color: white;
           text-decoration: none;
-          background-color: #545d64;
+          opacity: .8;
         }
 
         @include mobile {
@@ -959,6 +968,8 @@ nav.pagination {
           grid-column: 3/4;
           height: fit-content;
           margin: auto;
+          transform: none;
+          top: auto;
         }
       }
     }
