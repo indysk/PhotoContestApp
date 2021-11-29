@@ -12,12 +12,10 @@ WORKDIR /app
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN gem install bundler
-RUN bundle update
-RUN bundle install
-
-RUN mkdir -p tmp/sockets
-RUN mkdir -p tmp/pids
+RUN gem install bundler && \
+  bundle install && \
+  mkdir -p tmp/sockets && \
+  mkdir -p tmp/pids
 
 COPY . /app
 RUN rm -rf /usr/local/bundle/cache/* /app/vendor/bundle/cache/*
