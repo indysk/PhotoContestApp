@@ -21,4 +21,4 @@ Rails.application.configure do
   end
   config.active_record.dump_schema_after_migration = false
 end
-Rails.application.routes.default_url_options[:host] = '35.74.82.251'
+Rails.application.routes.default_url_options[:host] = 'photocon.link'
