@@ -10,5 +10,6 @@ unless Rails.env.development? || Rails.env.test?
     config.fog_directory = Rails.application.credentials.S3_photocon[:bucket]
     config.cache_storage = :fog
     config.fog_public = false
+    config.fog_authenticated_url_expiration = 2.hours.to_i
   end
 end
